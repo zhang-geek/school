@@ -1,0 +1,39 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/page/
+      suffix: .jsp
+    hiddenmethod:
+      filter:
+        enabled: true
+    static-path-pattern: /static/**
+  datasource:
+    url: jdbc:mysql://localhost:3306/springboot?characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  # 全局json日期格式设置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    jsp:
+      init-parameters:
+        development: true
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-aliases-package: com.dj.ssm.pojo
+  mapper-locations: classpath:mapper/*.xml
+  # 全局逻辑删除
+  global-config:
+    db-config:
+      logic-delete-field: isDel
+      logic-delete-value: 1 #已删除
+      logic-not-delete-value: 0 #未删除
