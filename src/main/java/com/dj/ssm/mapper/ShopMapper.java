@@ -1,0 +1,12 @@
+package com.dj.ssm.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dj.ssm.pojo.Shop;
+import org.springframework.dao.DataAccessException;
+
+public interface ShopMapper extends BaseMapper<Shop> {
+
+    IPage<Shop> findShopAll(Page<?> page, Shop shop) throws DataAccessException;
+}

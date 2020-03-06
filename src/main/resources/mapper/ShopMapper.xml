@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:用于隔离SQL全局唯一（采用接口和XML开发时为接口的全路径） -->
+<mapper namespace="com.dj.ssm.mapper.ShopMapper">
+    <!-- id:SQL的唯一标识（采用接口和XML开发时id为接口的方法名） parameterType：sql参数类型（可以是基本数据类型和应用数据类型） 
+resultType：返回数据类型 #{}预编译中的?对应的参数值引用 -->
+
+    <select id="findShopAll" resultType="com.dj.ssm.pojo.Shop">
+        SELECT
+        s.id,
+        s.shop_name,
+        s.shop_price,
+        bd.name AS baseName,
+        s.shop_status
+        FROM
+        shop s
+        LEFT JOIN base_data bd ON s.base_date_id = bd.id
+        <where>
+            <if test="shop.shopName != null and shop.shopName != '' ">
+                s.shop_name like "%"#{shop.shopName}"%"
+            </if>
+            <if test="shop.baseDateId != null">
+                s.base_date_id = #{shop.baseDateId}
+            </if>
+            s.is_del = 1
+        </where>
+    </select>
+</mapper>
+    

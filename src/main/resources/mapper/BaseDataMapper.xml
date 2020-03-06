@@ -2,4 +2,9 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dj.ssm.mapper.BaseDataMapper">
 
+
+    <select id="findBaseByParentId" resultType="com.dj.ssm.pojo.BaseData">
+        select * from base_data b where b.parent_id = #{parentId}
+    </select>
+
 </mapper>
