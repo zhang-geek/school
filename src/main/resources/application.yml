@@ -12,7 +12,7 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
-  # È«¾ÖjsonÈÕÆÚ¸ñÊ½ÉèÖÃ
+  # å…¨å±€jsonæ—¥æœŸæ ¼å¼è®¾ç½®
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -31,9 +31,9 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: com.dj.ssm.pojo
   mapper-locations: classpath:mapper/*.xml
-  # È«¾ÖÂß¼­É¾³ı
+  # å…¨å±€é€»è¾‘åˆ é™¤
   global-config:
     db-config:
       logic-delete-field: isDel
-      logic-delete-value: 1 #ÒÑÉ¾³ı
-      logic-not-delete-value: 0 #Î´É¾³ı
+      logic-delete-value: 1 #å·²åˆ é™¤
+      logic-not-delete-value: 0 #æœªåˆ é™¤

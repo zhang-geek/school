@@ -21,5 +21,18 @@ public class SystemConstant {
      */
     public static final Integer IS_DEL = 1;
 
+    /**
+     * session存放的resourceList的key
+     */
+    public static final String SESSION_USER_RESOURCES = "USER_RESOURCE";
 
+    /**
+     * session存放的user信息的key
+     */
+    public static final String SESSION_USER = "USER";
+
+    /**
+     * 资源类型1：url
+     */
+    public static final Integer RESOURCE_TYPE_URL = 1;
 }
