@@ -1,7 +1,5 @@
 package com.dj.ssm.web.page;
 
-import com.dj.ssm.service.RoleService;
-import com.dj.ssm.service.UserRoleService;
 import com.dj.ssm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

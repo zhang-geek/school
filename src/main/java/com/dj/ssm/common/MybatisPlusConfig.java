@@ -2,18 +2,14 @@ package com.dj.ssm.common;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author zhangzk
  * @description TODO
  * @date 2020/1/31 13:06
  */
-@EnableTransactionManagement
-@MapperScan("com.dj.pms.mapper")
 @Configuration
 public class MybatisPlusConfig {
 
