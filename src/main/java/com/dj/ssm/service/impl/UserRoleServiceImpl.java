@@ -8,6 +8,11 @@ import com.dj.ssm.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author zhangzk
+ * @description TODO
+ * @date 2020/2/1 22:24
+ */
 @Service
 public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> implements UserRoleService {
 
@@ -17,5 +22,9 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> i
     @Override
     public void updateByUserId(UserRole userRole) throws Exception {
         userRoleMapper.updateByUserId(userRole);
+    }
+    public void updateAuth(UserRole userRole) throws Exception {
+        userRoleMapper.delete(new QueryWrapper<UserRole>().eq("user_id", userRole.getUserId()));
+        userRoleMapper.insert(userRole);
     }
 }

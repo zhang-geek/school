@@ -22,6 +22,7 @@ public class SystemConstant {
     public static final Integer IS_DEL = 1;
 
     /**
+<<<<<<< HEAD
      * 图书上架
      */
     public static final Integer BOOK_STATUS_0 = 0;
@@ -37,6 +38,18 @@ public class SystemConstant {
     public static final Integer RESOURCE_PARENT_ID_36 = 36;
 
 
+    /**
+     * session存放的resourceList的key
+     */
+    public static final String SESSION_USER_RESOURCES = "USER_RESOURCE";
 
+    /**
+     * session存放的user信息的key
+     */
+    public static final String SESSION_USER = "USER";
 
+    /**
+     * 资源类型1：url
+     */
+    public static final Integer RESOURCE_TYPE_URL = 1;
 }

@@ -28,6 +28,7 @@ public class User {
     /**
      * 1:管理员， 2：普通用户
      */
+    @TableField(exist = false)
     private Integer userRole;
     private Integer userStatus;
     private Date createTime;

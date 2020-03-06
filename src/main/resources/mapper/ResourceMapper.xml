@@ -15,7 +15,7 @@
     </select>
 
     <update id="updateIsDel">
-        update resourse set is_del = 1
+        update resourse set is_del = #{isDel}
         where id in
             <foreach collection="list" item="id" open="(" close=")" separator=",">
                 #{id}
@@ -34,5 +34,20 @@
         left join user_role ur on rr.role_id = ur.role_id
         left join b_user u on ur.user_id = u.id
         where re.is_del = 0 and u.id = #{id}
+    </select>
+    <select id="findResourceByUserId" resultType="com.dj.ssm.pojo.Resource">
+        SELECT
+            r.id,
+            r.resource_name,
+            r.url,
+            r.parent_id,
+            r.is_del,
+            r.resource_type
+        FROM
+            resource_school r
+        LEFT JOIN role_resource_school rr ON r.id = rr.resource_id
+        LEFT JOIN user_role_school ur ON rr.role_id = ur.role_id
+        WHERE
+            ur.user_id = #{userId}
     </select>
 </mapper>
