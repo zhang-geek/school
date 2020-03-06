@@ -223,7 +223,7 @@
             shadeClose: true,
             shade: 0.5,
             area: ['380px', '90%'],
-            content: "/borrow/toBorrow?id=" + array[0]
+            content: "/book/toBorrow?id=" + array[0]
         });
 
     }

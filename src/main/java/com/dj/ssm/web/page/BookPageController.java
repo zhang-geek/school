@@ -61,6 +61,12 @@ public class BookPageController {
         return "book/update";
     }
 
-
+    @RequestMapping("toBorrow")
+    public String toBorrow(Integer id, Model model) {
+        //根据书得id查询书得全部信息
+        Book book = bookService.getById(id);
+        model.addAttribute("book", book);
+        return "book/borrow";
+    }
 
 }
