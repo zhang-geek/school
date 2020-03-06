@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @date 2020/1/31 13:06
  */
 @EnableTransactionManagement
-@MapperScan("com.dj.pms.mapper")
+@MapperScan("com.dj.ssm.mapper")
 @Configuration
 public class MybatisPlusConfig {
 

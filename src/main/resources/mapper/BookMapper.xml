@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.ssm.mapper.BookMapper">
+
+    <sql id="BOOK">
+        id,
+        book_name,
+        author,
+        type,
+        status,
+        count,
+        user_id,
+        is_del,
+        shelf_time
+
+    </sql>
+    <select id="getBook" resultType="com.dj.ssm.pojo.Book">
+        select
+            b.id,
+            b.book_name,
+            b.author,
+            b.type,
+            b.status,
+            b.count,
+            b.user_id,
+            b.is_del,
+            b.shelf_time,
+            r.resourse_name as typeName
+        from book b
+        left join resourse_school r on b.type = r.id
+        where b.is_del = 0
+        <if test="book.type != null">
+            and b.type = #{book.type}
+        </if>
+        <if test="book.bookName != null and book.bookName != ''">
+            and b.book_name = #{book.bookName}
+        </if>
+        <if test="book.shelfTime != null">
+            and b.shelf_time = #{book.shelfTime}
+        </if>
+        <if test="startTime != '' and endTime != '' ">
+            and (b.shelf_time between #{startTime} and #{endTime})
+        </if>
+    </select>
+
+    <update id="updateIsDel">
+        update book set is_del = #{isDel}
+        where id in
+            <foreach collection="ids" item="id" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+
+    </update>
+
+    <select id="getBookById" resultType="com.dj.ssm.pojo.Book">
+        select
+            b.id,
+            b.book_name,
+            b.author,
+            b.type,
+            b.status,
+            b.count,
+            b.user_id,
+            b.is_del,
+            b.shelf_time,
+            r.resourse_name as typeName
+        from book b
+        left join resourse r on b.type = r.id
+        where b.id = #{id}
+    </select>
+
+
+</mapper>
