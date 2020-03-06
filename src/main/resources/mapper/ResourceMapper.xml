@@ -2,13 +2,40 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dj.ssm.mapper.ResourceMapper">
 
+    <sql id="RESOURSECOLUMN">
+        id,
+        resourse_name,
+        url,
+        is_del,
+        parent_id
+    </sql>
+
+    <select id="findByParentId" resultType="com.dj.ssm.pojo.Resource">
+        select <include refid="RESOURSECOLUMN"/> from resourse where parent_id = #{id}
+    </select>
+
     <update id="updateIsDel">
-        update resource set is_del = #{isDel} where id in
-        <foreach collection="ids" separator="," item="id" open="(" close=")">
-            #{id}
-        </foreach>
+        update resourse set is_del = #{isDel}
+        where id in
+            <foreach collection="list" item="id" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
     </update>
-    <select id="findResourceByUserId" resultType="Resource">
+
+    <select id="findResourse" resultType="com.dj.ssm.pojo.Resource">
+        select
+            re.id,
+            re.resourse_name,
+            re.url,
+            re.is_del,
+            re.parent_id
+        from resourse re
+        left join role_resourse rr on re.id = rr.resourse_id
+        left join user_role ur on rr.role_id = ur.role_id
+        left join b_user u on ur.user_id = u.id
+        where re.is_del = 0 and u.id = #{id}
+    </select>
+    <select id="findResourceByUserId" resultType="com.dj.ssm.pojo.Resource">
         SELECT
             r.id,
             r.resource_name,

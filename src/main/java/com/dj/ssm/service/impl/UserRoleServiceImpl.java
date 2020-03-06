@@ -20,6 +20,11 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> i
     private UserRoleMapper userRoleMapper;
 
     @Override
+    public void updateByUserId(UserRole userRole) throws Exception {
+        userRoleMapper.updateByUserId(userRole);
+    }
+
+    @Override
     public void updateAuth(UserRole userRole) throws Exception {
         userRoleMapper.delete(new QueryWrapper<UserRole>().eq("user_id", userRole.getUserId()));
         userRoleMapper.insert(userRole);

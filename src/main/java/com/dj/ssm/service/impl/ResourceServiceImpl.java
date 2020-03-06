@@ -1,5 +1,9 @@
 package com.dj.ssm.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.dj.ssm.mapper.ResourceMapper;
+import com.dj.ssm.pojo.Resource;
+import com.dj.ssm.pojo.User;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dj.ssm.mapper.ResourceMapper;
@@ -12,14 +16,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @author zhangzk
- * @description TODO
- * @date 2020/1/31 13:28
- */
 @Service
 public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> implements ResourceService {
-
     @Autowired
     private ResourceMapper resourceMapper;
 
@@ -33,7 +31,19 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     }
 
     @Override
+    public List<Resource> findByParentId(Integer id) throws Exception {
+        return resourceMapper.findByParentId(id);
+    }
+
+
+    @Override
+    public List<Resource> findResourse(User user) throws Exception {
+        return resourceMapper.findResourse(user);
+    }
+
+    @Override
     public List<Resource> findResourceByUserId(Integer userId) throws Exception {
         return resourceMapper.findResourceByUserId(userId);
     }
+
 }

@@ -12,14 +12,44 @@ public class SystemConstant {
     public static final Integer PAGE_SIZE = 3;
 
     /**
-     * 用户状态：未删除
+     * 状态：未删除
      */
     public static final Integer IS_NOT_DEL = 0;
 
     /**
-     * 用户状态：已删除
+     * 状态：已删除
      */
     public static final Integer IS_DEL = 1;
 
+    /**
+<<<<<<< HEAD
+     * 图书上架
+     */
+    public static final Integer BOOK_STATUS_0 = 0;
 
+    /**
+     * 图书下架
+     */
+    public static final Integer BOOK_STATUS_1 = 1;
+
+    /**
+     * 资源表里parentId位36的资源
+     */
+    public static final Integer RESOURCE_PARENT_ID_36 = 36;
+
+
+    /**
+     * session存放的resourceList的key
+     */
+    public static final String SESSION_USER_RESOURCES = "USER_RESOURCE";
+
+    /**
+     * session存放的user信息的key
+     */
+    public static final String SESSION_USER = "USER";
+
+    /**
+     * 资源类型1：url
+     */
+    public static final Integer RESOURCE_TYPE_URL = 1;
 }
