@@ -1,4 +1,4 @@
-package com.dj.ssm.controller;
+package com.dj.ssm.web;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -56,7 +55,7 @@ public class BookController {
 
 
     @PostMapping
-    public ResultModel<Object> save(@SessionAttribute("user") User user, Book book) {
+    public ResultModel<Object> save(@SessionAttribute(SystemConstant.SESSION_USER) User user, Book book) {
         try {
             book.setStatus(SystemConstant.BOOK_STATUS_0).setIsDel(SystemConstant.IS_NOT_DEL)
                     .setUserId(user.getId());

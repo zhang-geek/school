@@ -28,7 +28,7 @@
 		书名: <input type="text" name="bookName" id="bookName" value="${book.bookName}"><br/>
 		类型:
 		<c:forEach items="${resourseList}" var="type">
-			<input type="radio" name="type" value="${type.id}" id="type" <c:if test="${book.type == type.id}">checked</c:if> >${type.resourseName}
+			<input type="radio" name="type" value="${type.id}" id="type" <c:if test="${book.type == type.id}">checked</c:if> >${type.resourceName}
 		</c:forEach><br/>
 		作者: <input type="text" name="author" id="author" value="${book.author}"><br/>
 		库存: <input type="number" name="count" id="count" value="${book.count}"><br/>

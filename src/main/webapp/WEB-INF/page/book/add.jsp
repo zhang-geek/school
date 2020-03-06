@@ -27,7 +27,7 @@
 		书名: <input type="text" name="bookName" id="bookName"><br/>
 		类型:
 		<c:forEach items="${resourseList}" var="resourse">
-			<input type="radio" name="type" value="${resourse.id}" id="type">${resourse.resourseName}
+			<input type="radio" name="type" value="${resourse.id}" id="type">${resourse.resourceName}
 		</c:forEach><br/>
 		作者: <input type="text" name="author" id="author"><br/>
 		库存: <input type="number" name="count" id="count" ><br/>

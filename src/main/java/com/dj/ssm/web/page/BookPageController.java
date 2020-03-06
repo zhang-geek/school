@@ -1,4 +1,4 @@
-package com.dj.ssm.controller.page;
+package com.dj.ssm.web.page;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dj.ssm.common.SystemConstant;
@@ -31,7 +31,8 @@ public class BookPageController {
     private UserRoleService userRoleService;
 
     @RequestMapping("toShow")
-    public String toShow(Integer id, Model model, @SessionAttribute("user") User user){
+    public String toShow(Integer id, Model model,
+                         @SessionAttribute(SystemConstant.SESSION_USER) User user){
         QueryWrapper<UserRole> query = new QueryWrapper<>();
         query.eq("user_id", user.getId());
         UserRole userRole = userRoleService.getOne(query);

@@ -25,9 +25,9 @@
             b.user_id,
             b.is_del,
             b.shelf_time,
-            r.resourse_name as typeName
+            r.resource_name as typeName
         from book b
-        left join resourse_school r on b.type = r.id
+        left join resource_school r on b.type = r.id
         where b.is_del = 0
         <if test="book.type != null">
             and b.type = #{book.type}
@@ -63,9 +63,9 @@
             b.user_id,
             b.is_del,
             b.shelf_time,
-            r.resourse_name as typeName
+            r.resource_name as typeName
         from book b
-        left join resourse r on b.type = r.id
+        left join resource_school r on b.type = r.id
         where b.id = #{id}
     </select>
 
