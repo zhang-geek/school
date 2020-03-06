@@ -26,7 +26,7 @@
         <input type='button' value='上下架' onclick='updateStatus()'>
     </c:if>
     <c:if test="${userRole.roleId == 2}">
-        <input type='button' value='借书' onclick='borrow()'>
+        <input type='button' value='借书' onclick='toborrow()'>
     </c:if>
     <input type="hidden" value="0" name="isDel"><br/>
     <input type="hidden" value="${type}" name="type"><br/>
@@ -205,7 +205,7 @@
     	})
     }
 
-    function borrow() {
+    function toborrow() {
         var boxValue = $("input[name='id']:checked");
         if (boxValue.length < 1) {
             layer.msg('请选择一条信息', {icon: 6, time: 1000});
