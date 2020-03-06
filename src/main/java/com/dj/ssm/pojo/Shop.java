@@ -23,4 +23,6 @@ public class Shop {
     private Integer isDel;
 
     private Integer baseDateId;
+
+    private String baseName;
 }
