@@ -10,5 +10,5 @@ public interface BookService extends IService<Book>{
 
     void updateIsDel(Integer[] ids, Integer isDel) throws Exception;
 
-    Book getBookById(Integer id) throws Exception;
+    void updateTop(Book book) throws Exception;
 }

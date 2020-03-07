@@ -24,8 +24,9 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
         bookMapper.updateIsDel(ids, isDel);
     }
 
+
     @Override
-    public Book getBookById(Integer id) throws Exception {
-        return bookMapper.getBookById(id);
+    public void updateTop(Book book) throws Exception {
+        bookMapper.updateTop(book);
     }
 }
