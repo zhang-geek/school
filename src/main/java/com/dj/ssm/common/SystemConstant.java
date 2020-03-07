@@ -52,4 +52,8 @@ public class SystemConstant {
      * 资源类型1：url
      */
     public static final Integer RESOURCE_TYPE_URL = 1;
+    /**
+     * 借书记录表审核状态 0：未审核
+     */
+    public static final Integer BORROW_NOT_STATUS = 0;
 }
