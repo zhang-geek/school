@@ -11,6 +11,7 @@ import com.dj.ssm.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -84,6 +85,23 @@ public class BookController {
     public ResultModel<Object> updateStatus(Book book) {
         try {
             bookService.updateById(book);
+            return new ResultModel<Object>().success();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return new ResultModel<Object>().error("系统出错了，请稍后重试");
+        }
+    }
+
+    @PutMapping("top")
+    public ResultModel<Object> updateTop(Book book, Integer top) {
+        try {
+            if (top == 0) {
+                book.setTopTime(new Date());
+            } else {
+                book.setTopTime(null);
+            }
+            bookService.updateTop(book);
             return new ResultModel<Object>().success();
         } catch (Exception e) {
             // TODO Auto-generated catch block

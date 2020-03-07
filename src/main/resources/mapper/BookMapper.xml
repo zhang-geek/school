@@ -11,7 +11,8 @@
         count,
         user_id,
         is_del,
-        shelf_time
+        shelf_time,
+        top_time
 
     </sql>
     <select id="getBook" resultType="com.dj.ssm.pojo.Book">
@@ -25,6 +26,7 @@
             b.user_id,
             b.is_del,
             b.shelf_time,
+            b.top_time,
             r.resource_name as typeName
         from book b
         left join resource_school r on b.type = r.id
@@ -41,6 +43,7 @@
         <if test="startTime != '' and endTime != '' ">
             and (b.shelf_time between #{startTime} and #{endTime})
         </if>
+        order by b.top_time desc, b.shelf_time desc
     </select>
 
     <update id="updateIsDel">
@@ -51,23 +54,9 @@
             </foreach>
 
     </update>
-
-    <select id="getBookById" resultType="com.dj.ssm.pojo.Book">
-        select
-            b.id,
-            b.book_name,
-            b.author,
-            b.type,
-            b.status,
-            b.count,
-            b.user_id,
-            b.is_del,
-            b.shelf_time,
-            r.resource_name as typeName
-        from book b
-        left join resource_school r on b.type = r.id
-        where b.id = #{id}
-    </select>
+    <update id="updateTop">
+        update book set top_time = #{topTime} where id = #{id}
+    </update>
 
 
 </mapper>
