@@ -32,11 +32,13 @@
 </script>
 <body>
     <form id="fm">
-        借&nbsp;&nbsp;书&nbsp;&nbsp;人：${user.userName}
-        书&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：${book.bookName}
-        库&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存：${book.count}
+        借&nbsp;&nbsp;书&nbsp;人：${USER.username}<br />
+        书&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：${book.bookName}<br />
+        库&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存：${book.count}<br />
         借书数量：<input type="text" name="count" /><br />
-        <input type="button" value="借书" onclick="borrow()" /><br />
+        <input type="button" value="借书" onclick="borrow()" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="<%=request.getContextPath()%>/book/toShow" target="_parent">不借了</a><br />
+
     </form>
 </body>
 </html>
