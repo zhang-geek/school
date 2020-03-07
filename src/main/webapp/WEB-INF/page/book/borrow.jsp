@@ -16,7 +16,7 @@
 <script type="text/javascript">
     function borrow() {
         var index = layer.load(0,{shade:0.5});
-        $.post("/book",
+        $.post("/book/borrow",
                 $("#fm").serialize(),
                 function (data) {
                     layer.close(index);

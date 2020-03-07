@@ -1,5 +1,7 @@
 package com.dj.ssm.common;
 
+import com.dj.ssm.pojo.Book;
+
 /**
  * @author zhangzk
  * @description TODO
@@ -56,4 +58,8 @@ public class SystemConstant {
      * 借书记录表审核状态 0：未审核
      */
     public static final Integer BORROW_NOT_STATUS = 0;
+    /**
+     * 书本库存为0本时
+     */
+    public static final Integer COUNT_0 = 0;
 }
