@@ -19,4 +19,19 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements Sh
     public IPage<Shop> findShopAll(Page<?> page, Shop shop) throws Exception {
         return shopMapper.findShopAll(page, shop);
     }
+
+    @Override
+    public Shop findByShopName(String shopName) throws Exception {
+        return shopMapper.findByShopName(shopName);
+    }
+
+    @Override
+    public void updateIsDel(Integer[] shopId) throws Exception {
+        shopMapper.updateIsDel(shopId);
+    }
+
+    @Override
+    public void updateStatus(Integer id, Integer shopStatus) throws Exception {
+        shopMapper.updateStatus(id, shopStatus);
+    }
 }

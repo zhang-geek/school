@@ -7,23 +7,39 @@ resultType：返回数据类型 #{}预编译中的?对应的参数值引用 -->
 
     <select id="findShopAll" resultType="com.dj.ssm.pojo.Shop">
         SELECT
-        s.id,
-        s.shop_name,
-        s.shop_price,
-        bd.name AS baseName,
-        s.shop_status
+            s.id,
+            s.shop_name,
+            bd.`name` AS baseName,
+            s.shop_price,
+            s.shop_status
         FROM
-        shop s
-        LEFT JOIN base_data bd ON s.base_date_id = bd.id
+            shop s
+        LEFT JOIN base_data__school bd ON bd.id = s.base_data_id
         <where>
             <if test="shop.shopName != null and shop.shopName != '' ">
                 s.shop_name like "%"#{shop.shopName}"%"
             </if>
-            <if test="shop.baseDateId != null">
-                s.base_date_id = #{shop.baseDateId}
+            <if test="shop.baseDataId != null">
+               and s.base_data_id = #{shop.baseDataId}
             </if>
-            s.is_del = 1
+               and s.is_del = 0
         </where>
     </select>
+
+    <select id="findByShopName" resultType="com.dj.ssm.pojo.Shop">
+        SELECT * from shop s where s.shop_name = #{shopName}
+    </select>
+
+    <!-- 伪删除 -->
+    <update id="updateIsDel">
+        update shop set is_del = 1 where id in
+        <foreach collection="shopId" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
+
+   <!-- <update id="updateStatus">
+        UPDATE shop SET shop_status = #{shopStatus} where id = #{id}
+    </update>-->
 </mapper>
     

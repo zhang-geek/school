@@ -4,7 +4,7 @@
 
 
     <select id="findBaseByParentId" resultType="com.dj.ssm.pojo.BaseData">
-        select * from base_data b where b.parent_id = #{parentId}
+        SELECT * from base_data__school b where b.parent_id = #{parentId}
     </select>
 
 </mapper>
