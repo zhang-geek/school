@@ -34,6 +34,10 @@
     <form id="fm">
         借&nbsp;&nbsp;书&nbsp;人：${USER.username}<br />
         书&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：${book.bookName}<br />
+        类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型:
+        <c:forEach items="${resourseList}" var="type">
+            ${type.resourceName}
+        </c:forEach><br/>
         库&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存：${book.count}<br />
         借书数量：<input type="text" name="count" /><br />
         <input type="button" value="借书" onclick="borrow()" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
