@@ -43,6 +43,5 @@
 </head>
 <body>
 <div id="resourceTree" class="ztree"></div>
-<a href="<%=request.getContextPath()%>/book/toShow" target="right">图书展示</a>
 </body>
 </html>

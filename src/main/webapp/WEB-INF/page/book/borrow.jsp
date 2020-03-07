@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
     <title>Title</title>
@@ -32,17 +33,19 @@
 </script>
 <body>
     <form id="fm">
+        <input type="hidden" name="_method" value="POST"/>
+        <input type="hidden" name="id" value="${book.id}"/>
         借&nbsp;&nbsp;书&nbsp;人：${USER.username}<br />
         书&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：${book.bookName}<br />
         类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型:
         <c:forEach items="${resourseList}" var="type">
-            ${type.resourceName}
+            <c:if test="${book.type == type.id}">
+                ${type.resourceName}
+            </c:if>
         </c:forEach><br/>
         库&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存：${book.count}<br />
         借书数量：<input type="text" name="count" /><br />
-        <input type="button" value="借书" onclick="borrow()" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="<%=request.getContextPath()%>/book/toShow" target="_parent">不借了</a><br />
-
+        <input type="button" value="借书" onclick="borrow()" />
     </form>
 </body>
 </html>

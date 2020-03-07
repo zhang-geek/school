@@ -97,14 +97,16 @@ public class BookController {
         }
     }
 
-    /*@PostMapping
-    public ResultModel<Object> save(Book book, Borrow borrow, @SessionAttribute("USER") User user){
+    @PostMapping
+    public ResultModel<Object> updateCount(Book book, Borrow borrow,
+                                           @SessionAttribute(SystemConstant.SESSION_USER) User user){
         try {
             borrow.setBookId(book.getId())
                     .setUserId(user.getId())
+                    .setType(book.getType())
                     .setBorrowTime(new Date())
-                    .setStatus(SystemConstant.BORROW_NOT_STATUS)
-                    .setIsDel(SystemConstant.IS_NOT_DEL);
+                    .setIsDel(SystemConstant.IS_NOT_DEL)
+                    .setStatus(SystemConstant.BORROW_NOT_STATUS);
             borrowService.save(borrow);
             Integer count = book.getCount() - borrow.getNumber();
             book.setCount(count);
@@ -115,6 +117,5 @@ public class BookController {
             return new ResultModel<Object>().error("系统出错了，请稍后重试");
         }
     }
-*/
 
 }
