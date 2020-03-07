@@ -2,6 +2,8 @@ package com.dj.ssm.common;
 
 import com.dj.ssm.pojo.Book;
 
+import java.math.BigDecimal;
+
 /**
  * @author zhangzk
  * @description TODO
@@ -24,7 +26,6 @@ public class SystemConstant {
     public static final Integer IS_DEL = 1;
 
     /**
-<<<<<<< HEAD
      * 图书上架
      */
     public static final Integer BOOK_STATUS_0 = 0;
@@ -62,4 +63,12 @@ public class SystemConstant {
      * 书本库存为0本时
      */
     public static final Integer COUNT_0 = 0;
+    /**
+     * 校园卡状态 正常使用
+     */
+    public static final Integer CARD_STATUS_USE = 0;
+    /**
+     * 卡费
+     */
+    public static final BigDecimal CARD_MONEY_TWO = BigDecimal.valueOf(2.00);
 }

@@ -98,6 +98,23 @@ public class BookController {
         }
     }
 
+    @PutMapping("top")
+    public ResultModel<Object> updateTop(Book book, Integer top) {
+        try {
+            if (top == 0) {
+                book.setTopTime(new Date());
+            } else {
+                book.setTopTime(null);
+            }
+            bookService.updateTop(book);
+            return new ResultModel<Object>().success();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return new ResultModel<Object>().error("系统出错了，请稍后重试");
+        }
+    }
+
     /**
      * 借书 chengf
      * @param book
