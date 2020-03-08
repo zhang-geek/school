@@ -29,6 +29,11 @@ public class SystemConstant {
     public static final Integer BOOK_STATUS_0 = 0;
 
     /**
+     * 商品置顶
+     */
+    public static final Integer SHOP_STICK = 0;
+
+    /**
      * 图书下架
      */
     public static final Integer BOOK_STATUS_1 = 1;

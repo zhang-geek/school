@@ -27,6 +27,13 @@ public class ShopController {
     @Autowired
     private ShopService shopService;
 
+    /**
+     * 商品展示
+     * @param shop
+     * @param pageNo
+     * @param session
+     * @return
+     */
     @PostMapping
     public ResultModel<Object> show(Shop shop, Integer pageNo, HttpSession session) {
         try {
@@ -34,7 +41,7 @@ public class ShopController {
             Map<String, Object> resultMap = new HashMap<>();
             Page<Shop> page = new Page<Shop>()
                     .setCurrent(pageNo)
-                    .setSize(4);
+                    .setSize(SystemConstant.PAGE_SIZE);
             IPage<Shop> page1 = shopService.findShopAll(page, shop);
             List<Shop> shopList = page1.getRecords();
             resultMap.put("totalNum", page1.getPages());
@@ -46,6 +53,11 @@ public class ShopController {
         }
     }
 
+    /**
+     * 添加商品
+     * @param shop
+     * @return
+     */
     @PostMapping("/addShop")
     public ResultModel<Object> sddShop(Shop shop) {
         try {
@@ -58,6 +70,11 @@ public class ShopController {
         }
     }
 
+    /**
+     * 商品名称去重
+     * @param shopName
+     * @return
+     */
     @RequestMapping("/findByShopName")
     public boolean findByShopName(String shopName) {
         try {
@@ -69,6 +86,11 @@ public class ShopController {
         return false;
     }
 
+    /**
+     * 修改商品
+     * @param shop
+     * @return
+     */
     @PostMapping("/updateShop")
     public ResultModel<Object> update(Shop shop){
         try {
@@ -80,7 +102,11 @@ public class ShopController {
         }
     }
 
-
+    /**
+     * 商品伪删除
+     * @param shopId
+     * @return
+     */
     @DeleteMapping("/delShop")
     public ResultModel<Object> delBook(Integer[] shopId) {
         try {
@@ -96,6 +122,11 @@ public class ShopController {
         }
     }
 
+    /**
+     * 修改商品状态
+     * @param shop
+     * @return
+     */
     @PutMapping("/updateStatus")
     public ResultModel<Object> updateStatus(Shop shop){
         try {
@@ -108,11 +139,16 @@ public class ShopController {
         }
     }
 
+    /**
+     * 商品置顶
+     * @param shop
+     * @return
+     */
     @PutMapping("/updateFlag")
     public ResultModel<Object> updateFlag(Shop shop) {
         try {
 
-            shop.setTopTime(shop.getFlag() == 0 ? new Date() : null);
+            shop.setTopTime(shop.getFlag() == SystemConstant.SHOP_STICK ? new Date() : null);
             shopService.updateFlag(shop);
 
             return new ResultModel<>().success("冲向第一");
@@ -123,6 +159,12 @@ public class ShopController {
         }
     }
 
+    /**
+     * 购买商品
+     * @param id
+     * @param user
+     * @return
+     */
     @PostMapping("/addOrder")
     public ResultModel<Object> addOrder(Integer id, @SessionAttribute(SystemConstant.SESSION_USER) User user){
         try {
