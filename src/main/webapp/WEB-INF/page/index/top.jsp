@@ -12,6 +12,6 @@
 </head>
 <body>
 欢迎${USER.username}登录<br>
-<a href="<%=request.getContextPath()%>/user/logout">退出登录</a>
+<a href="<%=request.getContextPath()%>/logout">退出登录</a>
 </body>
 </html>

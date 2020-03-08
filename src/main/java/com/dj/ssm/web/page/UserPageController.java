@@ -24,10 +24,4 @@ public class UserPageController {
         return "user/login";
     }
 
-    @RequestMapping("logout")
-    public String logout(HttpSession session) {
-        session.removeAttribute("USER");
-        return "user/login";
-    }
-
 }
