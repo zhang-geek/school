@@ -11,6 +11,7 @@
 <head>
     <title>Title</title>
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/static/My97DatePicker/WdatePicker.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/layer-v3.1.1/layer/layer.js"></script>
 </head>
 <script type="text/javascript">
@@ -45,6 +46,7 @@
         </c:forEach><br/>
         库&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存：${book.count}<br />
         借书数量：<input type="text" name="count" /><br />
+        还书时间：<input type="text" name="repayTime" onclick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d'})" /><br />
         <input type="button" value="借书" onclick="borrow()" />
     </form>
 </body>

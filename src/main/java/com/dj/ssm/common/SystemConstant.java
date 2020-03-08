@@ -68,6 +68,10 @@ public class SystemConstant {
      */
     public static final Integer CARD_STATUS_USE = 0;
     /**
+     * 校园卡状态 已挂失
+     */
+    public static final Integer CARD_STATUS_NOT_USE = 1;
+    /**
      * 卡费
      */
     public static final BigDecimal CARD_MONEY_TWO = BigDecimal.valueOf(2.00);

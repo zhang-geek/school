@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dj.ssm.mapper.BorrowMapper">
+
+    <!--展示 查询全部-->
+    <select id="findAll" resultType="com.dj.ssm.pojo.Borrow">
+        SELECT
+            b.id,
+            b.book_id,
+            b.user_id,
+            b.author,
+            b.number,
+            b.borrow_time,
+            b.`status`,
+            b.is_del,
+            b.type,
+            b.repay_time,
+            u.username AS userName,
+            k.book_name AS bookName,
+            r.resource_name AS typeName
+        FROM
+            borrow_car b
+        LEFT JOIN resource_school r ON b.type = r.id
+        LEFT JOIN user_school u ON b.user_id = u.id
+        LEFT JOIN book k ON b.book_id = k.id
+        <where>
+            <if test="roleId != 1 and roleId != 6">
+                b.user_id = #{user.id}
+            </if>
+            <if test="book.bookName != null and book.bookName != ''">
+                 and k.book_name LIKE "%"#{book.bookName}"%"
+            </if>
+            and b.is_del = 0
+        </where>
+    </select>
+</mapper>
