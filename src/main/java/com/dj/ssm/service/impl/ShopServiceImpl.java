@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dj.ssm.mapper.ShopMapper;
+import com.dj.ssm.pojo.Order;
 import com.dj.ssm.pojo.Shop;
 import com.dj.ssm.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,19 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements Sh
     }
 
     @Override
-    public void updateStatus(Integer id, Integer shopStatus) throws Exception {
-        shopMapper.updateStatus(id, shopStatus);
+    public Shop findShopById(Integer id) throws Exception {
+        return shopMapper.findShopById(id);
     }
+
+    @Override
+    public void updateFlag(Shop shop) throws Exception {
+        shopMapper.updateFlag(shop);
+    }
+
+    @Override
+    public void addOrder(Order order) throws Exception {
+        shopMapper.addOrder(order);
+    }
+
+
 }

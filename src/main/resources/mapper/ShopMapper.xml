@@ -11,7 +11,10 @@ resultType：返回数据类型 #{}预编译中的?对应的参数值引用 -->
             s.shop_name,
             bd.`name` AS baseName,
             s.shop_price,
-            s.shop_status
+            s.shop_status,
+            s.top_time,
+            s.create_time,
+            s.flag
         FROM
             shop s
         LEFT JOIN base_data__school bd ON bd.id = s.base_data_id
@@ -22,7 +25,7 @@ resultType：返回数据类型 #{}预编译中的?对应的参数值引用 -->
             <if test="shop.baseDataId != null">
                and s.base_data_id = #{shop.baseDataId}
             </if>
-               and s.is_del = 0
+               and s.is_del = 0 ORDER BY s.top_time DESC, s.create_time DESC, s.flag DESC
         </where>
     </select>
 
@@ -38,8 +41,31 @@ resultType：返回数据类型 #{}预编译中的?对应的参数值引用 -->
         </foreach>
     </update>
 
-   <!-- <update id="updateStatus">
-        UPDATE shop SET shop_status = #{shopStatus} where id = #{id}
-    </update>-->
+   <select id="findShopById" resultType="com.dj.ssm.pojo.Shop">
+       SELECT * from shop s where s.id = #{id}
+   </select>
+
+    <!-- 修改 -->
+    <update id="updateFlag">
+        update
+        shop
+        <set>
+            <if test="flag != null">
+                top_time = #{topTime}, flag = #{flag}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <insert id="addOrder">
+        INSERT INTO order_school (
+			shop_id,
+			user_id,
+			shop_price,
+			order_num
+			)
+		VALUES (
+				#{shopId}, #{userId},  #{shopPrice}, #{orderNum})
+    </insert>
 </mapper>
     

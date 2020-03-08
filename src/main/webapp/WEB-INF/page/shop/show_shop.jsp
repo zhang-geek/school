@@ -28,11 +28,12 @@
     </select><p>
     <input type="hidden" name="pageNo" id="pageNo" value="1">
     <input type="button" value="查询" onclick="show()" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"/>&nbsp;
-    <input type="button" value="添加" onclick="addShop()" class="layui-btn layui-btn-sm"/>&nbsp;
-    <input type="button" value="修改" onclick="updateShop()" class="layui-btn layui-btn-sm"/>&nbsp;
-    <input type="button" value="删除" onclick="delShop()" class="layui-btn layui-btn-sm"/>&nbsp;
-    <input type="button" value="上架/下架" onclick="updateStatus()" class="layui-btn layui-btn-sm"/>&nbsp;
-
+    <div id="div01">
+        <input type="button" value="添加" onclick="addShop()" class="layui-btn layui-btn-sm"/>&nbsp;
+        <input type="button" value="修改" onclick="updateShop()" class="layui-btn layui-btn-sm"/>&nbsp;
+        <input type="button" value="删除" onclick="delShop()" class="layui-btn layui-btn-sm"/>&nbsp;
+        <input type="button" value="上架/下架" onclick="updateStatus()" class="layui-btn layui-btn-sm"/>&nbsp;
+</div>
 </form>
 <form id="fm">
     <table align="center" border="1px solid blcak" cellspacing="0" cellpadding="10" class="layui-table" lay-skin="line">
@@ -57,6 +58,14 @@
         show();
     });
 
+    $(function(){
+        if ('${user.userRole}' == 7){
+            $("#div01").show();
+        }else {
+            $("#div01").hide();
+        }
+    })
+
     function show() {
         $.post(
             "/shop",
@@ -66,7 +75,11 @@
                 var html = "";
                 for (var i = 0; i < data.length; i++) {
                     var shop = data[i];
-                    html+="<tr>"
+                    if (shop.flag == 0) {
+                        html += "<tr style='color:#FF0000'>";
+                    } else {
+                        html += "<tr>";
+                    }
                     html+="<td><input type='checkbox' value='"+shop.id+"' name='shopId'/></td>"
                     html+="<input type='hidden' value='"+shop.shopStatus+"' id='"+shop.id+"'/>"
                     html+="<td>"+shop.id+"</td>"
@@ -74,6 +87,14 @@
                     html+="<td>"+shop.baseName+"</td>"
                     html+="<td>"+shop.shopPrice+"</td>"
                     html+= shop.shopStatus == 0 ? "<td>上架</td>" : "<td>下架</td>"
+                    html +="<td><input type='button' value='下单' onclick='addOrder("+shop.id+")' class='layui-btn layui-btn-sm'/>&nbsp;";
+                    if('${user.userRole}' == 7){
+                        html += "<input type='button' value='置顶' onclick='Istop("+shop.id+", 0)' class='layui-btn layui-btn-sm'/>"
+                    }
+
+                    if(shop.flag == 0){
+                        html += "&nbsp;<input type='button' value='取消置顶' onclick='Isdown("+shop.id+", 1)' class='layui-btn layui-btn-sm'/></td>"
+                    }
                     html+="</tr>"
                 }
                 $("#tbs").html(html);
@@ -218,6 +239,61 @@
 
         })
 
+    }
+
+    function Istop(id, flag){
+        $.post(
+            "/shop/updateFlag",
+            {"id" : id, "flag" : flag, "_method" : "PUT"},
+            function(data){
+                if(data.code != 200){
+                    layer.alert(data.msg);
+                    return;
+                }
+                layer.alert(data.msg, {icon: 6});
+                show();
+            });
+    }
+    function Isdown(id, flag){
+        $.post(
+            "/shop/updateFlag",
+            {"id" : id, "flag" : flag, "_method" : "PUT"},
+            function(data){
+                if(data.code != 200){
+                    layer.alert(data.msg);
+                    return;
+                }
+                layer.alert("跌落神坛", {icon: 5});
+                show();
+            });
+    }
+
+    function addOrder(id){
+        alert(id)
+         var index = layer.load(0, {
+             shade: [0.1,'#fff'] //0.1透明度的白色背景
+         })
+        $.post(
+            "/shop/addOrder",
+            {"id" : id},
+            function (data) {
+                layer.close(index);
+                if(data.code != "200"){
+                    layer.alert(data.msg, {
+                        icon: 5,
+                        shadeClose: true
+                    });
+                    return;
+                }
+                layer.msg(data.msg, {
+                    icon: 6,
+                    shadeClose: true,
+                    time: 1000
+                }, function(){
+                    //alert(data.msg);
+                    window.location.href = "<%=request.getContextPath()%>/shop/toShowShop"
+                })
+            })
     }
 </script>
 </html>

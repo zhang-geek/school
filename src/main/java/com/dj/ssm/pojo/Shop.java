@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.Date;
+
 @Data
 @Accessors(chain = true)
 @TableName("shop")
@@ -27,4 +29,10 @@ public class Shop {
 
     @TableField(exist = false)
     private String baseName;
+
+    private Date createTime;
+
+    private Date topTime;
+
+    private Integer flag;
 }

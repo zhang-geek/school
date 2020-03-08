@@ -3,12 +3,18 @@ package com.dj.ssm.web;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dj.ssm.common.ResultModel;
+import com.dj.ssm.common.SystemConstant;
+import com.dj.ssm.pojo.Order;
 import com.dj.ssm.pojo.Shop;
+import com.dj.ssm.pojo.User;
 import com.dj.ssm.service.ShopService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +34,7 @@ public class ShopController {
             Map<String, Object> resultMap = new HashMap<>();
             Page<Shop> page = new Page<Shop>()
                     .setCurrent(pageNo)
-                    .setSize(2);
+                    .setSize(4);
             IPage<Shop> page1 = shopService.findShopAll(page, shop);
             List<Shop> shopList = page1.getRecords();
             resultMap.put("totalNum", page1.getPages());
@@ -96,6 +102,40 @@ public class ShopController {
 
             shopService.updateById(shop);
             return new ResultModel<>().success("修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultModel<>().error("系统异常" + e.getMessage());
+        }
+    }
+
+    @PutMapping("/updateFlag")
+    public ResultModel<Object> updateFlag(Shop shop) {
+        try {
+
+            shop.setTopTime(shop.getFlag() == 0 ? new Date() : null);
+            shopService.updateFlag(shop);
+
+            return new ResultModel<>().success("冲向第一");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return new ResultModel<>().error("系统异常" + e.getMessage());
+        }
+    }
+
+    @PostMapping("/addOrder")
+    public ResultModel<Object> addOrder(Integer id, @SessionAttribute(SystemConstant.SESSION_USER) User user){
+        try {
+
+            Shop shop = shopService.findShopById(id);
+            String date = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+            Order order =  new Order();
+            order.setShopId(shop.getId())
+                    .setUserId(user.getId())
+                    .setShopPrice(shop.getShopPrice())
+                    .setOrderNum("WM"+date+user.getId());
+            shopService.addOrder(order);
+            return new ResultModel<>().success("成功添加到购物车");
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultModel<>().error("系统异常" + e.getMessage());
