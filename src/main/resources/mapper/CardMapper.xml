@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.ssm.mapper.CardMapper">
+
+    <select id="getCard" resultType="com.dj.ssm.pojo.Card">
+        SELECT
+            c.id,
+            c.card_number,
+            c.user_id,
+            c.card_money,
+            c.card_status,
+            c.create_time,
+            c.is_del,
+            u.username
+        FROM
+            card_school c
+        LEFT JOIN user_school u ON u.id = c.user_id
+        <where>
+            c.is_del = 0
+            <if test="role == 3 or role == 5">
+                and c.user_id = #{user.id}
+            </if>
+        </where>
+    </select>
+</mapper>

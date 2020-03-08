@@ -3,9 +3,11 @@ package com.dj.ssm.web.page;
 import com.dj.ssm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author zhangzk
@@ -19,9 +21,23 @@ public class UserPageController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RoleService roleService;
+
     @RequestMapping("toLogin")
     public String toLogin() {
         return "user/login";
     }
 
+    /**
+     * 用户展示
+     * @param model
+     * @return
+     */
+    @RequestMapping("toShow")
+    public String toShow(Model model) {
+        List<Role> roleList = roleService.list();
+        model.addAttribute("roleList", roleList);
+        return "user/show";
+    }
 }

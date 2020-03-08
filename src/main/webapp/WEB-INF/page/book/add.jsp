@@ -115,7 +115,7 @@
 	$.validator.setDefaults({
 	    submitHandler: function() {
 	    	var index = layer.load(1);
-			$.post("/book",
+			$.post("/book/save",
 					$("#fm").serialize(),
 					function(data){
 						layer.close(index);

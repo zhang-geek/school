@@ -26,7 +26,7 @@
         <input type='button' value='上下架' onclick='updateStatus()'>
     </c:if>
     <c:if test="${userRole.roleId == 2}">
-        <input type='button' value='借书' onclick='borrow()'>
+        <input type='button' value='借书' onclick='toBorrow()'>
     </c:if>
     <input type="hidden" value="0" name="isDel"><br/>
     <input type="hidden" value="${type}" name="type"><br/>
@@ -41,6 +41,9 @@
         <th>状态</th>
         <th>库存</th>
         <th>上架时间</th>
+        <c:if test="${userRole.roleId == 1}">
+            <th>操作</th>
+        </c:if>
     </tr>
     <tbody id="tbd"></tbody>
 </table>
@@ -65,7 +68,11 @@
                 var html = "";
                 for (var i = 0; i < data.data.list.length; i++) {
                     var d = data.data.list[i];
-                    html += "<tr>"
+                    if (d.topTime != null) {
+                        html += "<tr type='color:red'>"
+                    } else {
+                        html += "<tr>"
+                    }
                     html += "<td><input type='checkbox' value=" + d.id + "," + d.status + " name='id' '></td>"
                     html += "<td>" + d.bookName + "</td>"
                     html += "<td>" + d.author + "</td>"
@@ -73,6 +80,14 @@
                     html += d.status == 0 ? "<td>上架</td>" : "<td>下架</td>"
                     html += "<td>" + d.count + "</td>"
                     html += "<td>" + d.shelfTime + "</td>"
+                    html += "<td>"
+                    if ("${userRole.roleId}" == 1) {
+                        html +=  "<input type='button' value='置顶' onclick='isTop(0,"+d.id+")'>"
+                        if (d.topTime != null) {
+                            html +=  "<input type='button' value='取消置顶' onclick='isTop(1,"+d.id+")'>"
+                        }
+                    }
+                    html += "</td>"
                     html += "</tr>"
                 }
                 $("#tbd").html(html);
@@ -205,7 +220,10 @@
     	})
     }
 
-    function borrow() {
+    /**
+     * 去还书 chengf
+     */
+    function toBorrow() {
         var boxValue = $("input[name='id']:checked");
         if (boxValue.length < 1) {
             layer.msg('请选择一条信息', {icon: 6, time: 1000});
@@ -223,12 +241,24 @@
             shadeClose: true,
             shade: 0.5,
             area: ['380px', '90%'],
-            content: "/borrow/toBorrow?id=" + array[0]
+            content: "/book/toBorrow?id=" + array[0]
         });
 
     }
 
-
-
+    function isTop (top,id) {
+        var index1 = layer.load(1);
+        $.post("/book/top",
+            {_method: "PUT", "id": id, "top": top},
+            function (data) {
+                layer.close(index1);
+                layer.msg(data.msg, {icon: 6, time: 1000});
+                if (data.code != "200") {
+                    return;
+                }
+                window.location.href = "/book/toShow";
+            }
+        )
+    }
 </script>
 </html>
