@@ -21,27 +21,6 @@
     var totalNum = 0;
 
 	$(function () {
-		var index = layer.load(1);
-		$.post("<%=request.getContextPath()%>/card/toFindCard",
-				{"_method" : "post"},
-				function (data) {
-					layer.close(index);
-					if (data.code != 200) {
-						return;
-					}
-					layer.msg(data.msg,{time:500},function () {
-						layer.open({
-							type: 2,
-							title: '办理校园卡',
-							shadeClose: true,
-							maxmin: true, //开启最大化最小化按钮
-							shade: 0.8,
-							area: ['380px', '90%'],
-							content: '<%=request.getContextPath()%>/card/toAdd'
-						});
-					});
-
-				})
 		show();
 	})
 	
@@ -70,7 +49,7 @@
 						html += "<td>"+card.cardNumber+"</td>";
 						html += "<td>"+card.userName+"</td>";
 						html += "<td>"+card.cardMoney+"</td>";
-						html += card.cardStatus == 0 ? "<td>有效</td>" : "<td>已挂失</td>";
+						html += card.cardStatus == 0 ? "<td>正在使用</td>" : "<td>已挂失</td>";
 						html += "<td>"+card.createTime+"</td>";
 						html += "</tr>";
 					}
@@ -115,6 +94,45 @@
 			});
 	}
 
+	function updateStatus() {
+		var boxValue = $("input[name='id']:checked");
+		if (boxValue.length < 1) {
+			layer.msg('请选择一条信息', {icon: 6, time: 1000});
+			return;
+		}
+		if (boxValue.length > 1) {
+			layer.msg('只能选择一条信息', {icon: 6, time: 1000});
+			return;
+		}
+		var array = boxValue.val().split(",");
+		if(array[1] == 1){
+			layer.msg('此卡已挂失', {icon: 6, time: 1000});
+			return;
+		}
+		layer.confirm('确定挂失嘛', {icon: 3, title: '询问框'}, function (index) {
+			//do something
+			layer.close(index);
+			var index1 = layer.load(1);
+			$.post("/card/updateStatus",
+					{_method: "put",
+						"id": array[0],
+						"cardStatus": 1},
+					function (data) {
+						layer.close(index1);
+						layer.msg(data.msg, {
+							icon: 1,
+							time: 2000 //2秒关闭（如果不配置，默认是3秒）
+						}, function(){
+							if (data.code != "200") {
+								return;
+							}
+							layer.close(index);
+							parent.window.location.href="/card/toShow";
+						});
+					});
+		})
+	}
+
 	function findByWhere() {
 		$("#pageNo").val(1);
 		show();
@@ -126,6 +144,9 @@
 		<input type = 'hidden' value = '1' name = "pageNo" id = 'pageNo'/>
 		<shrio:hasPermission name="card:addMoney">
 			<input type="button" value="充值" onclick="addMoney()" class='layui-btn layui-btn-normal layui-btn-radius'>;
+		</shrio:hasPermission>
+		<shrio:hasPermission name="card:update">
+			<input type="button" value="挂失" onclick="updateStatus()" class='layui-btn layui-btn-normal layui-btn-radius'>;
 		</shrio:hasPermission>
 	</form>
 

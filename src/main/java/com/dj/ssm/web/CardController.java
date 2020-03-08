@@ -12,10 +12,7 @@ import com.dj.ssm.pojo.UserRole;
 import com.dj.ssm.service.CardService;
 import com.dj.ssm.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -70,6 +67,12 @@ public class CardController {
         }
     }
 
+    /**
+     * 办理校园卡
+     * @param card
+     * @param user
+     * @return
+     */
     @PostMapping("addCard")
     public ResultModel<Object> addCard(Card card, @SessionAttribute(SystemConstant.SESSION_USER) User user){
         String dateStr = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
@@ -81,6 +84,12 @@ public class CardController {
         return new ResultModel<>().success("办理成功");
     }
 
+    /**
+     * 充值
+     * @param card
+     * @param cardMoneyOld
+     * @return
+     */
     @PostMapping("updateCard")
     public ResultModel<Object> updateCard(Card card, BigDecimal cardMoneyOld){
         card.setCardMoney(card.getCardMoney().add(cardMoneyOld));
@@ -89,5 +98,11 @@ public class CardController {
     }
 
 
+
+    @PutMapping("updateStatus")
+    public ResultModel<Object> updateStatus(Card card){
+        cardService.updateById(card);
+        return new ResultModel<>().success("OK");
+    }
 
 }

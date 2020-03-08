@@ -84,7 +84,7 @@
 
 <body>
 	<form id="fm">
-				<input type="hidden" name="_method" value="post"/>
+				<input type="hidden" name="_method" value="put"/>
 				<input type="hidden" name="cardMoneyOld" value="${card.cardMoney}" id="cardMoneyOld"/>
 				<input type="hidden" name="id" value="${card.id}"/>
 		首次充值: <input type="text" name="cardMoney" id="cardMoney"><br/>
