@@ -7,6 +7,7 @@ import com.dj.ssm.common.SystemConstant;
 import com.dj.ssm.pojo.Order;
 import com.dj.ssm.pojo.Shop;
 import com.dj.ssm.pojo.User;
+import com.dj.ssm.service.OrderService;
 import com.dj.ssm.service.ShopService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class ShopController {
 
     @Autowired
     private ShopService shopService;
+
 
     /**
      * 商品展示
@@ -183,4 +185,8 @@ public class ShopController {
             return new ResultModel<>().error("系统异常" + e.getMessage());
         }
     }
+
+
+
+
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.ssm.mapper.OrderMapper">
+
+    <sql id="ORDER_CLOUMN">
+        id,
+        shop_id,
+        user_id,
+        shop_price,
+        order_num
+    </sql>
+    <select id="getOrder" resultType="com.dj.ssm.pojo.Order">
+        select
+            o.id,
+            o.shop_id,
+            o.user_id,
+            o.shop_price,
+            o.order_num,
+            s.shop_name,
+            u.username
+        from order_school o
+        left join shop s on o.shop_id = s.id
+        left join user_school u on o.user_id = u.id
+        where o.user_id = #{user.id}
+
+    </select>
+</mapper>

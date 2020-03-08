@@ -19,7 +19,7 @@
     根据上架时间查询:
     <input type="text" name="startTime"/>~<input type="text" name="endTime"/><br/>
     <input type="button" value="搜索" onclick="show()"/><br/>
-    <c:if test="${userRole.roleId == 1}">
+    <c:if test="${userRole.roleId == 6}">
         <input type='button' value='新增' onclick='add()'>
         <input type='button' value='修改' onclick='toUpdate()'>
         <input type='button' value='删除' onclick='del()'>
@@ -39,7 +39,7 @@
         <th>状态</th>
         <th>库存</th>
         <th>上架时间</th>
-        <c:if test="${userRole.roleId == 1}">
+        <c:if test="${userRole.roleId == 6}">
             <th>操作</th>
         </c:if>
     </tr>
@@ -78,14 +78,14 @@
                     html += d.status == 0 ? "<td>上架</td>" : "<td>下架</td>"
                     html += "<td>" + d.count + "</td>"
                     html += "<td>" + d.shelfTime + "</td>"
-                    html += "<td>"
-                    if ("${userRole.roleId}" == 1) {
-                        html +=  "<input type='button' value='置顶' onclick='isTop(0,"+d.id+")'>"
-                        if (d.topTime != null) {
-                            html +=  "<input type='button' value='取消置顶' onclick='isTop(1,"+d.id+")'>"
-                        }
+                    if ("${userRole.roleId}" == 6) {
+                        html += "<td>"
+                            html +=  "<input type='button' value='置顶' onclick='isTop(0,"+d.id+")'>"
+                            if (d.topTime != null) {
+                                html +=  "<input type='button' value='取消置顶' onclick='isTop(1,"+d.id+")'>"
+                            }
+                        html += "</td>"
                     }
-                    html += "</td>"
                     html += "</tr>"
                 }
                 $("#tbd").html(html);
