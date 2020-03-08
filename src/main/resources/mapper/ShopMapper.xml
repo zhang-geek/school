@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:用于隔离SQL全局唯一（采用接口和XML开发时为接口的全路径） -->
+<mapper namespace="com.dj.ssm.mapper.ShopMapper">
+    <!-- id:SQL的唯一标识（采用接口和XML开发时id为接口的方法名） parameterType：sql参数类型（可以是基本数据类型和应用数据类型） 
+resultType：返回数据类型 #{}预编译中的?对应的参数值引用 -->
+
+    <select id="findShopAll" resultType="com.dj.ssm.pojo.Shop">
+        SELECT
+            s.id,
+            s.shop_name,
+            bd.`name` AS baseName,
+            s.shop_price,
+            s.shop_status,
+            s.top_time,
+            s.create_time,
+            s.flag
+        FROM
+            shop s
+        LEFT JOIN base_data__school bd ON bd.id = s.base_data_id
+        <where>
+            <if test="shop.shopName != null and shop.shopName != '' ">
+                s.shop_name like "%"#{shop.shopName}"%"
+            </if>
+            <if test="shop.baseDataId != null">
+               and s.base_data_id = #{shop.baseDataId}
+            </if>
+               and s.is_del = 0 ORDER BY s.top_time DESC, s.create_time DESC, s.flag DESC
+        </where>
+    </select>
+
+    <select id="findByShopName" resultType="com.dj.ssm.pojo.Shop">
+        SELECT * from shop s where s.shop_name = #{shopName}
+    </select>
+
+    <!-- 伪删除 -->
+    <update id="updateIsDel">
+        update shop set is_del = 1 where id in
+        <foreach collection="shopId" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
+
+   <select id="findShopById" resultType="com.dj.ssm.pojo.Shop">
+       SELECT * from shop s where s.id = #{id}
+   </select>
+
+    <!-- 修改 -->
+    <update id="updateFlag">
+        update
+        shop
+        <set>
+            <if test="flag != null">
+                top_time = #{topTime}, flag = #{flag}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <insert id="addOrder">
+        INSERT INTO order_school (
+			shop_id,
+			user_id,
+			shop_price,
+			order_num
+			)
+		VALUES (
+				#{shopId}, #{userId},  #{shopPrice}, #{orderNum})
+    </insert>
+</mapper>
+    

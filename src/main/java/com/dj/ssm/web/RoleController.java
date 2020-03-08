@@ -40,7 +40,7 @@ public class RoleController {
         try {
             Map<String, Object> resultMap = new HashMap<>();
             Page<Role> page = new Page<Role>().setSize(SystemConstant.PAGE_SIZE).setCurrent(pageNo);
-            page = roleService.page(page);
+            page = (Page<Role>) roleService.page(page);
             resultMap.put("list", page.getRecords());
             resultMap.put("totalNum", page.getPages());
             return new ResultModel<Object>().success(resultMap);
