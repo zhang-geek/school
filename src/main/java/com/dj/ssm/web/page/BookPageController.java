@@ -2,11 +2,9 @@ package com.dj.ssm.web.page;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dj.ssm.common.SystemConstant;
-import com.dj.ssm.pojo.Book;
-import com.dj.ssm.pojo.Resource;
-import com.dj.ssm.pojo.User;
-import com.dj.ssm.pojo.UserRole;
+import com.dj.ssm.pojo.*;
 import com.dj.ssm.service.BookService;
+import com.dj.ssm.service.BorrowService;
 import com.dj.ssm.service.ResourceService;
 import com.dj.ssm.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +27,9 @@ public class BookPageController {
 
     @Autowired
     private UserRoleService userRoleService;
+
+    @Autowired
+    private BorrowService borrowService;
 
     @RequestMapping("toShow")
     public String toShow(Integer id, Model model,
@@ -61,16 +62,19 @@ public class BookPageController {
         return "book/update";
     }
 
+    /**
+     * 去借书 chengf
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping("toBorrow")
     public String toBorrow(Integer id, Model model) {
         //根据书得id查询书得全部信息
         Book book = bookService.getById(id);
-        QueryWrapper<Resource> query = new QueryWrapper<>();
-        query.eq("parent_id", SystemConstant.RESOURCE_PARENT_ID_36);
-        List<Resource> resourseList = resourceService.list(query);
+        List<Resource> resourseList = resourceService.list(new QueryWrapper<Resource>().eq("parent_id", SystemConstant.RESOURCE_PARENT_ID_36));
         model.addAttribute("resourseList", resourseList);
         model.addAttribute("book", book);
         return "book/borrow";
     }
-
 }
