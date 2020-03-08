@@ -1,5 +1,7 @@
 package com.dj.ssm.common;
 
+import com.dj.ssm.pojo.Book;
+
 import java.math.BigDecimal;
 
 /**
@@ -59,9 +61,21 @@ public class SystemConstant {
      */
     public static final Integer RESOURCE_TYPE_URL = 1;
     /**
+     * 借书记录表审核状态 0：未审核
+     */
+    public static final Integer BORROW_NOT_STATUS = 0;
+    /**
+     * 书本库存为0本时
+     */
+    public static final Integer COUNT_0 = 0;
+    /**
      * 校园卡状态 正常使用
      */
     public static final Integer CARD_STATUS_USE = 0;
+    /**
+     * 校园卡状态 已挂失
+     */
+    public static final Integer CARD_STATUS_NOT_USE = 1;
     /**
      * 卡费
      */

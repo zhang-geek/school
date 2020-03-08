@@ -12,10 +12,7 @@ import com.dj.ssm.pojo.UserRole;
 import com.dj.ssm.service.CardService;
 import com.dj.ssm.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -36,11 +33,17 @@ public class CardController {
     @Autowired
     private UserRoleService userRoleService;
 
+    /**
+     * 查询用户是否有正在使用的校园卡
+     * @param user
+     * @return
+     */
     @PostMapping("toFindCard")
     public ResultModel<Object> show(@SessionAttribute(SystemConstant.SESSION_USER) User user) {
         QueryWrapper<Card> cardQueryWrapper = new QueryWrapper<>();
         cardQueryWrapper.eq("user_id", user.getId())
-                .eq("card_status", SystemConstant.CARD_STATUS_USE);
+                .eq("card_status", SystemConstant.CARD_STATUS_USE)
+                .eq("is_del", SystemConstant.IS_NOT_DEL);
         Card card = cardService.getOne(cardQueryWrapper);
         if (card != null) {
             return new ResultModel<Object>().error("您已办理过了！");
@@ -48,6 +51,12 @@ public class CardController {
         return new ResultModel<Object>().success("正在去办理的路上");
     }
 
+    /**
+     * 校园卡信息展示
+     * @param pageNo
+     * @param user
+     * @return
+     */
     @PostMapping("show")
     public ResultModel<Object> show(Integer pageNo, @SessionAttribute(SystemConstant.SESSION_USER) User user) {
         try {
@@ -70,6 +79,12 @@ public class CardController {
         }
     }
 
+    /**
+     * 办理校园卡
+     * @param card
+     * @param user
+     * @return
+     */
     @PostMapping("addCard")
     public ResultModel<Object> addCard(Card card, @SessionAttribute(SystemConstant.SESSION_USER) User user){
         String dateStr = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
@@ -81,6 +96,12 @@ public class CardController {
         return new ResultModel<>().success("办理成功");
     }
 
+    /**
+     * 充值
+     * @param card
+     * @param cardMoneyOld
+     * @return
+     */
     @PostMapping("updateCard")
     public ResultModel<Object> updateCard(Card card, BigDecimal cardMoneyOld){
         card.setCardMoney(card.getCardMoney().add(cardMoneyOld));
@@ -88,6 +109,36 @@ public class CardController {
         return new ResultModel<>().success("OK");
     }
 
+
+    /**
+     * 挂失
+     * @param card
+     * @return
+     */
+    @PutMapping("updateStatus")
+    public ResultModel<Object> updateStatus(Card card){
+        cardService.updateById(card);
+        return new ResultModel<>().success("OK");
+    }
+
+    /**
+     * 补办
+     * @param card
+     * @return
+     */
+    @PutMapping("replaceCard")
+    public ResultModel<Object> replaceCard(Card card, @SessionAttribute(SystemConstant.SESSION_USER) User user){
+        QueryWrapper<Card> cardQueryWrapper = new QueryWrapper<>();
+        cardQueryWrapper.eq("user_id", user.getId())
+                .eq("card_status", SystemConstant.CARD_STATUS_USE)
+                .eq("is_del", SystemConstant.IS_NOT_DEL);
+        Card card1 = cardService.getOne(cardQueryWrapper);
+        if (card1 != null) {
+            return new ResultModel<Object>().error("您已经有正在使用的卡了！不可以再补办了！");
+        }
+        cardService.updateById(card);
+        return new ResultModel<>().success("OK");
+    }
 
 
 }
