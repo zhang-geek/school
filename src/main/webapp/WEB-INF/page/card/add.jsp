@@ -87,7 +87,7 @@
 									return;
 								}
 								layer.close(index);
-								parent.window.location.href="/card/toShow";
+								window.location.href="/card/toShow";
 							});
 						});
 			}
@@ -101,7 +101,7 @@
 				<input type="hidden" name="isDel" value="0"/>
 				<input type="hidden" name="cardStatus" value="0"/>
 		首次充值: <input type="text" name="cardMoney" id="cardMoney"><span style="color: red">首次充值会收取您两元卡费哦！</span><br/>
-		<input type="submit" value="新增"><br/>
+		<input type="submit" value="办理"><br/>
 	</form>
 </body>
 </html>

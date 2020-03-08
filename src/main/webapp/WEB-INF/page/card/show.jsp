@@ -23,7 +23,7 @@
 	$(function () {
 		show();
 	})
-	
+
 	
 	function show() {
 		var index = layer.load({
@@ -45,7 +45,7 @@
 						var card = data.data.cardList[i];
 						totalNum = data.data.totalNum;
 						html += "<tr>";
-						html += "<td><input type = 'checkbox' name = 'id' value = '"+card.id+","+card.userStatus+"'></td>";
+						html += "<td><input type = 'checkbox' name = 'id' value = '"+card.id+","+card.cardStatus+"'></td>";
 						html += "<td>"+card.cardNumber+"</td>";
 						html += "<td>"+card.userName+"</td>";
 						html += "<td>"+card.cardMoney+"</td>";
@@ -83,30 +83,50 @@
 	}
 
 	function addMoney() {
-			layer.open({
-				type: 2,
-				title: '充值',
-				shadeClose: true,
-				maxmin: true, //开启最大化最小化按钮
-				shade: 0.8,
-				area: ['380px', '90%'],
-				content: '<%=request.getContextPath()%>/card/toAddMoney'
-			});
-	}
+		var idArray = new Array();
+		$(":input[name = 'id']:checked").each(function() {
+			idArray.push($(this).val());
+		});
+		if(idArray.length > 1){
+			layer.alert("只可以修改一条信息", {icon: 3, shadeClose: true});
+			return;
+		}
+		if(idArray.length <1){
+			layer.alert("请选择要修改的信息", {icon: 3, shadeClose: true});
+			return;
+		}
+		var ids = idArray[0].split(",");
+		if(ids[1] == 1){
+			layer.msg('此卡已挂失', {icon: 2, time: 1000});
+			return;
+		}
+		layer.open({
+			type: 2,
+			title: '充值',
+			shadeClose: true,
+			maxmin: true, //开启最大化最小化按钮
+			shade: 0.8,
+			area: ['380px', '90%'],
+			content: '<%=request.getContextPath()%>/card/toAddMoney/'+ids[0]
+		});
+}
 
 	function updateStatus() {
-		var boxValue = $("input[name='id']:checked");
-		if (boxValue.length < 1) {
-			layer.msg('请选择一条信息', {icon: 6, time: 1000});
+		var idArray = new Array();
+		$(":input[name = 'id']:checked").each(function() {
+			idArray.push($(this).val());
+		});
+		if(idArray.length > 1){
+			layer.alert("只可以修改一条信息", {icon: 3, shadeClose: true});
 			return;
 		}
-		if (boxValue.length > 1) {
-			layer.msg('只能选择一条信息', {icon: 6, time: 1000});
+		if(idArray.length <1){
+			layer.alert("请选择要修改的信息", {icon: 3, shadeClose: true});
 			return;
 		}
-		var array = boxValue.val().split(",");
-		if(array[1] == 1){
-			layer.msg('此卡已挂失', {icon: 6, time: 1000});
+		var ids = idArray[0].split(",");
+		if(ids[1] == 1){
+			layer.msg('此卡已挂失', {icon: 2, time: 1000});
 			return;
 		}
 		layer.confirm('确定挂失嘛', {icon: 3, title: '询问框'}, function (index) {
@@ -115,22 +135,66 @@
 			var index1 = layer.load(1);
 			$.post("/card/updateStatus",
 					{_method: "put",
-						"id": array[0],
+						"id": ids[0],
 						"cardStatus": 1},
 					function (data) {
 						layer.close(index1);
-						layer.msg(data.msg, {
-							icon: 1,
-							time: 2000 //2秒关闭（如果不配置，默认是3秒）
+						if(data.code != "200"){
+							layer.alert(data.msg, {icon: 2, shadeClose: true});
+							return;
+						}
+						layer.msg(data.msg, {icon: 6,
+							shadeClose: true,
+							time: 1000
 						}, function(){
-							if (data.code != "200") {
-								return;
-							}
-							layer.close(index);
-							parent.window.location.href="/card/toShow";
+							window.location.href = "${ctx}/card/toShow";
 						});
 					});
 		})
+	}
+
+	function replaceCard() {
+		var idArray = new Array();
+		$(":input[name = 'id']:checked").each(function() {
+			idArray.push($(this).val());
+		});
+		if(idArray.length > 1){
+			layer.alert("只可以修改一条信息", {icon: 3, shadeClose: true});
+			return;
+		}
+		if(idArray.length <1){
+			layer.alert("请选择要修改的信息", {icon: 3, shadeClose: true});
+			return;
+		}
+		var ids = idArray[0].split(",");
+		if(ids[1] == 0){
+			layer.msg('您的这张卡并未挂失', {icon: 2, time: 1000});
+			return;
+		}
+		layer.confirm('确定补办嘛', {icon: 3, title: '询问框'}, function (index) {
+			//do something
+			layer.close(index);
+			var index1 = layer.load(1);
+			$.post("/card/replaceCard",
+					{_method: "put",
+						"id": ids[0],
+						"cardStatus": 0},
+					function (data) {
+						layer.close(index1);
+						if(data.code != "200"){
+							layer.alert(data.msg, {icon: 2, shadeClose: true});
+							return;
+						}
+						layer.msg(data.msg, {
+							icon: 6,
+							shadeClose: true,
+							time: 1000
+						}, function(){
+							window.location.href = "${ctx}/card/toShow";
+						});
+					});
+		})
+
 	}
 
 	function findByWhere() {
@@ -147,6 +211,9 @@
 		</shrio:hasPermission>
 		<shrio:hasPermission name="card:update">
 			<input type="button" value="挂失" onclick="updateStatus()" class='layui-btn layui-btn-normal layui-btn-radius'>;
+		</shrio:hasPermission>
+		<shrio:hasPermission name="card:replaceCard">
+			<input type="button" value="补办" onclick="replaceCard()" class='layui-btn layui-btn-normal layui-btn-radius'>;
 		</shrio:hasPermission>
 	</form>
 
