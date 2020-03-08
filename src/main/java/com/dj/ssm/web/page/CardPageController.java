@@ -11,6 +11,7 @@ import com.dj.ssm.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -33,11 +34,10 @@ public class CardPageController {
         return "card/add";
     }
 
-    @RequestMapping("toAddMoney")
-    public String toAddMoney(Model model, @SessionAttribute(SystemConstant.SESSION_USER) User user){
+    @RequestMapping("toAddMoney/{id}")
+    public String toAddMoney(Model model, @PathVariable Integer id){
         QueryWrapper<Card> cardQueryWrapper = new QueryWrapper<>();
-        cardQueryWrapper.eq("user_id", user.getId())
-                .eq("card_status", SystemConstant.CARD_STATUS_USE);
+        cardQueryWrapper.eq("id", id);
         Card card = cardService.getOne(cardQueryWrapper);
         model.addAttribute("card", card);
         return "card/add_money";
