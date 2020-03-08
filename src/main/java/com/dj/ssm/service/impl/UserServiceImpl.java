@@ -1,5 +1,7 @@
 package com.dj.ssm.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dj.ssm.mapper.UserMapper;
 import com.dj.ssm.pojo.User;
@@ -19,4 +21,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserMapper userMapper;
 
 
+    @Override
+    public IPage<User> findAll(Page<?> page, User user) throws Exception {
+        return userMapper.findAll(page, user);
+    }
 }

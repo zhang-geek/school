@@ -45,4 +45,6 @@ public class User {
      * 0:未认证，1：已认证
      */
     private Integer isVerify;
+    @TableField(exist = false)
+    private String roleName;
 }

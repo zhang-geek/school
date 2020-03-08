@@ -1,6 +1,9 @@
 package com.dj.ssm.web;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dj.ssm.common.ResultModel;
+import com.dj.ssm.common.SystemConstant;
 import com.dj.ssm.pojo.User;
 import com.dj.ssm.service.UserService;
 import org.apache.shiro.SecurityUtils;
@@ -10,8 +13,13 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -48,5 +56,22 @@ public class UserController {
         }
     }
 
+    @PostMapping("/list")
+    public ResultModel<Object> show(User user, Integer pageNo) {
+        try {
+            Map<String, Object> resultMap = new HashMap<>();
+            Page<User> page = new Page<User>()
+                    .setCurrent(pageNo)
+                    .setSize(SystemConstant.PAGE_SIZE);
+            IPage<User> iPage = userService.findAll(page, user);
+            List<User> userList = iPage.getRecords();
+            resultMap.put("list", userList);
+            resultMap.put("totalNum", iPage.getPages());
+            return new ResultModel<>().success(resultMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultModel<>().error("服务器异常，请稍后重试！" + e.getMessage());
+        }
+    }
 
 }
