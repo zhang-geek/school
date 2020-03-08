@@ -32,6 +32,9 @@
             <if test="user.userStatus != null and user.userStatus != -1">
                 and u.user_status = #{user.userStatus}
             </if>
+            <if test="roleId != 1">
+                u.id = #{user1.id}
+            </if>
             and u.is_del = 0
         </where>
         order by u.id DESC

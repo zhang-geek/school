@@ -80,4 +80,12 @@ public class SystemConstant {
      * 卡费
      */
     public static final BigDecimal CARD_MONEY_TWO = BigDecimal.valueOf(2.00);
+    /**
+     * status：1 默认
+     */
+    public static final Integer USER_STATUS = 1;
+    /**
+     * 认证：未认证  0
+     */
+    public static final Integer ISVERIFY = 0;
 }

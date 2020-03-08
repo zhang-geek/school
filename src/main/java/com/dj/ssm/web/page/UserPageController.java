@@ -1,6 +1,11 @@
 package com.dj.ssm.web.page;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.dj.ssm.common.SystemConstant;
+import com.dj.ssm.pojo.Book;
+import com.dj.ssm.pojo.Resource;
 import com.dj.ssm.pojo.Role;
+import com.dj.ssm.pojo.User;
 import com.dj.ssm.service.RoleService;
 import com.dj.ssm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +52,17 @@ public class UserPageController {
         List<Role> roleList = roleService.list();
         model.addAttribute("roleList", roleList);
         return "user/show";
+    }
+
+    @RequestMapping("toAdd")
+    public String toAdd() {
+        return "user/add";
+    }
+
+    @RequestMapping("toUpdate")
+    public String toUpdate(Model model, Integer id){
+        User user = userService.getById(id);
+        model.addAttribute("user", user);
+        return "user/update";
     }
 }

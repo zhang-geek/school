@@ -33,7 +33,7 @@
                 for (var i = 0; i < data.data.list.length; i++) {
                     var user = data.data.list[i];
                     html += "<tr>";
-                    html += "<td><input type='checkbox' name='ids' value='"+user.id+"'></td>"
+                    html += "<td><input type='checkbox' name='id' value='"+user.id+"'></td>";
                     html += "<td>" + user.id +"</td>";
                     html += "<td>" + user.username +"</td>";
                     html += "<td>" + user.userPhone +"</td>";
@@ -71,11 +71,34 @@
         $("#pageNo").val(1);
         show();
     }
+
+    //修改
+    function toUpdate() {
+        var boxValue = $("input[name='id']:checked");
+        if (boxValue.length < 1) {
+            layer.msg('请选择一条信息', {icon: 6, time: 1000});
+            return;
+        }
+        if (boxValue.length > 1) {
+            layer.msg('只能选择一条信息', {icon: 6, time: 1000});
+            return;
+        }
+        var array = boxValue.val().split(",");
+
+        layer.open({
+            type: 2,
+            title: '修改页面',
+            shadeClose: true,
+            shade: 0.5,
+            area: ['380px', '90%'],
+            content: "/user/toUpdate?id=" + array[0]
+        });
+
+    }
 </script>
 <body>
 <form id="fm">
     <input type="hidden" value="1" name="pageNo" id="pageNo">
-    <c:if test="${USER.userRole == 1 || USER.userRole == 5}">
         模糊查：<input type="text" name="username" placeholder="用户名，手机号，邮箱"><br>
         角&nbsp;&nbsp;&nbsp;&nbsp;色：
         <c:forEach var="r" items="${roleList}">
@@ -87,8 +110,9 @@
             <option value="1">正常</option>
             <option value="0">未激活</option>
         </select><br>
+
         <input type="button" value="查询" onclick="fuzzySearch()">
-    </c:if>
+    <input type="button" value="修改" onclick="toUpdate()">
 </form>
 <table border="1px" cellpadding="5" cellspacing="0">
     <tr>
