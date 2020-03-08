@@ -143,6 +143,7 @@ public class BookController {
                     .setBorrowTime(new Date())
                     .setNumber(book.getCount())
                     .setAuthor(book1.getAuthor())
+                    .setRepayTime(book.getRepayTime())
                     .setIsDel(SystemConstant.IS_NOT_DEL)
                     .setStatus(SystemConstant.BORROW_NOT_STATUS);
             borrowService.save(borrow);

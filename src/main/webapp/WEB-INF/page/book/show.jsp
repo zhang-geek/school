@@ -220,6 +220,9 @@
     	})
     }
 
+    /**
+     * 去还书 chengf
+     */
     function toBorrow() {
         var boxValue = $("input[name='id']:checked");
         if (boxValue.length < 1) {
@@ -257,8 +260,5 @@
             }
         )
     }
-
-
-
 </script>
 </html>
