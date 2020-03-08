@@ -23,7 +23,7 @@ public class Borrow {
     private Integer userId;
     private Integer number;
     /**
-     * 0 未审核 1 审核成功
+     * 0 未逾期 1 已逾期
      */
     private Integer status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
