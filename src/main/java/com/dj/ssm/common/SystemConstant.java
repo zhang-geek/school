@@ -85,4 +85,12 @@ public class SystemConstant {
      * 班级状态：请选择
      */
     public static final Integer CLASS_STATUS_INVALID = -1;
+    /**
+     * status：1 默认
+     */
+    public static final Integer USER_STATUS = 1;
+    /**
+     * 认证：未认证  0
+     */
+    public static final Integer ISVERIFY = 0;
 }
