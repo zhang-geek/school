@@ -18,15 +18,23 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+
 @RestController
 @RequestMapping("/book")
 public class BookController {
-
     @Autowired
     private BookService bookService;
     @Autowired
     private BorrowService borrowService;
 
+    /**
+     * 图书展示
+     * @param book
+     * @param nowPage
+     * @param startTime
+     * @param endTime
+     * @return
+     */
     @PostMapping("/list")
     public ResultModel<Object> show(Book book, Integer nowPage,
                                     String startTime, String endTime) {
@@ -48,6 +56,11 @@ public class BookController {
         }
     }
 
+    /**
+     * 图书去重
+     * @param book
+     * @return
+     */
     @PostMapping("/distinct")
     public Boolean distinct (Book book) {
         QueryWrapper<Book> query = new QueryWrapper<>();
@@ -60,6 +73,12 @@ public class BookController {
     }
 
 
+    /**
+     * 图书新增
+     * @param user
+     * @param book
+     * @return
+     */
     @PostMapping("/save")
     public ResultModel<Object> save(@SessionAttribute(SystemConstant.SESSION_USER) User user, Book book) {
         try {
@@ -74,6 +93,12 @@ public class BookController {
         }
     }
 
+    /**
+     * 图书伪删除
+     * @param ids
+     * @param isDel
+     * @return
+     */
     @DeleteMapping
     public ResultModel<Object> delete(Integer[] ids, Integer isDel) {
         try {
@@ -86,6 +111,11 @@ public class BookController {
         }
     }
 
+    /**
+     * 图书上下架
+     * @param book
+     * @return
+     */
     @PutMapping
     public ResultModel<Object> updateStatus(Book book) {
         try {
@@ -98,6 +128,12 @@ public class BookController {
         }
     }
 
+    /**
+     * 置顶与取消置顶
+     * @param book
+     * @param top
+     * @return
+     */
     @PutMapping("top")
     public ResultModel<Object> updateTop(Book book, Integer top) {
         try {
