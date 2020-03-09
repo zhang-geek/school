@@ -37,4 +37,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         UserRole userRole = new UserRole().setRoleId(user.getUserRole()).setUserId(user.getId());
         userRoleMapper.insert(userRole);
     }
+
+    @Override
+    public void updateIsDel(Integer[] ids, Integer isDel) {
+        userMapper.updateIsDel(ids, isDel);
+    }
+
 }

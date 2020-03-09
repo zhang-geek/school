@@ -32,6 +32,9 @@
             <if test="user.userStatus != null and user.userStatus != -1">
                 and u.user_status = #{user.userStatus}
             </if>
+            <if test="user.userClass != null">
+                and u.user_class = #{user.userClass} and ur.role_id = 3
+            </if>
             <if test="roleId != 1">
                 u.id = #{user1.id}
             </if>
@@ -39,4 +42,13 @@
         </where>
         order by u.id DESC
     </select>
+
+    <update id="updateIsDel">
+        update user_school set is_del = #{isDel}
+        where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+
+    </update>
 </mapper>

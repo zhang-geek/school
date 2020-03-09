@@ -11,4 +11,12 @@
         update user_role set role_id = #{roleId} where user_id = #{userId}
     </update>
 
+    <select id="findRoleById" resultType="com.dj.ssm.pojo.UserRole">
+        SELECT
+            *
+        FROM
+            user_role_school ur
+        LEFT JOIN user_school us ON us.id = ur.user_id
+        where ur.user_id = #{id}
+    </select>
 </mapper>

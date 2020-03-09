@@ -47,4 +47,9 @@ public class User {
     private Integer isVerify;
     @TableField(exist = false)
     private String roleName;
+
+    /**
+     * 班级
+     */
+    private Integer userClass;
 }
