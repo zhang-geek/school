@@ -6,6 +6,7 @@ import com.dj.ssm.mapper.UserRoleMapper;
 import com.dj.ssm.pojo.UserRole;
 import com.dj.ssm.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -28,5 +29,10 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> i
     public void updateAuth(UserRole userRole) throws Exception {
         userRoleMapper.delete(new QueryWrapper<UserRole>().eq("user_id", userRole.getUserId()));
         userRoleMapper.insert(userRole);
+    }
+
+    @Override
+    public UserRole findRoleById(Integer id) throws DataAccessException {
+        return userRoleMapper.findRoleById(id);
     }
 }
