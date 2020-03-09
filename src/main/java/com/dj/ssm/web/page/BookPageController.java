@@ -28,8 +28,6 @@ public class BookPageController {
     @Autowired
     private UserRoleService userRoleService;
 
-    @Autowired
-    private BorrowService borrowService;
 
     @RequestMapping("toShow")
     public String toShow(Integer id, Model model,

@@ -15,4 +15,6 @@ public interface UserService extends IService<User> {
     IPage<User> findAll(Page<?> page, User user, Integer roleId, User user1) throws Exception;
 
     void insertUser(User user) throws Exception;
+
+    void updateIsDel(Integer[] ids, Integer isDel) throws Exception;
 }

@@ -80,6 +80,11 @@ public class SystemConstant {
      * 卡费
      */
     public static final BigDecimal CARD_MONEY_TWO = BigDecimal.valueOf(2.00);
+
+    /**
+     * 班级状态：请选择
+     */
+    public static final Integer CLASS_STATUS_INVALID = -1;
     /**
      * status：1 默认
      */
@@ -88,4 +93,8 @@ public class SystemConstant {
      * 认证：未认证  0
      */
     public static final Integer ISVERIFY = 0;
+    /**
+     * 父级id支付方式：16：支付宝 17：微信 18：银行卡
+     */
+    public static final Integer PARENT_ID_15 = 15;
 }

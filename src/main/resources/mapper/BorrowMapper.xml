@@ -11,13 +11,24 @@
             b.author,
             b.number,
             b.borrow_time,
-            b.`status`,
             b.is_del,
             b.type,
             b.repay_time,
+            b.pay,
             u.username AS userName,
             k.book_name AS bookName,
-            r.resource_name AS typeName
+            r.resource_name AS typeName,
+        (CASE
+        WHEN now() &gt; b.repay_time then '已逾期'
+        ELSE '未逾期'
+        END
+        ) AS statusShow,
+        (CASE
+        WHEN now() &lt; b.repay_time then '无需缴费'
+        WHEN now() &gt; b.repay_time and b.pay is null  then '未缴费'
+        ELSE '已缴费'
+        END
+        ) AS payShow
         FROM
             borrow_car b
         LEFT JOIN resource_school r ON b.type = r.id

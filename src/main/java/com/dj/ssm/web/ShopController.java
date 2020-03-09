@@ -161,7 +161,6 @@ public class ShopController {
 
             return new ResultModel<>().success("冲向第一");
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return new ResultModel<>().error("系统异常" + e.getMessage());
         }
