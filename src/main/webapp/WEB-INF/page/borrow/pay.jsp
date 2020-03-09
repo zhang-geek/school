@@ -15,9 +15,9 @@
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/layer-v3.1.1/layer/layer.js"></script>
 </head>
 <script type="text/javascript">
-    function insertPay() {
+    function updatePay() {
         var index = layer.load(0,{shade:0.5});
-        $.post("/borrow/insertPay",
+        $.post("/borrow/updatePay",
                 $("#fm").serialize(),
                 function (data) {
                     layer.close(index);
@@ -35,22 +35,21 @@
 <body>
     <form id="fm">
         <input type="hidden" name="_method" value="POST"/>
-        <input type="hidden" name="id" value="${borrow.id}"/>
-        借&nbsp;&nbsp;书&nbsp;人：${user.username}<br />
-        书&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：${book.bookName}<br />
-        类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型:
-        <c:forEach items="${typeList}" var="type">
-            <c:if test="${borrow.type == type.id}">
-                ${type.resourceName}
-            </c:if>
-        </c:forEach><br/>
-        缴费方式：
-        <select name="pay">
-            <c:forEach items="${payList}" var="p">
-                <option value="${p.id}">${p.name}</option>
-            </c:forEach>
-        </select><br/>
-        <input type="button" value="缴费" onclick="insertPay()" />
+        <input type="hidden" name="id" value="${borrowList.id}"/>
+        借&nbsp;&nbsp;书&nbsp;人：${borrowList.userName}<br />
+        书&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：${borrowList.bookName}<br />
+        类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型:${borrowList.typeName}<br />
+        <c:if test="${borrowList.days > 0 && borrowList.pay == null}">
+            卡上余额：<font style="color: #00B83F">${borrowList.cardMoney}</font><br />
+            应缴费用：<font style="color: #FF0000">${borrowList.penalty}</font><br />
+        </c:if>
+        <c:if test="${borrowList.days <= 0}">
+            <h4 style="color: #FF0000">你还未逾期，无需缴费！！！</h4>
+        </c:if>
+        <c:if test="${borrowList.pay != null}">
+            <h4 style="color: #FF0000">您已缴过费，无需二次缴费！！！</h4>
+        </c:if>
+        <input type="button" value="缴费" onclick="updatePay()" />
     </form>
 </body>
 </html>

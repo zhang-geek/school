@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -44,9 +45,16 @@ public class Borrow {
     private Integer type;
     private Integer isDel;
     /**
-     * 支付方式：16：支付宝 17：微信 18：银行卡
+     * 缴费金额
      */
-    private Integer pay;
+    private BigDecimal pay;
     @TableField(exist = false)
     private String payShow;
+    @TableField(exist = false)
+    private BigDecimal cardMoney;
+    @TableField(exist = false)
+    private BigDecimal penalty;
+    @TableField(exist = false)
+    private String days;
+
 }

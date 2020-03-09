@@ -14,4 +14,5 @@ public interface BorrowService extends IService<Borrow> {
     IPage<Borrow> findAll(Page<Borrow> page, Borrow borrow,
                           Integer roleId, Book book, User user) throws Exception;
 
+    Borrow findByid(Integer id) throws Exception;
 }
