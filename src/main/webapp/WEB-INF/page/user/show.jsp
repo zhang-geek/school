@@ -29,6 +29,9 @@
                     layer.alert(data.msg);
                     return;
                 }
+                if (data.data.list.length <= 0) {
+                    layer.alert("暂无数据");
+                }
                 var html = "";
                 for (var i = 0; i < data.data.list.length; i++) {
                     var user = data.data.list[i];
@@ -75,6 +78,7 @@
 <body>
 <form id="fm">
     <input type="hidden" value="1" name="pageNo" id="pageNo">
+    <input type="hidden" value="${classNum}" name="userClass">
     <c:if test="${USER.userRole == 1 || USER.userRole == 5}">
         模糊查：<input type="text" name="username" placeholder="用户名，手机号，邮箱"><br>
         角&nbsp;&nbsp;&nbsp;&nbsp;色：

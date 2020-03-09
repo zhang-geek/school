@@ -1,5 +1,7 @@
 package com.dj.ssm.web.page;
 
+import com.dj.ssm.pojo.Role;
+import com.dj.ssm.service.RoleService;
 import com.dj.ssm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,9 +37,10 @@ public class UserPageController {
      * @return
      */
     @RequestMapping("toShow")
-    public String toShow(Model model) {
+    public String toShow(Model model, Integer classNum) {
         List<Role> roleList = roleService.list();
         model.addAttribute("roleList", roleList);
+        model.addAttribute("classNum", classNum);
         return "user/show";
     }
 }
