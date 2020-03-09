@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -19,7 +20,7 @@ public class Shop {
 
     private String shopName;
 
-    private Double shopPrice;
+    private BigDecimal shopPrice;
 
     private Integer shopStatus;
 

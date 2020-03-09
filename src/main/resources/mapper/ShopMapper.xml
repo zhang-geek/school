@@ -17,7 +17,7 @@ resultType：返回数据类型 #{}预编译中的?对应的参数值引用 -->
             s.flag
         FROM
             shop s
-        LEFT JOIN base_data__school bd ON bd.id = s.base_data_id
+        LEFT JOIN base_data_school bd ON bd.id = s.base_data_id
         <where>
             <if test="shop.shopName != null and shop.shopName != '' ">
                 s.shop_name like "%"#{shop.shopName}"%"

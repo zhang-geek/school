@@ -87,7 +87,7 @@
                     html+="<td>"+shop.baseName+"</td>"
                     html+="<td>"+shop.shopPrice+"</td>"
                     html+= shop.shopStatus == 0 ? "<td>上架</td>" : "<td>下架</td>"
-                    html +="<td><input type='button' value='下单' onclick='addOrder("+shop.id+")' class='layui-btn layui-btn-sm'/>&nbsp;";
+                    html +="<td><input type='button' value='下单' onclick='addOrder("+shop.id+","+shop.shopPrice+")' class='layui-btn layui-btn-sm'/>&nbsp;";
                     if('${user.userRole}' == 7){
                         html += "<input type='button' value='置顶' onclick='Istop("+shop.id+", 0)' class='layui-btn layui-btn-sm'/>"
                     }
@@ -268,8 +268,11 @@
             });
     }
 
-    function addOrder(id){
-        alert(id)
+    function addOrder(id, price){
+        if ("${card.cardMoney}" < price) {
+            alert("余额不足，请先充值");
+            return;
+        }
          var index = layer.load(0, {
              shade: [0.1,'#fff'] //0.1透明度的白色背景
          })
