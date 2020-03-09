@@ -58,6 +58,11 @@ public class ShiroConfiguration {
         //无需认证的url
         filters.put("/static/**", "anon");
         filters.put("/users/login", "anon");
+        filters.put("/user/toAdd", "anon");
+        filters.put("/users/add", "anon");
+        filters.put("/users/deDuplicate", "anon");
+        //退出的url
+        filters.put("/logout", "logout");
         //需要认证的url
         filters.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filters);

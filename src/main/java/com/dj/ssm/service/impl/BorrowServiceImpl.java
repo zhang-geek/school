@@ -31,6 +31,6 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     @Override
     public IPage<Borrow> findAll(Page<Borrow> page, Borrow borrow,
                                  Integer roleId, Book book, User user) throws Exception {
-        return borrowMapper.findAll( page, borrow, roleId, book, user);
+        return borrowMapper.findAll(page, borrow, roleId, book, user);
     }
 }
