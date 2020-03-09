@@ -69,7 +69,7 @@ public class CardController {
             UserRole role = userRoleService.getOne(userRoleQueryWrapper);
             IPage<Card> list = cardService.getCard(page, role.getRoleId(), user);
             resultMap.put("cardList", list.getRecords());
-            resultMap.put("totalPage", list.getPages());
+            resultMap.put("totalNum", list.getPages());
             resultMap.put("userRole", role.getRoleId());
             return new ResultModel<Object>().success(resultMap);
         } catch (Exception e) {
