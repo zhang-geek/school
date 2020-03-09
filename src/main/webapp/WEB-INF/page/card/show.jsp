@@ -45,7 +45,7 @@
 						var card = data.data.cardList[i];
 						totalNum = data.data.totalNum;
 						html += "<tr>";
-						html += "<td><input type = 'checkbox' name = 'id' value = '"+card.id+","+card.cardStatus+"'></td>";
+						html += "<td><input type = 'radio' name = 'id' value = '"+card.id+","+card.cardStatus+"'></td>";
 						html += "<td>"+card.cardNumber+"</td>";
 						html += "<td>"+card.userName+"</td>";
 						html += "<td>"+card.cardMoney+"</td>";
@@ -83,19 +83,8 @@
 	}
 
 	function addMoney() {
-		var idArray = new Array();
-		$(":input[name = 'id']:checked").each(function() {
-			idArray.push($(this).val());
-		});
-		if(idArray.length > 1){
-			layer.alert("只可以修改一条信息", {icon: 3, shadeClose: true});
-			return;
-		}
-		if(idArray.length <1){
-			layer.alert("请选择要修改的信息", {icon: 3, shadeClose: true});
-			return;
-		}
-		var ids = idArray[0].split(",");
+		var val = $('input:radio:checked').val();
+		var ids = val.split(",");
 		if(ids[1] == 1){
 			layer.msg('此卡已挂失', {icon: 2, time: 1000});
 			return;
@@ -112,19 +101,8 @@
 }
 
 	function updateStatus() {
-		var idArray = new Array();
-		$(":input[name = 'id']:checked").each(function() {
-			idArray.push($(this).val());
-		});
-		if(idArray.length > 1){
-			layer.alert("只可以修改一条信息", {icon: 3, shadeClose: true});
-			return;
-		}
-		if(idArray.length <1){
-			layer.alert("请选择要修改的信息", {icon: 3, shadeClose: true});
-			return;
-		}
-		var ids = idArray[0].split(",");
+        var val = $('input:radio:checked').val();
+        var ids = val.split(",");
 		if(ids[1] == 1){
 			layer.msg('此卡已挂失', {icon: 2, time: 1000});
 			return;
@@ -133,7 +111,7 @@
 			//do something
 			layer.close(index);
 			var index1 = layer.load(1);
-			$.post("/card/updateStatus",
+			$.post("/card/updateStatusOrIsDel",
 					{_method: "put",
 						"id": ids[0],
 						"cardStatus": 1},
@@ -154,19 +132,8 @@
 	}
 
 	function replaceCard() {
-		var idArray = new Array();
-		$(":input[name = 'id']:checked").each(function() {
-			idArray.push($(this).val());
-		});
-		if(idArray.length > 1){
-			layer.alert("只可以修改一条信息", {icon: 3, shadeClose: true});
-			return;
-		}
-		if(idArray.length <1){
-			layer.alert("请选择要修改的信息", {icon: 3, shadeClose: true});
-			return;
-		}
-		var ids = idArray[0].split(",");
+        var val = $('input:radio:checked').val();
+        var ids = val.split(",");
 		if(ids[1] == 0){
 			layer.msg('您的这张卡并未挂失', {icon: 2, time: 1000});
 			return;
@@ -177,8 +144,7 @@
 			var index1 = layer.load(1);
 			$.post("/card/replaceCard",
 					{_method: "put",
-						"id": ids[0],
-						"cardStatus": 0},
+						"id": ids[0]},
 					function (data) {
 						layer.close(index1);
 						if(data.code != "200"){
@@ -194,9 +160,38 @@
 						});
 					});
 		})
-
 	}
 
+	function del() {
+		var val = $('input:radio:checked').val();
+		var ids = val.split(",");
+		if(ids[1] == 0){
+			layer.msg('这张卡卡正在使用！不能注销！', {icon: 2, time: 1000});
+			return;
+		}
+		layer.confirm('确定注销嘛', {icon: 3, title: '询问框'}, function (index) {
+			//do something
+			layer.close(index);
+			var index1 = layer.load(1);
+			$.post("/card/updateStatusOrIsDel",
+					{_method: "put",
+						"id": ids[0],
+						"isDel": 1},
+					function (data) {
+						layer.close(index1);
+						if(data.code != "200"){
+							layer.alert(data.msg, {icon: 2, shadeClose: true});
+							return;
+						}
+						layer.msg(data.msg, {icon: 6,
+							shadeClose: true,
+							time: 1000
+						}, function(){
+							window.location.href = "${ctx}/card/toShow";
+						});
+					});
+		})
+	}
 	function findByWhere() {
 		$("#pageNo").val(1);
 		show();
@@ -214,6 +209,9 @@
 		</shrio:hasPermission>
 		<shrio:hasPermission name="card:replaceCard">
 			<input type="button" value="补办" onclick="replaceCard()" class='layui-btn layui-btn-normal layui-btn-radius'>;
+		</shrio:hasPermission>
+		<shrio:hasPermission name="card:updateIsDel">
+			<input type="button" value="注销" onclick="del()" class='layui-btn layui-btn-normal layui-btn-radius'>;
 		</shrio:hasPermission>
 	</form>
 
