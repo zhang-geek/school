@@ -54,6 +54,39 @@
         );
     }
 
+    function del() {
+        var index1 = layer.load(1);
+
+        var array = new Array();
+        $("input[name = 'id']:checked").each(function(){
+            array.push($(this).val().split(",")[0]);
+        })
+
+        if (array.length < 1) {
+            layer.msg('请至少选择一条信息', {icon: 6,time:1000});
+            layer.close(index1);
+            return;
+        }
+        var str = array.join(",");
+
+        layer.confirm('确定删除嘛', {icon: 3, title: '询问框'}, function (index) {
+            //do something
+            layer.close(index);
+            var index1 = layer.load(1);
+            $.post("/users/del",
+                {_method: "PUT", "ids": str, isDel: 1},
+                function (data) {
+                    layer.close(index1);
+                    layer.msg(data.msg, {icon: 6, time: 1000});
+                    if (data.code != "200") {
+                        return;
+                    }
+                    window.location.href = "/user/toShow";
+                });
+        })
+    }
+
+
     function page(totalNum, pageNo) {
         if (pageNo < 1) {
             layer.msg("已是第一页");
@@ -113,6 +146,9 @@
 
         <input type="button" value="查询" onclick="fuzzySearch()">
     <input type="button" value="修改" onclick="toUpdate()">
+    <c:if test="${userRole.roleId == 1}">
+        <input type="button" value="删除" onclick="del()">
+    </c:if>
 </form>
 <table border="1px" cellpadding="5" cellspacing="0">
     <tr>

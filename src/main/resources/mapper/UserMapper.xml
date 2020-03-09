@@ -39,4 +39,13 @@
         </where>
         order by u.id DESC
     </select>
+
+    <update id="updateIsDel">
+        update user_school set is_del = #{isDel}
+        where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+
+    </update>
 </mapper>

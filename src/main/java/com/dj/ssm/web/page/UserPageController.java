@@ -2,16 +2,15 @@ package com.dj.ssm.web.page;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dj.ssm.common.SystemConstant;
-import com.dj.ssm.pojo.Book;
-import com.dj.ssm.pojo.Resource;
-import com.dj.ssm.pojo.Role;
-import com.dj.ssm.pojo.User;
+import com.dj.ssm.pojo.*;
 import com.dj.ssm.service.RoleService;
+import com.dj.ssm.service.UserRoleService;
 import com.dj.ssm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -31,6 +30,9 @@ public class UserPageController {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private UserRoleService userRoleService;
+
     @RequestMapping("toLogin")
     public String toLogin() {
         return "user/login";
@@ -48,9 +50,11 @@ public class UserPageController {
      * @return
      */
     @RequestMapping("toShow")
-    public String toShow(Model model) {
-        List<Role> roleList = roleService.list();
-        model.addAttribute("roleList", roleList);
+    public String toShow(Model model, @SessionAttribute(SystemConstant.SESSION_USER) User user) {
+        QueryWrapper<UserRole> query = new QueryWrapper<>();
+        query.eq("user_id", user.getId());
+        UserRole userRole = userRoleService.getOne(query);
+        model.addAttribute("userRole",userRole);
         return "user/show";
     }
 
