@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: cf
-  Date: 2020/3/7
-  Time: 23:01
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
@@ -136,8 +129,9 @@
 <form id="fm">
     <input type="hidden" value="1" name="pageNo" id="pageNo">
     <input type="hidden" value="${classNum}" name="userClass">
-    <c:if test="${USER.userRole == 1 || USER.userRole == 5}">
+    <c:if test="${userRole.roleId == 1 || userRole.roleId == 5}">
         模糊查：<input type="text" name="username" placeholder="用户名，手机号，邮箱"><br>
+    </c:if>
         角&nbsp;&nbsp;&nbsp;&nbsp;色：
         <c:forEach var="r" items="${roleList}">
             <input type="radio" name="userRole" value="${r.id}">${r.roleName}
