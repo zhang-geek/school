@@ -25,7 +25,9 @@
         <input type='button' value='删除' onclick='del()'>
         <input type='button' value='上下架' onclick='updateStatus()'>
     </c:if>
-    <input type='button' value='借书' onclick='toBorrow()'>
+    <c:if test="${userRole.roleId != 1}">
+        <input type='button' value='借书' onclick='toBorrow()'>
+    </c:if>
     <input type="hidden" value="0" name="isDel"><br/>
     <input type="hidden" value="${type}" name="type"><br/>
     <input type="hidden" value="1" name="nowPage" id="nowPage">

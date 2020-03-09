@@ -5,6 +5,7 @@ import com.dj.ssm.mapper.BaseDataMapper;
 import com.dj.ssm.pojo.BaseData;
 import com.dj.ssm.service.BaseDataService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author zhangzk
@@ -12,5 +13,6 @@ import org.springframework.stereotype.Service;
  * @date 2020/2/29 20:48
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class BaseDataServiceImpl extends ServiceImpl<BaseDataMapper, BaseData> implements BaseDataService {
 }

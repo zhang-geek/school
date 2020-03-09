@@ -75,4 +75,8 @@ public class SystemConstant {
      * 卡费
      */
     public static final BigDecimal CARD_MONEY_TWO = BigDecimal.valueOf(2.00);
+    /**
+     * 父级id支付方式：16：支付宝 17：微信 18：银行卡
+     */
+    public static final Integer PARENT_ID_15 = 15;
 }

@@ -22,10 +22,6 @@ public class Borrow {
     private String author;
     private Integer userId;
     private Integer number;
-    /**
-     * 0 未逾期 1 已逾期
-     */
-    private Integer status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date borrowTime;
     /**
@@ -43,9 +39,14 @@ public class Borrow {
 
     @TableField(exist = false)
     private String typeName;
+    @TableField(exist = false)
+    private String statusShow;
     private Integer type;
     private Integer isDel;
-
-
-
+    /**
+     * 支付方式：16：支付宝 17：微信 18：银行卡
+     */
+    private Integer pay;
+    @TableField(exist = false)
+    private String payShow;
 }
