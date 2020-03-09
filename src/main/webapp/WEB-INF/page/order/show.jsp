@@ -46,6 +46,7 @@
                 var html = "";
                 for (var i = 0; i < data.data.list.length; i++) {
                     var d = data.data.list[i];
+                    html += "<tr>"
                     html += "<td><input type='checkbox' value=" + d.id+" name='id' '></td>"
                     html += "<td>" + d.shopName + "</td>"
                     html += "<td>" + d.userName + "</td>"

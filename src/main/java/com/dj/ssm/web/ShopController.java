@@ -1,12 +1,15 @@
 package com.dj.ssm.web;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dj.ssm.common.ResultModel;
 import com.dj.ssm.common.SystemConstant;
+import com.dj.ssm.pojo.Card;
 import com.dj.ssm.pojo.Order;
 import com.dj.ssm.pojo.Shop;
 import com.dj.ssm.pojo.User;
+import com.dj.ssm.service.CardService;
 import com.dj.ssm.service.OrderService;
 import com.dj.ssm.service.ShopService;
 
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,6 +32,8 @@ public class ShopController {
     @Autowired
     private ShopService shopService;
 
+    @Autowired
+    private CardService cardService;
 
     /**
      * 商品展示
@@ -167,10 +173,24 @@ public class ShopController {
      * @return
      */
     @PostMapping("/addOrder")
-    public ResultModel<Object> addOrder(Integer id, @SessionAttribute(SystemConstant.SESSION_USER) User user){
+    public ResultModel<Object> addOrder(Integer id,
+                                        @SessionAttribute(SystemConstant.SESSION_USER) User user){
         try {
 
             Shop shop = shopService.findShopById(id);
+
+            //从校园卡里扣费
+            QueryWrapper<Card> query = new QueryWrapper<>();
+            query.eq("user_id", user.getId());
+            List<Card> cardList = cardService.list(query);
+
+            for (Card card : cardList) {
+                if (card.getCardStatus().equals(SystemConstant.CARD_STATUS_USE)) {
+                    card.setCardMoney(card.getCardMoney().subtract(shop.getShopPrice()));
+                    cardService.updateById(card);
+                }
+            }
+            //生成订单，存入订单表
             String date = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
             Order order =  new Order();
             order.setShopId(shop.getId())
@@ -178,7 +198,8 @@ public class ShopController {
                     .setShopPrice(shop.getShopPrice())
                     .setOrderNum("WM"+date+user.getId());
             shopService.addOrder(order);
-            return new ResultModel<>().success("成功添加到购物车");
+
+            return new ResultModel<>().success("购买成功,请查看余额");
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultModel<>().error("系统异常" + e.getMessage());

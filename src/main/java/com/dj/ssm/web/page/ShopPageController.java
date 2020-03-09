@@ -2,11 +2,13 @@ package com.dj.ssm.web.page;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dj.ssm.common.SystemConstant;
+import com.dj.ssm.pojo.*;
 import com.dj.ssm.pojo.BaseData;
 import com.dj.ssm.pojo.Shop;
 import com.dj.ssm.pojo.User;
 import com.dj.ssm.pojo.UserRole;
 import com.dj.ssm.service.BaseDataService;
+import com.dj.ssm.service.CardService;
 import com.dj.ssm.service.ShopService;
 import com.dj.ssm.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +30,22 @@ public class ShopPageController {
     private ShopService shopService;
 
     @Autowired
+    private CardService cardService;
+
+    @Autowired
     private UserRoleService userRoleService;
 
     @RequestMapping("/toShowShop")
     public String toShowShop(Integer id, Model model, @SessionAttribute(SystemConstant.SESSION_USER) User user) throws Exception {
+        //根据用户id查询正常使用的校园卡的信息
+        QueryWrapper<Card> query = new QueryWrapper<>();
+        query.eq("user_id", user.getId());
+        List<Card> cardList = cardService.list(query);
+        for (Card card : cardList) {
+            if (card.getCardStatus().equals(SystemConstant.CARD_STATUS_USE)) {
+                model.addAttribute("card", card);
+            }
+        }
 
         UserRole userRole = userRoleService.findRoleById(user.getId());
 
