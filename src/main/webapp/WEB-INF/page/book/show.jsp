@@ -25,7 +25,7 @@
         <input type='button' value='删除' onclick='del()'>
         <input type='button' value='上下架' onclick='updateStatus()'>
     </c:if>
-    <c:if test="${userRole.roleId != 1}">
+    <c:if test="${userRole.roleId != 1 && userRole.roleId != 6}">
         <input type='button' value='借书' onclick='toBorrow()'>
     </c:if>
     <input type="hidden" value="0" name="isDel"><br/>

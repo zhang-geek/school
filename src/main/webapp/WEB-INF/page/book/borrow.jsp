@@ -11,13 +11,20 @@
 <head>
     <title>Title</title>
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/static/My97DatePicker/WdatePicker.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/layer-v3.1.1/layer/layer.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/static/jquery.validate.js"></script>
+    <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
 </head>
+<style type="text/css">
+    .error{
+        color: #FF0000;
+    }
+</style>
 <script type="text/javascript">
-    function borrow() {
-        var index = layer.load(0,{shade:0.5});
-        $.post("/book/borrow",
+    $.validator.setDefaults({
+        submitHandler:function () {
+            var index = layer.load(0,{shade:0.5});
+            $.post("/book/borrow",
                 $("#fm").serialize(),
                 function (data) {
                     layer.close(index);
@@ -28,9 +35,28 @@
                     layer.msg(data.msg,{time:1000},function(){
                         parent.window.location.href = "<%=request.getContextPath()%>/book/toShow";
                     });
-                 }
-        )
-    }
+                }
+            )
+        }
+    })
+    $(function () {
+        $("#fm").validate({
+            rules:{
+                count:{
+                    required:true,
+                    digits:true,
+                    min:1
+                }
+            },
+            messages:{
+                count:{
+                    required:"您要借的本数",
+                    digits:"必须是整数哦",
+                    min:"您不借书了吗？"
+                }
+            }
+        })
+    })
 </script>
 <body>
     <form id="fm">
@@ -45,9 +71,10 @@
             </c:if>
         </c:forEach><br/>
         库&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存：${book.count}<br />
-        借书数量：<input type="text" name="count" /><br />
-        还书时间：<input type="text" name="repayTime" onclick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d'})" /><br />
-        <input type="button" value="借书" onclick="borrow()" />
+        <p>借书数量：<input type="text" name="count" id="count" /></p>
+        <font style="color: #FF0000" size="4">还书时间为借书后的15天内！！！</font><br />
+        <font style="color: #FF0000" size="4">逾期后需缴费0.8￥/天</font><br />
+        <input type="submit" value="借书" />
     </form>
 </body>
 </html>
