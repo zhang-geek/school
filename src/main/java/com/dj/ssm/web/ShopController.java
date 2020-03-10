@@ -7,10 +7,12 @@ import com.dj.ssm.common.ResultModel;
 import com.dj.ssm.common.SystemConstant;
 import com.dj.ssm.pojo.Card;
 import com.dj.ssm.pojo.Order;
+import com.dj.ssm.pojo.RecordDto;
 import com.dj.ssm.pojo.Shop;
 import com.dj.ssm.pojo.User;
 import com.dj.ssm.service.CardService;
 import com.dj.ssm.service.OrderService;
+import com.dj.ssm.service.RecordService;
 import com.dj.ssm.service.ShopService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,8 @@ public class ShopController {
 
     @Autowired
     private CardService cardService;
+    @Autowired
+    private RecordService recordService;
 
     /**
      * 商品展示
@@ -69,7 +73,7 @@ public class ShopController {
     @PostMapping("/addShop")
     public ResultModel<Object> sddShop(Shop shop) {
         try {
-
+            shop.setCreateTime(new Date());
             shopService.save(shop);
             return new ResultModel<>().success("添加成功");
         } catch (Exception e) {
@@ -161,6 +165,7 @@ public class ShopController {
 
             return new ResultModel<>().success("冲向第一");
         } catch (Exception e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
             return new ResultModel<>().error("系统异常" + e.getMessage());
         }
@@ -173,8 +178,7 @@ public class ShopController {
      * @return
      */
     @PostMapping("/addOrder")
-    public ResultModel<Object> addOrder(Integer id,
-                                        @SessionAttribute(SystemConstant.SESSION_USER) User user){
+    public ResultModel<Object> addOrder(Integer id, @SessionAttribute(SystemConstant.SESSION_USER) User user){
         try {
 
             Shop shop = shopService.findShopById(id);
@@ -198,8 +202,11 @@ public class ShopController {
                     .setShopPrice(shop.getShopPrice())
                     .setOrderNum("WM"+date+user.getId());
             shopService.addOrder(order);
-
-            return new ResultModel<>().success("购买成功,请查看余额");
+            RecordDto recordDto = new RecordDto();
+            recordDto.setUserId(user.getId());
+            recordDto.setRecordMoney(String.valueOf(shop.getShopPrice()));
+            recordService.saveRecordData(recordDto);
+            return new ResultModel<>().success("购买成功，请查看余额");
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultModel<>().error("系统异常" + e.getMessage());

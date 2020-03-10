@@ -31,18 +31,15 @@
         from book b
         left join resource_school r on b.type = r.id
         where b.is_del = 0
-        <if test="book.type != null">
-            and b.type = #{book.type}
-        </if>
         <if test="book.bookName != null and book.bookName != ''">
             and b.book_name = #{book.bookName}
         </if>
         <if test="book.shelfTime != null">
             and b.shelf_time = #{book.shelfTime}
         </if>
-        <if test="startTime != '' and endTime != '' ">
-            and (b.shelf_time between #{startTime} and #{endTime})
-        </if>
+        <!--<if test="book.shelfTime != null">
+            and b.shelf_time like "%"#{book.shelfTime}"%"
+        </if>-->
         order by b.top_time desc, b.shelf_time desc
     </select>
 

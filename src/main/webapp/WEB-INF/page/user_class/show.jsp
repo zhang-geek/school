@@ -147,13 +147,13 @@
         </select><br>
         <input type="button" value="查询" onclick="fuzzySearch()">
 </form>
-<shiro:hasPermission name="user:update">
+<shiro:hasPermission name="cla:add">
     <input type="button" value="新增" onclick="toAdd()">
 </shiro:hasPermission>
-<shiro:hasPermission name="user:activate">
+<shiro:hasPermission name="cla:update">
     <input type="button" value="修改" onclick="toUpdate()">
 </shiro:hasPermission>
-<shiro:hasPermission name="user:delete">
+<shiro:hasPermission name="cla:delete">
     <input type="button" value="删除" onclick="del()">
 </shiro:hasPermission>
 <table border="1px" cellpadding="5" cellspacing="0" >

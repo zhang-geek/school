@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2020/2/1 23:27
  */
 @Controller
-@RequestMapping("resource")
+@RequestMapping("/resource/")
 public class ResourcePageController {
 
     @Autowired

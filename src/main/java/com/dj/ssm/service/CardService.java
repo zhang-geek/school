@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.dj.ssm.pojo.Card;
 import com.dj.ssm.pojo.User;
 
+import java.util.List;
+
 public interface CardService extends IService<Card> {
 
     IPage<Card> getCard(Page page, Integer roleId, User user) throws Exception;

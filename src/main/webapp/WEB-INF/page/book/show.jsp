@@ -4,10 +4,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Insert title here</title>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/static/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/static/layer-v3.1.1/layer/layer.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/static/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/static/layer-v3.1.1/layer/layer.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/static/My97DatePicker/WdatePicker.js"></script>
+
 
 </head>
 <body>
@@ -17,8 +19,8 @@
     根据书名查询:
     <input type="text" name="bookName"/><br/>
     根据上架时间查询:
-    <input type="text" name="startTime"/>~<input type="text" name="endTime"/><br/>
-    <input type="button" value="搜索" onclick="show()"/><br/>
+    <input type="text" name="shelfTime" onclick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd'})" id="shelfTime"><br/>
+    <input type="button" value="查询" onclick="show()"><br/>
     <c:if test="${userRole.roleId == 6}">
         <input type='button' value='新增' onclick='add()'>
         <input type='button' value='修改' onclick='toUpdate()'>
@@ -29,7 +31,7 @@
         <input type='button' value='借书' onclick='toBorrow()'>
     </c:if>
     <input type="hidden" value="0" name="isDel"><br/>
-    <input type="hidden" value="${type}" name="type"><br/>
+    <input type="hidden" value="${type}" name="type" id = "type"><br/>
     <input type="hidden" value="1" name="nowPage" id="nowPage">
 </form>
 <table border="1px" cellpadding="10" cellspacing="0">
@@ -65,11 +67,14 @@
                     layer.alert(data.msg);
                     return;
                 }
+                if (data.data.list.length <= 0) {
+                    layer.alert("没有信息");
+                }
                 var html = "";
                 for (var i = 0; i < data.data.list.length; i++) {
                     var d = data.data.list[i];
                     if (d.topTime != null) {
-                        html += "<tr type='color:red'>"
+                        html += "<tr style='color:red'>"
                     } else {
                         html += "<tr>"
                     }
@@ -122,8 +127,8 @@
             shadeClose: true,
             shade: 0.5,
             area: ['380px', '90%'],
-            content: "/book/toAdd"
-        });
+            content: "/book/toAdd?type="+${type}
+        })
 
     }
 
@@ -145,7 +150,7 @@
             shadeClose: true,
             shade: 0.5,
             area: ['380px', '90%'],
-            content: "/book/toUpdate?id=" + array[0]
+            content: "/book/toUpdate?id="+array[0]+"&type="+${type}
         });
 
     }
@@ -169,7 +174,7 @@
             //do something
             layer.close(index);
             var index1 = layer.load(1);
-            $.post("/book",
+            $.post("/book/delete",
                 {_method: "DELETE", "ids": str, isDel: 1},
                 function (data) {
                     layer.close(index1);
@@ -177,9 +182,12 @@
                     if (data.code != "200") {
                         return;
                     }
-                    window.location.href = "/book/toShow";
+                    show();
                 });
-        })
+        }, function () {
+            layer.close(index1);
+            }
+        )
     }
 
     function updateStatus() {
@@ -206,7 +214,7 @@
         layer.confirm("确定要将图书"+status+"嘛", {icon: 3, title: "询问框"}, function (index) {
 			layer.close(index);
 			var index1 = layer.load(1);
-			$.post("/book",
+			$.post("/book/update",
 				{_method: "PUT", "id": array[0], status: array[1]},
 				function (data) {
                     layer.close(index1);
@@ -214,14 +222,17 @@
                     if (data.code != "200") {
                         return;
                     }
-                    window.location.href = "/book/toShow";
+                    show();
                 }
             )
-    	})
+    	}, function () {
+            layer.close(index1);
+            }
+        )
     }
 
     /**
-     * 去还书 chengf
+     * 去借书 chengf
      */
     function toBorrow() {
         var boxValue = $("input[name='id']:checked");
@@ -241,7 +252,7 @@
             shadeClose: true,
             shade: 0.5,
             area: ['380px', '90%'],
-            content: "/book/toBorrow?id=" + array[0]
+            content: "/book/toBorrow?id="+array[0]+"&type="+${type}
         });
 
     }
@@ -256,7 +267,7 @@
                 if (data.code != "200") {
                     return;
                 }
-                window.location.href = "/book/toShow";
+                show();
             }
         )
     }

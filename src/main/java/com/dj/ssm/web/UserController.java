@@ -6,10 +6,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dj.ssm.common.ResultModel;
 import com.dj.ssm.common.SystemConstant;
 import com.dj.ssm.pojo.Book;
+import com.dj.ssm.pojo.Role;
 import com.dj.ssm.pojo.User;
 import com.dj.ssm.pojo.UserRole;
 import com.dj.ssm.service.UserRoleService;
 import com.dj.ssm.service.UserService;
+import com.dj.ssm.util.PasswordSecurityUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -19,10 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -31,7 +30,7 @@ import java.util.Map;
  * @date 2020/1/29 20:49
  */
 @RestController
-@RequestMapping("users")
+@RequestMapping("/users/")
 public class UserController {
 
     @Autowired
@@ -62,7 +61,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/list")
+    @PostMapping("list")
     public ResultModel<Object> show(User user, Integer pageNo, @SessionAttribute(SystemConstant.SESSION_USER) User user1) {
         try {
             Map<String, Object> resultMap = new HashMap<>();
@@ -80,6 +79,7 @@ public class UserController {
             return new ResultModel<>().error("服务器异常，请稍后重试！" + e.getMessage());
         }
     }
+
 
 
     /**
@@ -120,11 +120,22 @@ public class UserController {
         return list.size() <= 0;
     }
 
-    @PutMapping
+    @PutMapping("updateUser")
     public ResultModel<Object> updateUser(User user){
         try {
             user.setUpdateTime(new Date());
             userService.updateById(user);
+            return new ResultModel<>().success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultModel<>().error("服务器异常，请稍后重试！" + e.getMessage());
+        }
+    }
+
+    @PutMapping("auth")
+    public ResultModel<Object> auth(UserRole userRole){
+        try {
+            userRoleService.updateAuth(userRole);
             return new ResultModel<>().success();
         } catch (Exception e) {
             e.printStackTrace();
@@ -144,4 +155,90 @@ public class UserController {
         }
     }
 
+
+    /**
+     * 重置忘记密码
+     * @return
+     */
+    @PostMapping("updateUserPwd")
+    public ResultModel<Object> updateUserPwd(String code, User user, String newPwd){
+        if(StringUtils.isEmpty(code)){
+            return new ResultModel<>().error("请填入验证码！！！");
+        }
+        if(StringUtils.isEmpty(user.getPassword())){
+            return new ResultModel<>().error("请填入密码！！！");
+        }
+        if(StringUtils.isEmpty(newPwd)){
+            return new ResultModel<>().error("请填入确认密码！！！");
+        }
+        if(newPwd.equals(user.getPassword())){
+            return new ResultModel<>().error("两次密码不相同！！！");
+        }
+        if(StringUtils.isEmpty(user.getUserPhone())){
+            return new ResultModel<>().error("请输入手机号");
+        }
+        try {
+            QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("user_phone", user.getUserPhone());
+            User byId = userService.getOne(queryWrapper);
+            if(null == byId){
+                return new ResultModel<>().error("暂无该用户！！！");
+            }
+            if(1 == byId.getIsDel()){
+                return new ResultModel<>().error("暂无该用户！！！");
+            }
+            if(1 == byId.getUserStatus()){
+                return new ResultModel<>().error("该用户已被冻结！！！");
+            }
+            // 300000 = 5分钟 验证码过期时间只有5分钟
+            if(user.getCodeCreateTime().getTime() > (new Date().getTime() + 300000)){
+                return new ResultModel<>().error("验证码以过期请重新获取验证码！！！");
+            }
+            if(!code.equals(byId.getCode())){
+                return new ResultModel<>().error("验证码输入错误！！！");
+            }
+            byId.setPassword(user.getPassword());
+            boolean b = userService.updateById(byId);
+            if(b){
+                return new ResultModel<>().success("修改成功");
+            }
+            return new ResultModel<>().error("修改失败");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResultModel<>().error("请填入密码！！！");
+    }
+
+    /**
+     * 给用户发送验证码
+     * @return
+     */
+    @PostMapping("hairPhoneCode")
+    private ResultModel<Object> hair(String userPhone){
+        if(StringUtils.isEmpty(userPhone)){
+            return new ResultModel<>().error("请输入手机号!!!");
+        }
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_phone", userPhone);
+        User one = userService.getOne(queryWrapper);
+        if(null == one){
+            return new ResultModel<>().error("没有该用户!!!");
+        }
+        if(1 == one.getIsDel()){
+            return new ResultModel<>().error("暂无该用户！！！");
+        }
+        if(1 == one.getUserStatus()){
+            return new ResultModel<>().error("该用户已被冻结！！！");
+        }
+        // 验证码
+        UUID uuid = UUID.randomUUID();
+        String substring = uuid.toString().replace("-","").substring(18, 23);
+        one.setCode(substring);
+        one.setCreateTime(new Date());
+        boolean b = userService.updateById(one);
+        if(b){
+            return new ResultModel<>().success("修改成功！！！");
+        }
+        return new ResultModel<>().error("修改失败，与数据库断开连接！！！");
+    }
 }

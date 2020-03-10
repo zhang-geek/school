@@ -12,7 +12,7 @@ import com.dj.ssm.pojo.User;
  */
 public interface UserService extends IService<User> {
 
-    IPage<User> findAll(Page<?> page, User user, Integer roleId, User user1) throws Exception;
+    IPage<User> findAll(Page<User> page, User user, Integer roleId, User user1) throws Exception;
 
     void insertUser(User user) throws Exception;
 

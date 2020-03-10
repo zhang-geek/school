@@ -12,13 +12,11 @@
 <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/static/md5-min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/static/My97DatePicker/WdatePicker.js"></script>
-
-
 	<style>
-	.error{
-		color:red;
-	}
-</style>
+		.error{
+			color:red;
+		}
+	</style>
 	<script type="text/javascript">
 
 		jQuery.validator.addMethod("minNumber",function(value, element){

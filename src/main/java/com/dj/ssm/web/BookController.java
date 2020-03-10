@@ -22,7 +22,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/book/")
 public class BookController {
     @Autowired
     private BookService bookService;
@@ -33,20 +33,17 @@ public class BookController {
      * 图书展示
      * @param book
      * @param nowPage
-     * @param startTime
-     * @param endTime
      * @return
      */
     @PostMapping("/list")
-    public ResultModel<Object> show(Book book, Integer nowPage,
-                                    String startTime, String endTime) {
+    public ResultModel<Object> show(Book book, Integer nowPage) {
         try {
             Map<String, Object> resultMap = new HashMap<String, Object>();
 
             Page page = new Page();
             page.setCurrent(nowPage);
             page.setSize(SystemConstant.PAGE_SIZE);
-            IPage<Book> list = bookService.getBook(page, book, startTime, endTime);
+            IPage<Book> list = bookService.getBook(page, book);
             resultMap.put("list", list.getRecords());
             resultMap.put("totalPage", list.getPages());
 
@@ -63,7 +60,7 @@ public class BookController {
      * @param book
      * @return
      */
-    @PostMapping("/distinct")
+    @PostMapping("distinct")
     public Boolean distinct (Book book) {
         QueryWrapper<Book> query = new QueryWrapper<>();
         if (null != book.getId()) {
@@ -81,7 +78,7 @@ public class BookController {
      * @param book
      * @return
      */
-    @PostMapping("/save")
+    @PostMapping("save")
     public ResultModel<Object> save(@SessionAttribute(SystemConstant.SESSION_USER) User user, Book book) {
         try {
             book.setStatus(SystemConstant.BOOK_STATUS_0).setIsDel(SystemConstant.IS_NOT_DEL)
@@ -101,7 +98,7 @@ public class BookController {
      * @param isDel
      * @return
      */
-    @DeleteMapping
+    @DeleteMapping("delete")
     public ResultModel<Object> delete(Integer[] ids, Integer isDel) {
         try {
             bookService.updateIsDel(ids, isDel);
@@ -114,11 +111,11 @@ public class BookController {
     }
 
     /**
-     * 图书上下架
+     * 图书上下架以及修改
      * @param book
      * @return
      */
-    @PutMapping
+    @PutMapping("update")
     public ResultModel<Object> updateStatus(Book book) {
         try {
             bookService.updateById(book);
@@ -160,7 +157,7 @@ public class BookController {
      * @param user
      * @return
      */
-    @PostMapping("/borrow")
+    @PostMapping("borrow")
     public ResultModel<Object> borrow(Book book, Borrow borrow,
                                            @SessionAttribute(SystemConstant.SESSION_USER) User user){
         try {

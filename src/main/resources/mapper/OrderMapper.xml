@@ -21,7 +21,10 @@
         from order_school o
         left join shop s on o.shop_id = s.id
         left join user_school u on o.user_id = u.id
-        where o.user_id = #{user.id}
+        where 1=1
+            <if test="user != null and userRole.roleId != 7">
+                and o.user_id = #{user.id}
+            </if>
 
     </select>
 </mapper>

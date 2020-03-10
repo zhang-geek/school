@@ -27,8 +27,9 @@
 				<input type="hidden" name="id" value="${book.id}"/>
 		书名: <input type="text" name="bookName" id="bookName" value="${book.bookName}"><br/>
 		类型:
-		<c:forEach items="${resourseList}" var="type">
-			<input type="radio" name="type" value="${type.id}" id="type" <c:if test="${book.type == type.id}">checked</c:if> >${type.resourceName}
+		<c:forEach items="${resourseList}" var="resourse">
+			<input type="radio" name="type" value="${resourse.id}"
+				   <c:if test="${resourse.id == type}">checked</c:if>>${resourse.resourceName}
 		</c:forEach><br/>
 		作者: <input type="text" name="author" id="author" value="${book.author}"><br/>
 		库存: <input type="number" name="count" id="count" value="${book.count}"><br/>
@@ -59,7 +60,6 @@
 				/* userName:"required"  */
 				bookName:{
 					required:true,
-					rangelength:[2,6],
 					remote:{
 						type:"post",
 						url:"/book/distinct",
@@ -93,7 +93,6 @@
 			messages:{
 				bookName:{
 					required:"不能为空",
-					rangelength:"长度必须在{0}和{1}之间",
 					remote:"该图书已存在"
 				},
 
@@ -117,7 +116,7 @@
 	$.validator.setDefaults({
 	    submitHandler: function() {
 	    	var index = layer.load(1);
-			$.post("/book",
+			$.post("/book/update",
 					$("#fm").serialize(),
 					function(data){
 						layer.close(index);
@@ -128,7 +127,7 @@
 							if (data.code != "200") {
 								return;
 							}
-							parent.window.location.href="/book/toShow";
+							parent.window.location.href="/book/toShow?id="+${type};
 						});
 			});
 	    }

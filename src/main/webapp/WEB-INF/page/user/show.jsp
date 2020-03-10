@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
     <title>Title</title>
@@ -79,7 +80,10 @@
                     }
                     window.location.href = "/user/toShow";
                 });
-        })
+        },function () {
+            layer.close(index1);
+            }
+        )
     }
 
 
@@ -122,32 +126,49 @@
             area: ['380px', '90%'],
             content: "/user/toUpdate?id=" + array[0]
         });
+    }
 
+    function toAuth() {
+        var boxValue = $("input[name='id']:checked");
+        if (boxValue.length != 1) {
+            layer.msg('请选择一条信息', {icon: 6, time: 1000});
+            return;
+        }
+        layer.open({
+            type: 2,
+            title: '修改',
+            shadeClose: true,
+            maxmin: true, //开启最大化最小化按钮
+            shade: 0.8,
+            area: ['380px', '90%'],
+            content: '<%=request.getContextPath()%>/user/toAuth?id='+boxValue.val()
+        });
     }
 </script>
 <body>
 <form id="fm">
     <input type="hidden" value="1" name="pageNo" id="pageNo">
     <input type="hidden" value="${classNum}" name="userClass">
-    <c:if test="${userRole.roleId == 1 || userRole.roleId == 5}">
         模糊查：<input type="text" name="username" placeholder="用户名，手机号，邮箱"><br>
-    </c:if>
         角&nbsp;&nbsp;&nbsp;&nbsp;色：
         <c:forEach var="r" items="${roleList}">
             <input type="radio" name="userRole" value="${r.id}">${r.roleName}
         </c:forEach><br>
         状&nbsp;&nbsp;&nbsp;&nbsp;态：
-        <select name="userStatus" >
+        <select name="userStatus">
             <option value="-1">请选择</option>
             <option value="1">正常</option>
             <option value="0">未激活</option>
         </select><br>
         <input type="button" value="查询" onclick="fuzzySearch()">
-    <input type="button" value="修改" onclick="toUpdate()">
     <c:if test="${userRole.roleId == 1}">
+        <input type="button" value="修改" onclick="toUpdate()">
         <input type="button" value="删除" onclick="del()">
     </c:if>
 </form>
+<shiro:hasPermission name="user:auth">
+    <input type="button" value="授权" onclick="toAuth()">
+</shiro:hasPermission>
 <table border="1px" cellpadding="5" cellspacing="0">
     <tr>
         <th></th>

@@ -33,7 +33,7 @@
                         return;
                     }
                     layer.msg(data.msg,{time:1000},function(){
-                        parent.window.location.href = "<%=request.getContextPath()%>/book/toShow";
+                        parent.window.location.href = "<%=request.getContextPath()%>/book/toShow?id="+${type};
                     });
                 }
             )

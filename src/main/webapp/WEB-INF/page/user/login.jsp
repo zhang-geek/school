@@ -81,6 +81,7 @@
     <a href="<%=request.getContextPath()%>/user/toAdd">还没有账号？点我去注册</a>
     <br>
     <input type="submit" value="登录">
+    <a href="<%=request.getContextPath()%>/user/userUpdatePwd">忘记密码</a>
 </form>
 </body>
 </html>
