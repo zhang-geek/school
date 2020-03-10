@@ -73,7 +73,7 @@ public class ShopController {
     @PostMapping("/addShop")
     public ResultModel<Object> sddShop(Shop shop) {
         try {
-
+            shop.setCreateTime(new Date());
             shopService.save(shop);
             return new ResultModel<>().success("添加成功");
         } catch (Exception e) {

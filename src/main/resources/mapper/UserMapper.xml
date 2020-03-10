@@ -35,7 +35,8 @@
             <if test="user.userClass != null">
                 and u.user_class = #{user.userClass} and ur.role_id = 3
             </if>
-                and u.id = #{user1.id} and u.is_del = 0
+                and u.id = #{user1.id}
+                and u.is_del = 0
         </where>
         order by u.id DESC
     </select>

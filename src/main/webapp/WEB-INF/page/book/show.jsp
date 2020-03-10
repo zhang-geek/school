@@ -29,7 +29,7 @@
         <input type='button' value='借书' onclick='toBorrow()'>
     </c:if>
     <input type="hidden" value="0" name="isDel"><br/>
-    <input type="hidden" value="${type}" name="type"><br/>
+    <input type="hidden" value="${type}" name="type" id = "type"><br/>
     <input type="hidden" value="1" name="nowPage" id="nowPage">
 </form>
 <table border="1px" cellpadding="10" cellspacing="0">
@@ -122,8 +122,8 @@
             shadeClose: true,
             shade: 0.5,
             area: ['380px', '90%'],
-            content: "/book/toAdd"
-        });
+            content: "/book/toAdd?type="+${type}
+        })
 
     }
 
@@ -145,7 +145,7 @@
             shadeClose: true,
             shade: 0.5,
             area: ['380px', '90%'],
-            content: "/book/toUpdate?id=" + array[0]
+            content: "/book/toUpdate?id="+array[0]+","+${type}
         });
 
     }
@@ -177,7 +177,7 @@
                     if (data.code != "200") {
                         return;
                     }
-                    window.location.href = "/book/toShow";
+                    show();
                 });
         }, function () {
             layer.close(index1);
@@ -217,7 +217,7 @@
                     if (data.code != "200") {
                         return;
                     }
-                    window.location.href = "/book/toShow";
+                    show();
                 }
             )
     	}, function () {
@@ -262,7 +262,7 @@
                 if (data.code != "200") {
                     return;
                 }
-                window.location.href = "/book/toShow";
+                show();
             }
         )
     }
