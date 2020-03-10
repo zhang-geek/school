@@ -64,7 +64,7 @@ public class ShiroConfiguration {
         //退出的url
         filters.put("/logout", "logout");
         //需要认证的url
-        filters.put("/**", "anon");
+        filters.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filters);
         return shiroFilterFactoryBean;
     }
