@@ -37,11 +37,18 @@
                     html += "<td>" + borrow.userName + "</td>";
                     html += "<td>" + borrow.bookName + "</td>";
                     html += "<td>" + borrow.author + "</td>";
-                    html += "<td>" + borrow.number + "</td>";
+                    html += "<td>" + borrow.typeName + "</td>";
+                    html += "<td>" + borrow.number + "本</td>";
+                    if (borrow.surplus > 0) {
+                        html += "<td>剩余" + borrow.surplus + "天</td>";
+                    } else if (borrow.surplus = 0) {
+                        html += "<td>最后一天</td>";
+                    } else {
+                        html += "<td>逾期" + borrow.days + "天</td>";
+                    }
                     html += "<td>" + borrow.statusShow + "</td>";
                     html += "<td>" + borrow.payShow + "</td>";
-                    html += borrow.pay == null ? "<td></td>" : "<td>" + borrow.pay + "</td>"
-                    html += "<td>" + borrow.typeName + "</td>";
+                    html += borrow.pay == null ? "<td></td>" : "<td>" + borrow.pay + "元</td>";
                     html += "<td>" + borrow.borrowTime + "</td>";
                     html += "<td>" + borrow.repayTime + "</td>";
                     html += "</tr>";
@@ -133,8 +140,10 @@
         根据书名查询:
         <input type="text" name="bookName"/>
         <input type="button" value="查询" onclick="show()"/><br/>
-        <input type='button' value='还书' onclick='toRepay()'>
-        <input type='button' value='缴费' onclick='toPay()'>
+        <c:if test="${userRole.roleId != 1 && userRole.roleId != 6}">
+            <input type='button' value='还书' onclick='toRepay()'>
+            <input type='button' value='缴费' onclick='toPay()'>
+        </c:if>
     </form>
     <table border="1px" cellpadding="10" cellspacing="0">
         <tr>
@@ -142,11 +151,12 @@
             <th>借书人</th>
             <th>书名</th>
             <th>作者</th>
+            <th>图书类型</th>
             <th>借书数量</th>
+            <th>剩余天数</th>
             <th>逾期状态</th>
             <th>缴费状态</th>
             <th>缴费金额</th>
-            <th>图书类型</th>
             <th>借书时间</th>
             <th>到期时间</th>
         </tr>

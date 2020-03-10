@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/borrow/")
@@ -28,6 +25,14 @@ public class BorrowController {
     @Autowired
     private CardService CardService;
 
+    /**
+     * 借书记录展示
+     * @param nowPage
+     * @param borrow
+     * @param book
+     * @param user
+     * @return
+     */
     @PostMapping("list")
     public ResultModel<Object> list(Integer nowPage, Borrow borrow, Book book,
                                     @SessionAttribute(SystemConstant.SESSION_USER) User user) {
@@ -50,6 +55,12 @@ public class BorrowController {
             return new ResultModel<Object>().error("系统出错了，请稍后重试");
         }
     }
+
+    /**
+     * 还书
+     * @param borrow
+     * @return
+     */
     @PutMapping("repay")
     public ResultModel<Object> repay(Borrow borrow){
         try {
@@ -59,11 +70,12 @@ public class BorrowController {
             if(borrow1.getPay() == null && new Date().getTime() > borrow1.getRepayTime().getTime()) {
                 return new ResultModel<>().error("已逾期，请缴费后进行还书操作");
             }
-            //已缴费和已逾期同时满足或未逾期可以还书
+            //可以还书条件:已缴费和已逾期同时满足或未逾期
             if (borrow1.getPay() != null && borrow1.getRepayTime().getTime() < new Date().getTime()
             || borrow1.getRepayTime().getTime() > new Date().getTime()) {
-                //伪删除：修改状态 1：已删除
-                borrowService.removeById(borrow1.getId());
+                //伪删除：修改状态 1：已删除 还书时间增加15天
+                borrow1.setIsDel(SystemConstant.IS_DEL);
+                borrowService.updateById(borrow1);
                 //查出图书库存
                 Book book1 = bookService.getOne(new QueryWrapper<Book>().eq("id", borrow1.getBookId()));
                 //将图书库存与借书数量进行相加 并修改图书库存
