@@ -16,4 +16,6 @@ public interface BorrowMapper extends BaseMapper<Borrow> {
     IPage<Borrow> findAll(Page<Borrow> page, @Param("borrow") Borrow borrow,
                           @Param("roleId") Integer roleId, @Param("book") Book book,
                           @Param("user") User user) throws DataAccessException;
+
+    Borrow findByid(Integer id) throws DataAccessException;
 }

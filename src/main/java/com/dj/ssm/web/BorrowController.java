@@ -5,18 +5,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dj.ssm.common.ResultModel;
 import com.dj.ssm.common.SystemConstant;
-import com.dj.ssm.pojo.Book;
-import com.dj.ssm.pojo.Borrow;
-import com.dj.ssm.pojo.User;
-import com.dj.ssm.pojo.UserRole;
-import com.dj.ssm.service.BaseDataService;
-import com.dj.ssm.service.BookService;
-import com.dj.ssm.service.BorrowService;
-import com.dj.ssm.service.OrderService;
-import com.dj.ssm.service.UserRoleService;
+import com.dj.ssm.pojo.*;
+import com.dj.ssm.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +26,7 @@ public class BorrowController {
     @Autowired
     private BookService bookService;
     @Autowired
-    private BaseDataService baseDataService;
+    private CardService CardService;
 
     @PostMapping("list")
     public ResultModel<Object> list(Integer nowPage, Borrow borrow, Book book,
@@ -90,10 +84,10 @@ public class BorrowController {
      * @param borrow
      * @return
      */
-    @PostMapping("insertPay")
-    public ResultModel<Object> insertPay(Borrow borrow) {
+    @PostMapping("updatePay")
+    public ResultModel<Object> updatePay(Borrow borrow) {
         try {
-            Borrow borrow1 = borrowService.getById(borrow.getId());
+            Borrow borrow1 = borrowService.findByid(borrow.getId());
             //当前时间小于还书日期：未逾期无需缴费
             if (new Date().getTime() < borrow1.getRepayTime().getTime()) {
                 return new ResultModel<Object>().error("您未逾期，无需缴费");
@@ -102,8 +96,15 @@ public class BorrowController {
             if (borrow1.getPay() != null && borrow1.getRepayTime().getTime() < new Date().getTime()) {
                 return new ResultModel<Object>().error("您已经缴过费了，无需二次缴费");
             }
-            borrow1.setPay(borrow.getPay());
+            //逾期金额缴费
+            borrow1.setPay(borrow1.getPenalty());
             borrowService.updateById(borrow1);
+            //修改校园卡金额
+            BigDecimal payMoney = borrow1.getCardMoney().subtract(borrow1.getPenalty());
+            Card card = CardService.getOne(new QueryWrapper<Card>()
+                    .eq("user_id", borrow1.getUserId()))
+                    .setCardMoney(payMoney);
+            CardService.updateById(card);
             return new ResultModel<>().success();
         } catch (Exception e) {
             e.printStackTrace();

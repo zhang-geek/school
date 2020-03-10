@@ -40,6 +40,7 @@
                     html += "<td>" + borrow.number + "</td>";
                     html += "<td>" + borrow.statusShow + "</td>";
                     html += "<td>" + borrow.payShow + "</td>";
+                    html += borrow.pay == null ? "<td></td>" : "<td>" + borrow.pay + "</td>"
                     html += "<td>" + borrow.typeName + "</td>";
                     html += "<td>" + borrow.borrowTime + "</td>";
                     html += "<td>" + borrow.repayTime + "</td>";
@@ -144,6 +145,7 @@
             <th>借书数量</th>
             <th>逾期状态</th>
             <th>缴费状态</th>
+            <th>缴费金额</th>
             <th>图书类型</th>
             <th>借书时间</th>
             <th>到期时间</th>

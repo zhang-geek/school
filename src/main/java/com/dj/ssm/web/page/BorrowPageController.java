@@ -21,11 +21,11 @@ public class BorrowPageController {
     @Autowired
     private ResourceService resourceService;
     @Autowired
-    private BaseDataService baseDataService;
-    @Autowired
     private UserService userService;
     @Autowired
     private  BookService bookService;
+    @Autowired
+    private CardService cardService;
 
     /**
      * 借书记录展示
@@ -41,21 +41,10 @@ public class BorrowPageController {
      * @return
      */
     @RequestMapping("toPay")
-    public String toPay(Integer id, Model model) {
-        //根据id查出此书全部信息
-        Borrow borrow = borrowService.getById(id);
-        User user = userService.getOne(new QueryWrapper<User>().eq("id", borrow.getUserId()));
-        Book book = bookService.getOne(new QueryWrapper<Book>().eq("id", borrow.getBookId()));
-        //图书类型
-        List<Resource> typeList = resourceService.list(new QueryWrapper<Resource>()
-                .eq("parent_id", SystemConstant.RESOURCE_PARENT_ID_36));
-        //支付方式
-        List<BaseData> payList = baseDataService.list(new QueryWrapper<BaseData>().eq("parent_id", SystemConstant.PARENT_ID_15));
-        model.addAttribute("typeList", typeList);
-        model.addAttribute("payList", payList);
-        model.addAttribute("borrow", borrow);
-        model.addAttribute("user", user);
-        model.addAttribute("book", book);
+    public String toPay(Integer id, Model model) throws Exception {
+        //根据id查出此书全部信息 用户名 书名 书本类型 当前登录人的卡上余额
+        Borrow borrowList = borrowService.findByid(id);
+        model.addAttribute("borrowList", borrowList);
         return "borrow/pay";
     }
 

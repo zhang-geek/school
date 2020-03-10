@@ -33,4 +33,9 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
                                  Integer roleId, Book book, User user) throws Exception {
         return borrowMapper.findAll(page, borrow, roleId, book, user);
     }
+
+    @Override
+    public Borrow findByid(Integer id) throws Exception {
+        return borrowMapper.findByid(id);
+    }
 }
