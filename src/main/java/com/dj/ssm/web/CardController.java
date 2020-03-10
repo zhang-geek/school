@@ -5,12 +5,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dj.ssm.common.ResultModel;
 import com.dj.ssm.common.SystemConstant;
-import com.dj.ssm.pojo.Book;
-import com.dj.ssm.pojo.Card;
-import com.dj.ssm.pojo.User;
-import com.dj.ssm.pojo.UserRole;
+import com.dj.ssm.pojo.*;
 import com.dj.ssm.service.CardService;
+import com.dj.ssm.service.RecordService;
 import com.dj.ssm.service.UserRoleService;
+import com.dj.ssm.web.page.RecordPageController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +31,8 @@ public class CardController {
 
     @Autowired
     private UserRoleService userRoleService;
+    @Autowired
+    private RecordService recordService;
 
     /**
      * 查询用户是否有正在使用的校园卡
@@ -104,6 +105,10 @@ public class CardController {
      */
     @PostMapping("updateCard")
     public ResultModel<Object> updateCard(Card card, BigDecimal cardMoneyOld){
+        RecordDto recordDto = new RecordDto();
+        recordDto.setRecordMoney(String.valueOf(cardMoneyOld));
+        recordDto.setUserId(card.getUserId());
+        recordService.saveRecordData(recordDto);
         card.setCardMoney(card.getCardMoney().add(cardMoneyOld));
         cardService.updateById(card);
         return new ResultModel<>().success("OK");

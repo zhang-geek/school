@@ -119,8 +119,11 @@ public class PasswordSecurityUtil {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(System.currentTimeMillis());
-		//1515206640731
-		//1515206651144
+		try {
+			String s = enCode32("202cb962ac59075b964b07152d234b70");
+			System.out.println(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

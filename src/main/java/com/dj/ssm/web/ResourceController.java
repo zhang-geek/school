@@ -22,7 +22,7 @@ import java.util.List;
  * @date 2020/2/1 23:24
  */
 @RestController
-@RequestMapping("resource")
+@RequestMapping("/resource/")
 public class ResourceController {
 
     @Autowired

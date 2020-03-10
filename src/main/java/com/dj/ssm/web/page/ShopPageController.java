@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import java.util.List;
 
 @Controller
-@RequestMapping("/shop")
+@RequestMapping("/shop/")
 public class ShopPageController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class ShopPageController {
     @Autowired
     private ShopService shopService;
 
-    @RequestMapping("/toShowShop")
+    @RequestMapping("toShowShop")
     public String toShowShop(Integer id, Model model, @SessionAttribute(SystemConstant.SESSION_USER) User user) throws Exception {
 
         model.addAttribute("user", user);
@@ -38,13 +38,13 @@ public class ShopPageController {
         return "shop/show_shop";
     }
 
-    @RequestMapping("/toAddShop")
+    @RequestMapping("toAddShop")
     public String toAddShop() {
 
         return "shop/add_shop";
     }
 
-    @RequestMapping("/toUpdateShop")
+    @RequestMapping("toUpdateShop")
     public String toUpdate(Integer id, Model model){
 
         QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();

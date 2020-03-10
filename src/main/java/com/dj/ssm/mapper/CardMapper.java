@@ -8,6 +8,8 @@ import com.dj.ssm.pojo.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
+import java.util.List;
+
 public interface CardMapper extends BaseMapper<Card> {
     IPage<Card> getCard(Page page, @Param("role") Integer roleId, @Param("user") User user) throws DataAccessException;
 }

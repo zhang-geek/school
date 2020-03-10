@@ -10,6 +10,8 @@ import com.dj.ssm.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CardServiceImpl extends ServiceImpl<CardMapper, Card> implements CardService {
     @Autowired

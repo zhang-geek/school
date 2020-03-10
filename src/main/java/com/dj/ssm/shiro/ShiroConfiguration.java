@@ -62,7 +62,7 @@ public class ShiroConfiguration {
         filters.put("/users/add", "anon");
         filters.put("/users/deDuplicate", "anon");
         //需要认证的url
-        filters.put("/**", "authc");
+        filters.put("/**", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filters);
         return shiroFilterFactoryBean;
     }
