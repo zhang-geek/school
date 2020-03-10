@@ -15,7 +15,7 @@ public interface BookService extends IService<Book>{
      * @return
      * @throws Exception
      */
-    IPage<Book> getBook(Page page, Book book, String startTime, String endTime) throws Exception;
+    IPage<Book> getBook(Page page, Book book) throws Exception;
 
     /**
      * 批量删

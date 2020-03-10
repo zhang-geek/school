@@ -29,15 +29,15 @@ public class Book {
     private Integer count;
     private Integer userId;
     private Integer isDel;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone="GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date shelfTime;
 
     @TableField(exist = false)
     private String shelfTimeShow;
 
     public String getShelfTimeShow() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(shelfTime);
     }
 

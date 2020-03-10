@@ -60,7 +60,6 @@
 				/* userName:"required"  */
 				bookName:{
 					required:true,
-					rangelength:[2,6],
 					remote:{
 						type:"post",
 						url:"/book/distinct",
@@ -94,7 +93,6 @@
 			messages:{
 				bookName:{
 					required:"不能为空",
-					rangelength:"长度必须在{0}和{1}之间",
 					remote:"该图书已存在"
 				},
 
@@ -118,7 +116,7 @@
 	$.validator.setDefaults({
 	    submitHandler: function() {
 	    	var index = layer.load(1);
-			$.post("/book",
+			$.post("/book/update",
 					$("#fm").serialize(),
 					function(data){
 						layer.close(index);

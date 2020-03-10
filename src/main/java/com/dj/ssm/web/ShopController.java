@@ -206,7 +206,7 @@ public class ShopController {
             recordDto.setUserId(user.getId());
             recordDto.setRecordMoney(String.valueOf(shop.getShopPrice()));
             recordService.saveRecordData(recordDto);
-            return new ResultModel<>().success("成功添加到购物车");
+            return new ResultModel<>().success("购买成功，请查看余额");
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultModel<>().error("系统异常" + e.getMessage());

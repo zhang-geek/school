@@ -15,8 +15,8 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
     private BookMapper bookMapper;
 
     @Override
-    public IPage<Book> getBook(Page page, Book book, String startTime, String endTime) {
-        return bookMapper.getBook(page, book, startTime, endTime);
+    public IPage<Book> getBook(Page page, Book book) {
+        return bookMapper.getBook(page, book);
     }
 
     @Override

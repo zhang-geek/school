@@ -23,7 +23,7 @@
         left join user_school u on o.user_id = u.id
         where 1=1
             <if test="user != null and userRole.roleId != 7">
-                o.user_id = #{user.id}
+                and o.user_id = #{user.id}
             </if>
 
     </select>
