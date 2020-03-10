@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2020/2/1 23:26
  */
 @Controller
-@RequestMapping("role")
+@RequestMapping("/role/")
 public class RolePageController {
 
     @Autowired

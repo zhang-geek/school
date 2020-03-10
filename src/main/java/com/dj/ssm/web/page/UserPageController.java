@@ -9,6 +9,7 @@ import com.dj.ssm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -65,5 +66,26 @@ public class UserPageController {
         User user = userService.getById(id);
         model.addAttribute("user", user);
         return "user/update";
+    }
+
+    @RequestMapping("toAuth")
+    public String toAuth(Integer id, Model model) throws Exception {
+        UserRole userRole = userRoleService.getOne(new QueryWrapper<UserRole>().eq("user_id", id));
+        List<Role> roleList = roleService.list();
+        if (null == userRole) {
+            userRole = new UserRole().setUserId(id);
+        }
+        model.addAttribute("userRole", userRole);
+        model.addAttribute("roleList", roleList);
+        return "user/auth";
+    }
+
+    /**
+     * 用户忘记密码页跳转  zjp
+     * @return
+     */
+    @GetMapping("userUpdatePwd")
+    public String userUpdatePwd(){
+        return "user/updatepwd";
     }
 }

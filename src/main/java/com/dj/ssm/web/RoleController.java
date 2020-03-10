@@ -1,6 +1,7 @@
 package com.dj.ssm.web;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dj.ssm.common.ResultModel;
 import com.dj.ssm.common.SystemConstant;
@@ -22,7 +23,7 @@ import java.util.Map;
  * @date 2020/2/1 23:24
  */
 @RestController
-@RequestMapping("role")
+@RequestMapping("/role/")
 public class RoleController {
 
     @Autowired
@@ -40,9 +41,9 @@ public class RoleController {
         try {
             Map<String, Object> resultMap = new HashMap<>();
             Page<Role> page = new Page<Role>().setSize(SystemConstant.PAGE_SIZE).setCurrent(pageNo);
-            page = (Page<Role>) roleService.page(page);
-            resultMap.put("list", page.getRecords());
-            resultMap.put("totalNum", page.getPages());
+            IPage<Role> iPage = roleService.page(page);
+            resultMap.put("list", iPage.getRecords());
+            resultMap.put("totalNum", iPage.getPages());
             return new ResultModel<Object>().success(resultMap);
         } catch (Exception e) {
             e.printStackTrace();

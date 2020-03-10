@@ -96,7 +96,7 @@
         layer.confirm('确认删除？', {icon: 3, title:'提示'}, function(index){
             $.post(
                 "${ctx}/role/updateIsDel",
-                {"id":id, "isDel":0},
+                {"id":id, "isDel":1},
                 function (data) {
                     layer.msg(data.msg,{time:500},function () {
                         window.location.href = "<%=request.getContextPath()%>/role/toShow";

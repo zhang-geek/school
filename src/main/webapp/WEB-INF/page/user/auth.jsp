@@ -17,7 +17,7 @@
     function auth() {
         var index = layer.load(1);
         $.post(
-            "${ctx}/user/auth",
+            "${ctx}/users/auth",
             $("#fm").serialize(),
             function (data) {
                 if (data.code != 200) {
@@ -35,6 +35,7 @@
 <body>
 <form id="fm">
     <input type="hidden" value="${userRole.userId}" name="userId">
+    <input type="hidden" value="PUT" name="_method">
     <input type="button" value="确认" onclick="auth()">
     <table>
         <tr>
