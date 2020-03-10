@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2020/1/29 21:02
  */
 @Controller
-@RequestMapping("index")
+@RequestMapping("/index/")
 public class IndexPageController {
 
     @RequestMapping("toIndex")

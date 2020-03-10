@@ -78,4 +78,13 @@ public class UserPageController {
         model.addAttribute("roleList", roleList);
         return "user/auth";
     }
+
+    /**
+     * 用户忘记密码页跳转  zjp
+     * @return
+     */
+    @GetMapping("userUpdatePwd")
+    public String userUpdatePwd(){
+        return "user/updatepwd";
+    }
 }

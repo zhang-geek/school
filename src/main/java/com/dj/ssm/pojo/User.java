@@ -47,6 +47,9 @@ public class User {
     private Integer isVerify;
     @TableField(exist = false)
     private String roleName;
+    // 验证码
+    private String code;
+    private Date codeCreateTime;
 
     /**
      * 班级

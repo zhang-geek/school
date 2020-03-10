@@ -2,15 +2,11 @@ package com.dj.ssm.web.page;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dj.ssm.common.SystemConstant;
-import com.dj.ssm.pojo.*;
 import com.dj.ssm.pojo.BaseData;
 import com.dj.ssm.pojo.Shop;
 import com.dj.ssm.pojo.User;
-import com.dj.ssm.pojo.UserRole;
 import com.dj.ssm.service.BaseDataService;
-import com.dj.ssm.service.CardService;
 import com.dj.ssm.service.ShopService;
-import com.dj.ssm.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import java.util.List;
 
 @Controller
-@RequestMapping("/shop")
+@RequestMapping("/shop/")
 public class ShopPageController {
 
     @Autowired
@@ -36,6 +32,7 @@ public class ShopPageController {
     private UserRoleService userRoleService;
 
     @RequestMapping("/toShowShop")
+    @RequestMapping("toShowShop")
     public String toShowShop(Integer id, Model model, @SessionAttribute(SystemConstant.SESSION_USER) User user) throws Exception {
         //根据用户id查询正常使用的校园卡的信息
         QueryWrapper<Card> query = new QueryWrapper<>();
@@ -60,13 +57,13 @@ public class ShopPageController {
         return "shop/show_shop";
     }
 
-    @RequestMapping("/toAddShop")
+    @RequestMapping("toAddShop")
     public String toAddShop() {
 
         return "shop/add_shop";
     }
 
-    @RequestMapping("/toUpdateShop")
+    @RequestMapping("toUpdateShop")
     public String toUpdate(Integer id, Model model){
 
         QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();

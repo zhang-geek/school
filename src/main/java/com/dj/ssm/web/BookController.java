@@ -20,7 +20,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/book/")
 public class BookController {
     @Autowired
     private BookService bookService;
@@ -61,7 +61,7 @@ public class BookController {
      * @param book
      * @return
      */
-    @PostMapping("/distinct")
+    @PostMapping("distinct")
     public Boolean distinct (Book book) {
         QueryWrapper<Book> query = new QueryWrapper<>();
         if (null != book.getId()) {
@@ -79,7 +79,7 @@ public class BookController {
      * @param book
      * @return
      */
-    @PostMapping("/save")
+    @PostMapping("save")
     public ResultModel<Object> save(@SessionAttribute(SystemConstant.SESSION_USER) User user, Book book) {
         try {
             book.setStatus(SystemConstant.BOOK_STATUS_0).setIsDel(SystemConstant.IS_NOT_DEL)
@@ -158,7 +158,7 @@ public class BookController {
      * @param user
      * @return
      */
-    @PostMapping("/borrow")
+    @PostMapping("borrow")
     public ResultModel<Object> borrow(Book book, Borrow borrow,
                                            @SessionAttribute(SystemConstant.SESSION_USER) User user){
         try {

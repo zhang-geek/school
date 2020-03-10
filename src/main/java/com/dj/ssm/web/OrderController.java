@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("order")
+@RequestMapping("/order/")
 public class OrderController {
 
     @Autowired
@@ -33,7 +33,7 @@ public class OrderController {
      * @param user
      * @return
      */
-    @PostMapping("/list")
+    @PostMapping("list")
     public ResultModel<Object> show(@SessionAttribute(SystemConstant.SESSION_USER) User user,
                                     Integer nowPage) {
         try {

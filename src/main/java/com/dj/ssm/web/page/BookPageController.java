@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import java.util.List;
 
 @Controller
-@RequestMapping("book")
+@RequestMapping("/book/")
 public class BookPageController {
 
     @Autowired
