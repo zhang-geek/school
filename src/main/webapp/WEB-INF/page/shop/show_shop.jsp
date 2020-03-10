@@ -270,7 +270,7 @@
 
     function addOrder(id, price){
         if ("${card.cardMoney}" < price) {
-            alert("余额不足，请先充值");
+            layer.alert("余额不足，请先充值");
             return;
         }
          var index = layer.load(0, {

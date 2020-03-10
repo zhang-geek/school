@@ -179,7 +179,10 @@
                     }
                     window.location.href = "/book/toShow";
                 });
-        })
+        }, function () {
+            layer.close(index1);
+            }
+        )
     }
 
     function updateStatus() {
@@ -217,7 +220,10 @@
                     window.location.href = "/book/toShow";
                 }
             )
-    	})
+    	}, function () {
+            layer.close(index1);
+            }
+        )
     }
 
     /**

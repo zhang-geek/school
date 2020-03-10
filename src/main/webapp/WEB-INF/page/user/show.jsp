@@ -79,7 +79,10 @@
                     }
                     window.location.href = "/user/toShow";
                 });
-        })
+        },function () {
+            layer.close(index1);
+            }
+        )
     }
 
 
@@ -129,22 +132,20 @@
 <form id="fm">
     <input type="hidden" value="1" name="pageNo" id="pageNo">
     <input type="hidden" value="${classNum}" name="userClass">
-    <c:if test="${userRole.roleId == 1 || userRole.roleId == 5}">
         模糊查：<input type="text" name="username" placeholder="用户名，手机号，邮箱"><br>
-    </c:if>
         角&nbsp;&nbsp;&nbsp;&nbsp;色：
         <c:forEach var="r" items="${roleList}">
-            <input type="radio" name="userRole" value="${r.id}">${r.roleName}
+            <input type="radio" name="roleId" value="${r.id}">${r.roleName}
         </c:forEach><br>
         状&nbsp;&nbsp;&nbsp;&nbsp;态：
-        <select name="userStatus" >
+        <select name="userStatus">
             <option value="-1">请选择</option>
             <option value="1">正常</option>
             <option value="0">未激活</option>
         </select><br>
         <input type="button" value="查询" onclick="fuzzySearch()">
-    <input type="button" value="修改" onclick="toUpdate()">
     <c:if test="${userRole.roleId == 1}">
+        <input type="button" value="修改" onclick="toUpdate()">
         <input type="button" value="删除" onclick="del()">
     </c:if>
 </form>
