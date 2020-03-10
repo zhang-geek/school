@@ -19,6 +19,5 @@ public class Role {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private String roleName;
-    @TableLogic
     private Integer isDel;
 }
