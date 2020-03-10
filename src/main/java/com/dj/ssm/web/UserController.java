@@ -61,16 +61,15 @@ public class UserController {
         }
     }
 
-    @PostMapping("/list")
-    public ResultModel<Object> show(User user, Integer pageNo,
-                                    @SessionAttribute(SystemConstant.SESSION_USER) User user1,
-                                    Integer roleId) {
+    @PostMapping("list")
+    public ResultModel<Object> show(User user, Integer pageNo, @SessionAttribute(SystemConstant.SESSION_USER) User user1) {
         try {
             Map<String, Object> resultMap = new HashMap<>();
             Page<User> page = new Page<User>()
                     .setCurrent(pageNo)
                     .setSize(SystemConstant.PAGE_SIZE);
-            IPage<User> iPage = userService.findAll(page, user, roleId,user1);
+            UserRole userRole = userRoleService.getOne(new QueryWrapper<UserRole>().eq("user_id", user1.getId()));
+            IPage<User> iPage = userService.findAll(page, user, userRole.getRoleId(),user1);
             List<User> userList = iPage.getRecords();
             resultMap.put("list", userList);
             resultMap.put("totalNum", iPage.getPages());
@@ -80,6 +79,7 @@ public class UserController {
             return new ResultModel<>().error("服务器异常，请稍后重试！" + e.getMessage());
         }
     }
+
 
 
     /**
@@ -120,7 +120,7 @@ public class UserController {
         return list.size() <= 0;
     }
 
-    @PutMapping
+    @PutMapping("updateUser")
     public ResultModel<Object> updateUser(User user){
         try {
             user.setUpdateTime(new Date());
