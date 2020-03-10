@@ -152,7 +152,7 @@
         模糊查：<input type="text" name="username" placeholder="用户名，手机号，邮箱"><br>
         角&nbsp;&nbsp;&nbsp;&nbsp;色：
         <c:forEach var="r" items="${roleList}">
-            <input type="radio" name="roleId" value="${r.id}">${r.roleName}
+            <input type="radio" name="userRole" value="${r.id}">${r.roleName}
         </c:forEach><br>
         状&nbsp;&nbsp;&nbsp;&nbsp;态：
         <select name="userStatus">

@@ -27,8 +27,8 @@
 				<input type="hidden" name="_method" value="PUT"/>
 				<input type="hidden" name="id" value="${user.id}"/>
 		姓名: <input type="text" name="username" id="username" value="${user.username}"><br/>
-		密码：<input type="text" name="password" id="password" value="${user.password}"><br/>
-		密码：<input type="text" name="password2" value="${user.password}"><br/>
+		密码：<input type="text" name="password" id="password"><br/>
+		确认密码：<input type="text" name="password2"><br/>
 		手机号: <input type="text" name="userPhone" id="userPhone" value="${user.userPhone}"><br/>
 		邮箱: <input type="text" name="userEmail" id="userEmail" value="${user.userEmail}"><br/>
 		<input type="submit" value="修改"><br/>
@@ -102,7 +102,7 @@
 			$("#password").val(md5(md5($("#password").val()) + salt));
 			$("#salt").val(salt);
 	    	var index = layer.load(1);
-			$.post("/users",
+			$.post("/users/updateUser",
 					$("#fm").serialize(),
 					function(data){
 						layer.close(index);
