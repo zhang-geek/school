@@ -82,6 +82,6 @@ public class UserPageController {
      */
     @GetMapping("userUpdatePwd")
     public String userUpdatePwd(){
-        return "user/user_update_pwd";
+        return "user/updatepwd";
     }
 }
