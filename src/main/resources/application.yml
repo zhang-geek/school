@@ -31,7 +31,6 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: com.dj.ssm.pojo
   mapper-locations: classpath:mapper/*.xml
-
   global-config:
     db-config:
       logic-delete-field: isDel

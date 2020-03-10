@@ -66,4 +66,16 @@ public class UserPageController {
         model.addAttribute("user", user);
         return "user/update";
     }
+
+    @RequestMapping("toAuth")
+    public String toAuth(Integer id, Model model) throws Exception {
+        UserRole userRole = userRoleService.getOne(new QueryWrapper<UserRole>().eq("user_id", id));
+        List<Role> roleList = roleService.list();
+        if (null == userRole) {
+            userRole = new UserRole().setUserId(id);
+        }
+        model.addAttribute("userRole", userRole);
+        model.addAttribute("roleList", roleList);
+        return "user/auth";
+    }
 }

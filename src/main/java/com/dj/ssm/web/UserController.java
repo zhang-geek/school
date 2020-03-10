@@ -132,6 +132,17 @@ public class UserController {
         }
     }
 
+    @PutMapping("auth")
+    public ResultModel<Object> auth(UserRole userRole){
+        try {
+            userRoleService.updateAuth(userRole);
+            return new ResultModel<>().success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultModel<>().error("服务器异常，请稍后重试！" + e.getMessage());
+        }
+    }
+
     @PutMapping("del")
     public ResultModel<Object> del(Integer[] ids, Integer isDel) {
         try {
