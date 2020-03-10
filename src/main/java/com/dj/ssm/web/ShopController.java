@@ -1,13 +1,16 @@
 package com.dj.ssm.web;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dj.ssm.common.ResultModel;
 import com.dj.ssm.common.SystemConstant;
+import com.dj.ssm.pojo.Card;
 import com.dj.ssm.pojo.Order;
 import com.dj.ssm.pojo.RecordDto;
 import com.dj.ssm.pojo.Shop;
 import com.dj.ssm.pojo.User;
+import com.dj.ssm.service.CardService;
 import com.dj.ssm.service.OrderService;
 import com.dj.ssm.service.RecordService;
 import com.dj.ssm.service.ShopService;
@@ -16,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,12 +27,15 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/shop/")
+@RequestMapping("/shop")
 public class ShopController {
 
 
     @Autowired
     private ShopService shopService;
+
+    @Autowired
+    private CardService cardService;
     @Autowired
     private RecordService recordService;
 
@@ -63,7 +70,7 @@ public class ShopController {
      * @param shop
      * @return
      */
-    @PostMapping("addShop")
+    @PostMapping("/addShop")
     public ResultModel<Object> sddShop(Shop shop) {
         try {
 
@@ -80,7 +87,7 @@ public class ShopController {
      * @param shopName
      * @return
      */
-    @RequestMapping("findByShopName")
+    @RequestMapping("/findByShopName")
     public boolean findByShopName(String shopName) {
         try {
             Shop shop = shopService.findByShopName(shopName);
@@ -96,7 +103,7 @@ public class ShopController {
      * @param shop
      * @return
      */
-    @PostMapping("updateShop")
+    @PostMapping("/updateShop")
     public ResultModel<Object> update(Shop shop){
         try {
             shopService.updateById(shop);
@@ -112,7 +119,7 @@ public class ShopController {
      * @param shopId
      * @return
      */
-    @DeleteMapping("delShop")
+    @DeleteMapping("/delShop")
     public ResultModel<Object> delBook(Integer[] shopId) {
         try {
 
@@ -132,7 +139,7 @@ public class ShopController {
      * @param shop
      * @return
      */
-    @PutMapping("updateStatus")
+    @PutMapping("/updateStatus")
     public ResultModel<Object> updateStatus(Shop shop){
         try {
 
@@ -149,7 +156,7 @@ public class ShopController {
      * @param shop
      * @return
      */
-    @PutMapping("updateFlag")
+    @PutMapping("/updateFlag")
     public ResultModel<Object> updateFlag(Shop shop) {
         try {
 
@@ -170,13 +177,25 @@ public class ShopController {
      * @param user
      * @return
      */
-    @PostMapping("addOrder")
+    @PostMapping("/addOrder")
     public ResultModel<Object> addOrder(Integer id, @SessionAttribute(SystemConstant.SESSION_USER) User user){
         try {
 
             Shop shop = shopService.findShopById(id);
-            String date = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 
+            //从校园卡里扣费
+            QueryWrapper<Card> query = new QueryWrapper<>();
+            query.eq("user_id", user.getId());
+            List<Card> cardList = cardService.list(query);
+
+            for (Card card : cardList) {
+                if (card.getCardStatus().equals(SystemConstant.CARD_STATUS_USE)) {
+                    card.setCardMoney(card.getCardMoney().subtract(shop.getShopPrice()));
+                    cardService.updateById(card);
+                }
+            }
+            //生成订单，存入订单表
+            String date = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
             Order order =  new Order();
             order.setShopId(shop.getId())
                     .setUserId(user.getId())
@@ -193,5 +212,8 @@ public class ShopController {
             return new ResultModel<>().error("系统异常" + e.getMessage());
         }
     }
+
+
+
 
 }

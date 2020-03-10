@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: cf
-  Date: 2020/3/7
-  Time: 23:01
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
@@ -28,6 +21,9 @@
                 if (data.code != 200) {
                     layer.alert(data.msg);
                     return;
+                }
+                if (data.data.list.length <= 0) {
+                    layer.alert("暂无数据");
                 }
                 var html = "";
                 for (var i = 0; i < data.data.list.length; i++) {
@@ -53,6 +49,42 @@
             }
         );
     }
+
+    function del() {
+        var index1 = layer.load(1);
+
+        var array = new Array();
+        $("input[name = 'id']:checked").each(function(){
+            array.push($(this).val().split(",")[0]);
+        })
+
+        if (array.length < 1) {
+            layer.msg('请至少选择一条信息', {icon: 6,time:1000});
+            layer.close(index1);
+            return;
+        }
+        var str = array.join(",");
+
+        layer.confirm('确定删除嘛', {icon: 3, title: '询问框'}, function (index) {
+            //do something
+            layer.close(index);
+            var index1 = layer.load(1);
+            $.post("/users/del",
+                {_method: "PUT", "ids": str, isDel: 1},
+                function (data) {
+                    layer.close(index1);
+                    layer.msg(data.msg, {icon: 6, time: 1000});
+                    if (data.code != "200") {
+                        return;
+                    }
+                    window.location.href = "/user/toShow";
+                });
+        },function () {
+            layer.close(index1);
+            }
+        )
+    }
+
 
     function page(totalNum, pageNo) {
         if (pageNo < 1) {
@@ -99,20 +131,23 @@
 <body>
 <form id="fm">
     <input type="hidden" value="1" name="pageNo" id="pageNo">
+    <input type="hidden" value="${classNum}" name="userClass">
         模糊查：<input type="text" name="username" placeholder="用户名，手机号，邮箱"><br>
         角&nbsp;&nbsp;&nbsp;&nbsp;色：
         <c:forEach var="r" items="${roleList}">
-            <input type="radio" name="userRole" value="${r.id}">${r.roleName}
+            <input type="radio" name="roleId" value="${r.id}">${r.roleName}
         </c:forEach><br>
         状&nbsp;&nbsp;&nbsp;&nbsp;态：
-        <select name="userStatus" >
+        <select name="userStatus">
             <option value="-1">请选择</option>
             <option value="1">正常</option>
             <option value="0">未激活</option>
         </select><br>
-
         <input type="button" value="查询" onclick="fuzzySearch()">
-    <input type="button" value="修改" onclick="toUpdate()">
+    <c:if test="${userRole.roleId == 1}">
+        <input type="button" value="修改" onclick="toUpdate()">
+        <input type="button" value="删除" onclick="del()">
+    </c:if>
 </form>
 <table border="1px" cellpadding="5" cellspacing="0">
     <tr>

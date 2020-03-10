@@ -50,4 +50,9 @@ public class User {
     // 验证码
     private String code;
     private Date codeCreateTime;
+
+    /**
+     * 班级
+     */
+    private Integer userClass;
 }

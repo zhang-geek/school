@@ -26,17 +26,26 @@
                 or u.user_phone like "%"#{user.username}"%"
                 or u.user_email like "%"#{user.username}"%")
             </if>
-            <if test="user.userRole != null ">
-                AND ur.role_id = #{user.userRole}
+            <if test="roleId != null ">
+                AND r.id = #{roleId}
             </if>
             <if test="user.userStatus != null and user.userStatus != -1">
                 and u.user_status = #{user.userStatus}
             </if>
-            <if test="roleId != 1">
-                u.id = #{user1.id}
+            <if test="user.userClass != null">
+                and u.user_class = #{user.userClass} and ur.role_id = 3
             </if>
-            and u.is_del = 0
+                and u.id = #{user1.id} and u.is_del = 0
         </where>
         order by u.id DESC
     </select>
+
+    <update id="updateIsDel">
+        update user_school set is_del = #{isDel}
+        where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+
+    </update>
 </mapper>

@@ -13,7 +13,9 @@ import java.util.List;
 
 public interface BorrowMapper extends BaseMapper<Borrow> {
     //展示 查询全部
-    IPage<Borrow> findAll(@Param("borrow") Borrow borrow, Page<Borrow> page,
+    IPage<Borrow> findAll(Page<Borrow> page, @Param("borrow") Borrow borrow,
                           @Param("roleId") Integer roleId, @Param("book") Book book,
                           @Param("user") User user) throws DataAccessException;
+
+    Borrow findByid(Integer id) throws DataAccessException;
 }

@@ -11,7 +11,8 @@ import java.util.List;
 
 public interface BorrowService extends IService<Borrow> {
     //展示 查询全部
-    IPage<Borrow> findAll(Borrow borrow, Page<Borrow> page,
+    IPage<Borrow> findAll(Page<Borrow> page, Borrow borrow,
                           Integer roleId, Book book, User user) throws Exception;
 
+    Borrow findByid(Integer id) throws Exception;
 }

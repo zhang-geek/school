@@ -28,12 +28,12 @@
     </select><p>
     <input type="hidden" name="pageNo" id="pageNo" value="1">
     <input type="button" value="查询" onclick="show()" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"/>&nbsp;
-    <div id="div01">
+    <c:if test="${userRole.roleId == 7}">
         <input type="button" value="添加" onclick="addShop()" class="layui-btn layui-btn-sm"/>&nbsp;
         <input type="button" value="修改" onclick="updateShop()" class="layui-btn layui-btn-sm"/>&nbsp;
         <input type="button" value="删除" onclick="delShop()" class="layui-btn layui-btn-sm"/>&nbsp;
         <input type="button" value="上架/下架" onclick="updateStatus()" class="layui-btn layui-btn-sm"/>&nbsp;
-</div>
+    </c:if>
 </form>
 <form id="fm">
     <table align="center" border="1px solid blcak" cellspacing="0" cellpadding="10" class="layui-table" lay-skin="line">
@@ -58,13 +58,13 @@
         show();
     });
 
-    $(function(){
-        if ('${user.userRole}' == 7){
+    /*$(function(){
+        if ('${userRole.roleId}' == 7){
             $("#div01").show();
         }else {
             $("#div01").hide();
         }
-    })
+    })*/
 
     function show() {
         $.post(
@@ -87,8 +87,8 @@
                     html+="<td>"+shop.baseName+"</td>"
                     html+="<td>"+shop.shopPrice+"</td>"
                     html+= shop.shopStatus == 0 ? "<td>上架</td>" : "<td>下架</td>"
-                    html +="<td><input type='button' value='下单' onclick='addOrder("+shop.id+")' class='layui-btn layui-btn-sm'/>&nbsp;";
-                    if('${user.userRole}' == 7){
+                    html += "<td><input type='button' value='下单' onclick='addOrder(" + shop.id + "," + shop.shopPrice + ")' class='layui-btn layui-btn-sm'/>&nbsp;";
+                    if('${userRole.roleId}' == 7){
                         html += "<input type='button' value='置顶' onclick='Istop("+shop.id+", 0)' class='layui-btn layui-btn-sm'/>"
                     }
 
@@ -268,8 +268,11 @@
             });
     }
 
-    function addOrder(id){
-        alert(id)
+    function addOrder(id, price){
+        if ("${card.cardMoney}" < price) {
+            layer.alert("余额不足，请先充值");
+            return;
+        }
          var index = layer.load(0, {
              shade: [0.1,'#fff'] //0.1透明度的白色背景
          })

@@ -27,7 +27,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
 
     @Override
-    public IPage<User> findAll(Page<?> page, User user, Integer roleId, User user1) throws Exception {
+    public IPage<User> findAll(Page<User> page, User user, Integer roleId, User user1) throws Exception {
         return userMapper.findAll(page, user, roleId, user1);
     }
 
@@ -37,4 +37,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         UserRole userRole = new UserRole().setRoleId(user.getUserRole()).setUserId(user.getId());
         userRoleMapper.insert(userRole);
     }
+
+    @Override
+    public void updateIsDel(Integer[] ids, Integer isDel) {
+        userMapper.updateIsDel(ids, isDel);
+    }
+
 }

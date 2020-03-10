@@ -35,7 +35,7 @@ public class CardController {
     private RecordService recordService;
 
     /**
-     * 查询用户是否有正在使用的校园卡
+     * 查询用户是否有的校园卡
      * @param user
      * @return
      */
@@ -70,7 +70,7 @@ public class CardController {
             UserRole role = userRoleService.getOne(userRoleQueryWrapper);
             IPage<Card> list = cardService.getCard(page, role.getRoleId(), user);
             resultMap.put("cardList", list.getRecords());
-            resultMap.put("totalPage", list.getPages());
+            resultMap.put("totalNum", list.getPages());
             resultMap.put("userRole", role.getRoleId());
             return new ResultModel<Object>().success(resultMap);
         } catch (Exception e) {
@@ -116,12 +116,12 @@ public class CardController {
 
 
     /**
-     * 挂失
+     * 挂失/注销
      * @param card
      * @return
      */
-    @PutMapping("updateStatus")
-    public ResultModel<Object> updateStatus(Card card){
+    @PutMapping("updateStatusOrIsDel")
+    public ResultModel<Object> updateStatusOrIsDel(Card card){
         cardService.updateById(card);
         return new ResultModel<>().success("OK");
     }

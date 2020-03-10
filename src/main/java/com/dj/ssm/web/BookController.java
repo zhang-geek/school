@@ -180,8 +180,7 @@ public class BookController {
                     .setNumber(book.getCount())
                     .setAuthor(book1.getAuthor())
                     .setRepayTime(book.getRepayTime())
-                    .setIsDel(SystemConstant.IS_NOT_DEL)
-                    .setStatus(SystemConstant.BORROW_NOT_STATUS);
+                    .setIsDel(SystemConstant.IS_NOT_DEL);
             borrowService.save(borrow);
             //图书库存对应减少
             Integer count = book1.getCount() - borrow.getNumber();

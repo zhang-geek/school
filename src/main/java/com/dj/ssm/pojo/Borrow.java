@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -22,10 +23,6 @@ public class Borrow {
     private String author;
     private Integer userId;
     private Integer number;
-    /**
-     * 0 未逾期 1 已逾期
-     */
-    private Integer status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date borrowTime;
     /**
@@ -43,9 +40,21 @@ public class Borrow {
 
     @TableField(exist = false)
     private String typeName;
+    @TableField(exist = false)
+    private String statusShow;
     private Integer type;
     private Integer isDel;
-
-
+    /**
+     * 缴费金额
+     */
+    private BigDecimal pay;
+    @TableField(exist = false)
+    private String payShow;
+    @TableField(exist = false)
+    private BigDecimal cardMoney;
+    @TableField(exist = false)
+    private BigDecimal penalty;
+    @TableField(exist = false)
+    private String days;
 
 }

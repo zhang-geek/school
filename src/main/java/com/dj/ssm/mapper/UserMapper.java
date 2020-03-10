@@ -15,5 +15,9 @@ import org.springframework.dao.DataAccessException;
  */
 public interface UserMapper extends BaseMapper<User> {
 
-    IPage<User> findAll(Page<?> page, @Param("user") User user, @Param("roleId") Integer roleId, @Param("user1") User user1) throws DataAccessException;
+    IPage<User> findAll(Page<User> page, @Param("user") User user, @Param("roleId") Integer roleId, @Param("user1") User user1) throws DataAccessException;
+
+    void updateByUserId(User user) throws DataAccessException;
+
+    void updateIsDel(@Param("ids") Integer[] ids, @Param("isDel") Integer isDel) throws DataAccessException;
 }

@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dj.ssm.common.ResultModel;
 import com.dj.ssm.common.SystemConstant;
+import com.dj.ssm.pojo.Book;
+import com.dj.ssm.pojo.Role;
 import com.dj.ssm.pojo.User;
 import com.dj.ssm.pojo.UserRole;
 import com.dj.ssm.service.UserRoleService;
@@ -59,15 +61,16 @@ public class UserController {
         }
     }
 
-    @PostMapping("list")
-    public ResultModel<Object> show(User user, Integer pageNo, @SessionAttribute(SystemConstant.SESSION_USER) User user1) {
+    @PostMapping("/list")
+    public ResultModel<Object> show(User user, Integer pageNo,
+                                    @SessionAttribute(SystemConstant.SESSION_USER) User user1,
+                                    Integer roleId) {
         try {
             Map<String, Object> resultMap = new HashMap<>();
             Page<User> page = new Page<User>()
                     .setCurrent(pageNo)
                     .setSize(SystemConstant.PAGE_SIZE);
-            UserRole userRole = userRoleService.getOne(new QueryWrapper<UserRole>().eq("user_id", user1.getId()));
-            IPage<User> iPage = userService.findAll(page, user, userRole.getRoleId(),user1);
+            IPage<User> iPage = userService.findAll(page, user, roleId,user1);
             List<User> userList = iPage.getRecords();
             resultMap.put("list", userList);
             resultMap.put("totalNum", iPage.getPages());
@@ -126,6 +129,18 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultModel<>().error("服务器异常，请稍后重试！" + e.getMessage());
+        }
+    }
+
+    @PutMapping("del")
+    public ResultModel<Object> del(Integer[] ids, Integer isDel) {
+        try {
+            userService.updateIsDel(ids, isDel);
+            return new ResultModel<Object>().success();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return new ResultModel<Object>().error("系统出错了，请稍后重试");
         }
     }
 
