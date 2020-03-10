@@ -41,22 +41,24 @@ public class BookPageController {
     }
 
     @RequestMapping("toAdd")
-    public String toAdd(Model model){
+    public String toAdd(Integer type, Model model){
         QueryWrapper<Resource> query = new QueryWrapper<>();
         query.eq("parent_id", SystemConstant.RESOURCE_PARENT_ID_36);
         List<Resource> resourseList = resourceService.list(query);
         model.addAttribute("resourseList", resourseList);
+        model.addAttribute("type", type);
         return "book/add";
     }
 
     @RequestMapping("toUpdate")
-    public String toUpdate(Model model, Integer id){
+    public String toUpdate(Model model, Integer id, Integer type){
         Book book = bookService.getById(id);
         QueryWrapper<Resource> query = new QueryWrapper<>();
         query.eq("parent_id", SystemConstant.RESOURCE_PARENT_ID_36);
         List<Resource> resourseList = resourceService.list(query);
         model.addAttribute("resourseList", resourseList);
         model.addAttribute("book", book);
+        model.addAttribute("type", type);
         return "book/update";
     }
 
@@ -67,12 +69,13 @@ public class BookPageController {
      * @return
      */
     @RequestMapping("toBorrow")
-    public String toBorrow(Integer id, Model model) {
+    public String toBorrow(Integer id, Model model, Integer type) {
         //根据书得id查询书得全部信息
         Book book = bookService.getById(id);
         List<Resource> resourseList = resourceService.list(new QueryWrapper<Resource>().eq("parent_id", SystemConstant.RESOURCE_PARENT_ID_36));
         model.addAttribute("resourseList", resourseList);
         model.addAttribute("book", book);
+        model.addAttribute("type", type);
         return "book/borrow";
     }
 }
