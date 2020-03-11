@@ -18,9 +18,9 @@
 
 <form id="fm">
     <input type="hidden" name="_method" value="POST"/>
-    根据书名查询:
+    根据书名查询&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <input type="text" name="bookName"/><br/>
-    根据上架时间查询:
+    根据上架时间查询&nbsp;:
     <input type="text" name="shelfTime" onclick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd'})" id="shelfTime"><br/>
     <input type="button" value="查询" onclick="show()" class="layui-btn layui-btn-radius  layui-btn-sm"><br/>
     <c:if test="${userRole.roleId == 6}">
@@ -40,7 +40,7 @@
     <colgroup>
         <col width="150">
         <col width="150">
-        <col width="200">
+        <col width="150">
         <col>
     </colgroup>
     <thead>
