@@ -1,43 +1,12 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : localhostMysql
-Source Server Version : 50720
-Source Host           : 127.0.0.1:3306
-Source Database       : springboot
-
-Target Server Type    : MYSQL
-Target Server Version : 50720
-File Encoding         : 65001
-
-Date: 2020-03-06 17:52:48
-*/
-
-SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for user_school
--- ----------------------------
-DROP TABLE IF EXISTS `user_school`;
-CREATE TABLE `user_school` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `last_login_time` datetime DEFAULT NULL,
-  `is_del` int(11) DEFAULT NULL,
-  `user_status` varchar(255) DEFAULT NULL,
-  `user_email` varchar(255) DEFAULT NULL,
-  `user_phone` varchar(255) DEFAULT NULL,
-  `salt` varchar(255) DEFAULT NULL,
-  `is_verify` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of user_school
--- ----------------------------
-INSERT INTO `user_school` VALUES ('1', 'admin', '40dbf72868f76c801b23b035f755e544', '2020-02-29 16:41:05', '2020-03-04 21:12:48', '2020-03-04 17:35:56', '0', '1', '1073114568@qq.com', '18392886657', 'b477a901bdce2a74c06f04f770c027b3', '0');
-INSERT INTO `user_school` VALUES ('2', 'zs', 'd24c00d5a5332df200f59919c6c2fb2a', '2020-02-29 21:41:30', '2020-03-04 21:12:48', '2020-03-03 16:53:17', '0', '1', '107311468@qq.com', '18392886656', '75d58c7c7bfe05556043f8376736367d', '0');
-INSERT INTO `user_school` VALUES ('3', 'ls', '45a9358c55da63dcc51de72f43f13d6e', '2020-03-03 15:47:35', '2020-03-04 21:12:48', '2020-03-03 16:54:39', '0', '1', '1233@qq.com', '18392886564', '79412041c89e11a9fa3a207b4f65bc07', '0');
+INSERT INTO `user_school` VALUES (1, 'admin', '40dbf72868f76c801b23b035f755e544', '2020-2-29 16:41:05', '2020-3-4 21:12:48', '2020-3-11 17:39:03', 0, '1', '1073114568@qq.com', '18392886657', 'b477a901bdce2a74c06f04f770c027b3', 0, NULL, NULL, NULL);
+INSERT INTO `user_school` VALUES (2, 'zs', '74d529dd4bbdeb879a117e7a87bc3682', '2020-2-29 21:41:30', '2020-3-11 16:19:12', '2020-3-11 17:40:17', 0, '1', '107311468@qq.com', '15190772954', '94f06fc862c7a1a55512d8a619aba0cf', 0, NULL, NULL, NULL);
+INSERT INTO `user_school` VALUES (3, 'book', '45a9358c55da63dcc51de72f43f13d6e', '2020-3-3 15:47:35', '2020-3-8 22:40:50', '2020-3-11 14:16:02', 0, '1', '1233@qq.com', '18392886564', '79412041c89e11a9fa3a207b4f65bc07', 0, NULL, NULL, NULL);
+INSERT INTO `user_school` VALUES (4, 'ww', '45a9358c55da63dcc51de72f43f13d6e', '2020-3-5 13:09:42', '2020-3-9 16:27:50', '2020-3-11 16:21:52', 0, '1', '23113@qq.com', '18728399929', '79412041c89e11a9fa3a207b4f65bc07', 0, 1904, NULL, NULL);
+INSERT INTO `user_school` VALUES (5, 'card', '45a9358c55da63dcc51de72f43f13d6e', '2020-3-7 17:59:56', '2020-3-10 10:58:40', '2020-3-11 16:24:45', 0, '1', '44422@qq.com', '18553442536', '79412041c89e11a9fa3a207b4f65bc07', 0, NULL, NULL, NULL);
+INSERT INTO `user_school` VALUES (6, 'qq', '05f966320b74ba9b6da2b2c051926d44', '2020-3-9 00:32:41', '2020-3-9 16:19:21', '2020-3-11 14:41:32', 0, '1', '1316875433@qq.com', '15190772954', '54d76b46e95c7000c83c7784d653ccb3', 0, NULL, NULL, NULL);
+INSERT INTO `user_school` VALUES (7, 'shop', '9780e6300e2846ea5d0891d039497a54', '2020-3-9 15:37:15', '2020-3-10 12:30:02', '2020-3-11 17:39:34', 0, '1', '12345678@qq.com', '15688886666', '35feb33450b50584c2128dce091a8f26', 0, NULL, NULL, NULL);
+INSERT INTO `user_school` VALUES (8, 'stu', 'ffb585fb53afe75f57f663ce79a1f3fd', '2020-3-10 11:23:24', '2020-3-10 11:23:32', '2020-3-11 16:23:15', 0, '1', '107318@qq.com', '15555555555', '3e05e98abec94e67b8c0a3d57610621c', 0, NULL, NULL, NULL);
+INSERT INTO `user_school` VALUES (9, 'sddd', '37da4a6f6dacffc41c3565bd82ad647a', '2020-3-10 20:20:25', '2020-3-10 21:49:54', NULL, 0, '1', '123456789@qq.com', '13515614666', '2382a70e3c0f333aee7ef379fa5b796f', 0, NULL, NULL, NULL);
+INSERT INTO `user_school` VALUES (10, 'aa', 'e10adc3949ba59abbe56e057f20f883e', '2020-3-11 10:18:01', '2020-3-11 10:19:58', '2020-3-11 10:16:31', 0, '1', '123456789@qq.com', '13223928329', '2382a70e3c0f333aee7ef379fa5b796f', 0, NULL, '557579', '2020-3-11 10:20:07');
+INSERT INTO `user_school` VALUES (11, 'oo', '0e5ac5597cb698d8299d6d31a93c2124', '2020-3-11 14:14:23', '2020-3-11 14:14:29', '2020-3-11 14:14:29', 0, '1', '108@qq.com', '18364565457', '32dc34815e5b006c9bc031dc2aeb405d', 0, 1903, NULL, NULL);
+INSERT INTO `user_school` VALUES (12, 'ss', '3f5c0984a3ea1a59764c9190142ae564', '2020-3-11 16:52:19', NULL, NULL, 0, '1', '952835044@qq.com', '15949006976', '6a016eaa5e043c516e4520f117218d0f', 0, NULL, NULL, NULL);

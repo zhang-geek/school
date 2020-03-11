@@ -12,6 +12,9 @@
     <title>Title</title>
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/layer/layer.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/static/layui-v2.5.5/layui/layui.js"></script>
+    <link href="<%=request.getContextPath()%>/static/layui-v2.5.5/layui/css/layui.css" rel="stylesheet" media="all" />
+
 </head>
 <script type="text/javascript">
 
@@ -37,17 +40,17 @@
                     html += "<td>" + role.id +"</td>";
                     html += "<td>" + role.roleName +"</td>";
                     html += "<td>";
-                    html += "<shiro:hasPermission name='role:related_resource'><a href='javascript:toRelatedResource("+role.id+")'>关联资源</a></shiro:hasPermission>";
-                    html += "<shiro:hasPermission name='role:update'> | <a href='javascript:toUpdate("+role.id+")'>编辑</a></shiro:hasPermission>";
-                    html += "<shiro:hasPermission name='role:delete'> | <a href='javascript:del("+role.id+")'>删除</a></shiro:hasPermission>";
+                    html += "<shiro:hasPermission name='role:related_resource'><a href='javascript:toRelatedResource("+role.id+")' class=\"layui-btn layui-btn-radius  layui-btn-sm\">关联资源</a></shiro:hasPermission>";
+                    html += "<shiro:hasPermission name='role:update'> | <a href='javascript:toUpdate("+role.id+")' class=\"layui-btn layui-btn-radius  layui-btn-sm\">编辑</a></shiro:hasPermission>";
+                    html += "<shiro:hasPermission name='role:delete'> | <a href='javascript:del("+role.id+")' class=\"layui-btn layui-btn-radius  layui-btn-sm\">删除</a></shiro:hasPermission>";
                     html += "</td>";
                     html += "</tr>";
                 }
                 $("#tbd").html(html);
                 var pageHtml = "";
                 var pageNo = parseInt($("#pageNo").val());
-                pageHtml += "<input type='button' value='上一页' onclick='page("+data.data.totalNum+","+(pageNo - 1)+")'/>";
-                pageHtml += "<input type='button' value='下一页' onclick='page("+data.data.totalNum+","+(pageNo + 1)+")'/>";
+                pageHtml += "<input type='button' value='上一页' onclick='page("+data.data.totalNum+","+(pageNo - 1)+")' class=\"layui-btn layui-btn-radius  layui-btn-sm\"/>";
+                pageHtml += "<input type='button' value='下一页' onclick='page("+data.data.totalNum+","+(pageNo + 1)+")' class=\"layui-btn layui-btn-radius  layui-btn-sm\"/>";
                 $("#pageInfo").html(pageHtml);
             }
         );
@@ -124,14 +127,22 @@
     <input type="hidden" value="1" name="pageNo" id="pageNo">
 </form>
 <shiro:hasPermission name='role:add'>
-    <input type="button" value="新增" onclick="toAdd()">
+    <input type="button" value="新增" onclick="toAdd()" class="layui-btn layui-btn-radius  layui-btn-sm">
 </shiro:hasPermission>
-<table border="1px" cellpadding="5" cellspacing="0">
-    <tr>
-        <th>编号</th>
-        <th>角色名</th>
-        <th>操作</th>
-    </tr>
+<table border="0px" class="layui-table" lay-skin="nob">
+    <colgroup>
+        <col width="100">
+        <col width="100">
+        <col width="500">
+        <col>
+    </colgroup>
+    <thead>
+        <tr>
+            <th>编号</th>
+            <th>角色名</th>
+            <th>操作</th>
+        </tr>
+    </thead>
     <tbody id="tbd"></tbody>
 </table>
 <div id="pageInfo"></div>

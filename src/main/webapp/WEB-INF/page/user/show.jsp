@@ -6,6 +6,8 @@
     <title>Title</title>
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/layer/layer.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/static/layui-v2.5.5/layui/layui.js"></script>
+    <link href="<%=request.getContextPath()%>/static/layui-v2.5.5/layui/css/layui.css" rel="stylesheet" media="all" />
 </head>
 <script type="text/javascript">
     $(function () {
@@ -44,8 +46,8 @@
                 $("#tbd").html(html);
                 var pageHtml = "";
                 var pageNo = parseInt($("#pageNo").val());
-                pageHtml += "<input type='button' value='上一页' onclick='page("+data.data.totalNum+","+(pageNo - 1)+")'/>";
-                pageHtml += "<input type='button' value='下一页' onclick='page("+data.data.totalNum+","+(pageNo + 1)+")'/>";
+                pageHtml += "<input type='button' value='上一页' onclick='page("+data.data.totalNum+","+(pageNo - 1)+")' class=\"layui-btn layui-btn-radius  layui-btn-sm\"/>";
+                pageHtml += "<input type='button' value='下一页' onclick='page("+data.data.totalNum+","+(pageNo + 1)+")' class=\"layui-btn layui-btn-radius  layui-btn-sm\"/>";
                 $("#pageInfo").html(pageHtml);
             }
         );
@@ -160,27 +162,29 @@
             <option value="1">正常</option>
             <option value="0">未激活</option>
         </select><br>
-        <input type="button" value="查询" onclick="fuzzySearch()">
+        <input type="button" value="查询" onclick="fuzzySearch()" class="layui-btn layui-btn-radius  layui-btn-sm">
     <c:if test="${userRole.roleId == 1}">
-        <input type="button" value="修改" onclick="toUpdate()">
-        <input type="button" value="删除" onclick="del()">
+        <input type="button" value="修改" onclick="toUpdate()" class="layui-btn layui-btn-radius  layui-btn-sm">
+        <input type="button" value="删除" onclick="del()" class="layui-btn layui-btn-radius  layui-btn-sm">
     </c:if>
 </form>
 <shiro:hasPermission name="user:auth">
-    <input type="button" value="授权" onclick="toAuth()">
+        <input type="button" value="授权" onclick="toAuth()" class="layui-btn layui-btn-radius  layui-btn-sm">
 </shiro:hasPermission>
-<table border="1px" cellpadding="5" cellspacing="0">
-    <tr>
-        <th></th>
-        <th>id</th>
-        <th>用户名</th>
-        <th>手机号</th>
-        <th>邮箱</th>
-        <th>级别</th>
-        <th>状态</th>
-        <th>注册时间</th>
-        <th>最后登录时间</th>
-    </tr>
+<table border="0px" class="layui-table" lay-skin="nob">
+    <thead>
+        <tr>
+            <th></th>
+            <th>id</th>
+            <th>用户名</th>
+            <th>手机号</th>
+            <th>邮箱</th>
+            <th>级别</th>
+            <th>状态</th>
+            <th>注册时间</th>
+            <th>最后登录时间</th>
+        </tr>
+    </thead>
     <tbody id="tbd"></tbody>
 </table>
 <div id="pageInfo"></div>

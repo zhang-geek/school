@@ -12,7 +12,8 @@
     <title>Title</title>
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/layer-v3.1.1/layer/layer.js"></script>
-
+    <script type="text/javascript" src="<%=request.getContextPath()%>/static/layui-v2.5.5/layui/layui.js"></script>
+    <link href="<%=request.getContextPath()%>/static/layui-v2.5.5/layui/css/layui.css" rel="stylesheet" media="all" />
 </head>
 <script type="text/javascript">
     $(function () {
@@ -56,8 +57,8 @@
                 $("#tbd").html(html);
                 var pageHtml = "";
                 var nowPage = $("#nowPage").val();
-                pageHtml += "<input type='button' value='上一页'  onclick='page(" + (parseInt(nowPage) - 1) + ")'/>"
-                pageHtml += "<input type='button' value='下一页'  onclick='page(" + (parseInt(nowPage) + 1) + "," + data.data.totalPage + ")'/>"
+                pageHtml += "<input type='button' value='上一页'  onclick='page(" + (parseInt(nowPage) - 1) + ")' class=\"layui-btn layui-btn-radius  layui-btn-sm\"/>"
+                pageHtml += "<input type='button' value='下一页'  onclick='page(" + (parseInt(nowPage) + 1) + "," + data.data.totalPage + ")' class=\"layui-btn layui-btn-radius  layui-btn-sm\"/>"
                 $("#pageInfo").html(pageHtml);
 
             });
@@ -139,27 +140,29 @@
         <input type="hidden" value="1" name="nowPage" id="nowPage">
         根据书名查询:
         <input type="text" name="bookName"/>
-        <input type="button" value="查询" onclick="show()"/><br/>
+        <input type="button" value="查询" onclick="show()" class="layui-btn layui-btn-radius  layui-btn-sm"/><br/>
         <c:if test="${userRole.roleId != 1 && userRole.roleId != 6}">
-            <input type='button' value='还书' onclick='toRepay()'>
-            <input type='button' value='缴费' onclick='toPay()'>
+            <input type='button' value='还书' onclick='toRepay()' class="layui-btn layui-btn-radius  layui-btn-sm">
+            <input type='button' value='缴费' onclick='toPay()' class="layui-btn layui-btn-radius  layui-btn-sm">
         </c:if>
     </form>
-    <table border="1px" cellpadding="10" cellspacing="0">
-        <tr>
-            <th></th>
-            <th>借书人</th>
-            <th>书名</th>
-            <th>作者</th>
-            <th>图书类型</th>
-            <th>借书数量</th>
-            <th>剩余天数</th>
-            <th>逾期状态</th>
-            <th>缴费状态</th>
-            <th>缴费金额</th>
-            <th>借书时间</th>
-            <th>到期时间</th>
-        </tr>
+    <table border="0px" class="layui-table" lay-skin="nob" >
+        <thead>
+            <tr>
+                <th></th>
+                <th>借书人</th>
+                <th>书名</th>
+                <th>作者</th>
+                <th>图书类型</th>
+                <th>借书数量</th>
+                <th>剩余天数</th>
+                <th>逾期状态</th>
+                <th>缴费状态</th>
+                <th>缴费金额</th>
+                <th>借书时间</th>
+                <th>到期时间</th>
+            </tr>
+        </thead>
         <tbody id="tbd"></tbody>
     </table>
     <div id="pageInfo"></div>

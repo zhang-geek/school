@@ -1,0 +1,9 @@
+INSERT INTO `base_data_school` VALUES (1, '商品类别', 0, 0);
+INSERT INTO `base_data_school` VALUES (2, '速食', 1, 0);
+INSERT INTO `base_data_school` VALUES (3, '辣条', 1, 0);
+INSERT INTO `base_data_school` VALUES (4, '肉食', 1, 0);
+INSERT INTO `base_data_school` VALUES (5, '零食', 1, 0);
+INSERT INTO `base_data_school` VALUES (6, '碳酸饮料', 1, 0);
+INSERT INTO `base_data_school` VALUES (7, '果汁', 1, 0);
+INSERT INTO `base_data_school` VALUES (8, '雪糕', 1, 0);
+INSERT INTO `base_data_school` VALUES (9, '冰淇淋', 1, 0);

@@ -2,7 +2,6 @@ package com.dj.ssm.interceptor;
 
 import com.dj.ssm.common.SystemConstant;
 import com.dj.ssm.pojo.Resource;
-import com.dj.ssm.pojo.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -19,19 +18,18 @@ import java.util.List;
 @Component
 public class PmsInterceptor implements HandlerInterceptor {
 
-//    @Override
-//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//        HttpSession session = request.getSession();
-//        User user = (User) session.getAttribute(SystemConstant.SESSION_USER);
-//        List<Resource> resources = (List<Resource>) session.getAttribute(SystemConstant.SESSION_USER_RESOURCES);
-//        String uri = request.getRequestURI();
-//        String ctx = request.getContextPath();
-//        for (Resource resource : resources) {
-//            if (uri.equals(ctx + resource.getUrl())) {
-//                return true;
-//            }
-//        }
-//        response.sendRedirect(ctx + "/index/to403");
-//        return false;
-//    }
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        HttpSession session = request.getSession();
+        List<Resource> resources = (List<Resource>) session.getAttribute(SystemConstant.SESSION_USER_RESOURCES);
+        String uri = request.getRequestURI();
+        String ctx = request.getContextPath();
+        for (Resource resource : resources) {
+            if (uri.equals(ctx + resource.getUrl())) {
+                return true;
+            }
+        }
+        response.sendRedirect(ctx + "/index/to403");
+        return false;
+    }
 }
