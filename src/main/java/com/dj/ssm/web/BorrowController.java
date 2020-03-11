@@ -74,8 +74,7 @@ public class BorrowController {
             if (borrow1.getPay() != null && borrow1.getRepayTime().getTime() < new Date().getTime()
             || borrow1.getRepayTime().getTime() > new Date().getTime()) {
                 //伪删除：修改状态 1：已删除 还书时间增加15天
-                borrow1.setIsDel(SystemConstant.IS_DEL);
-                borrowService.updateById(borrow1);
+                borrowService.removeById(borrow1.getId());
                 //查出图书库存
                 Book book1 = bookService.getOne(new QueryWrapper<Book>().eq("id", borrow1.getBookId()));
                 //将图书库存与借书数量进行相加 并修改图书库存
