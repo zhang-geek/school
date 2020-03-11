@@ -27,7 +27,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     public void updateIsDel(Role role) throws Exception {
-        roleMapper.updateById(role);
+        roleMapper.deleteById(role.getId());
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("role_id", role.getId());
         roleResourceMapper.delete(queryWrapper);

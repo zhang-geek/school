@@ -39,7 +39,7 @@
                     html += "<td>" + cla.id +"</td>";
                     html += "<td>" + cla.classNum +"</td>";
                     html += "<td>" + cla.classStatusShow +"</td>";
-                    html += "<td><input type='button' value='查看班内学生' onclick='toShowStudent("+cla.classNum+")'></td>";
+                    html += "<td><input type='button' value='查看班内学生' onclick='toShowStudent("+cla.classNum+")' class='layui-btn'></td>";
                     html += "</tr>";
                 }
                 $("#tbd").html(html);
