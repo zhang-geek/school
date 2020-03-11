@@ -72,7 +72,9 @@ public class BookPageController {
     public String toBorrow(Integer id, Model model, Integer type) {
         //根据书得id查询书得全部信息
         Book book = bookService.getById(id);
-        List<Resource> resourseList = resourceService.list(new QueryWrapper<Resource>().eq("parent_id", SystemConstant.RESOURCE_PARENT_ID_36));
+        //资源表中对应书本类型
+        List<Resource> resourseList = resourceService.list(new QueryWrapper<Resource>()
+                .eq("parent_id", SystemConstant.RESOURCE_PARENT_ID_36));
         model.addAttribute("resourseList", resourseList);
         model.addAttribute("book", book);
         model.addAttribute("type", type);

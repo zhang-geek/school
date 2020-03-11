@@ -46,6 +46,7 @@
             and b.is_del = 0
         </where>
     </select>
+    <!--根据id查全部-->
     <select id="findByid" resultType="com.dj.ssm.pojo.Borrow">
         SELECT
             b.id,

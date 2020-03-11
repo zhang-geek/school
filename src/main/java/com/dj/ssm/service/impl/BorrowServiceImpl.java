@@ -12,8 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
+/**
+ * 借书记录表 chengf 控制层实现类
+ */
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> implements BorrowService {
@@ -34,6 +35,12 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         return borrowMapper.findAll(page, borrow, roleId, book, user);
     }
 
+    /**
+     * 根据id查全部
+     * @param id
+     * @return
+     * @throws Exception
+     */
     @Override
     public Borrow findByid(Integer id) throws Exception {
         return borrowMapper.findByid(id);

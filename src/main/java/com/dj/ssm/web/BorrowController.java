@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.*;
 
+/**
+ * 借书记录表 chengf
+ */
 @RestController
 @RequestMapping("/borrow/")
 public class BorrowController {
@@ -73,10 +76,11 @@ public class BorrowController {
             //可以还书条件:已缴费和已逾期同时满足或未逾期
             if (borrow1.getPay() != null && borrow1.getRepayTime().getTime() < new Date().getTime()
             || borrow1.getRepayTime().getTime() > new Date().getTime()) {
-                //伪删除：修改状态 1：已删除 还书时间增加15天
+                //伪删除：修改状态 1：已删除
                 borrowService.removeById(borrow1.getId());
                 //查出图书库存
-                Book book1 = bookService.getOne(new QueryWrapper<Book>().eq("id", borrow1.getBookId()));
+                Book book1 = bookService.getOne(new QueryWrapper<Book>()
+                                        .eq("id", borrow1.getBookId()));
                 //将图书库存与借书数量进行相加 并修改图书库存
                 Integer count = book1.getCount() + borrow1.getNumber();
                 book1.setCount(count);

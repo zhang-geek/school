@@ -10,9 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import java.util.Date;
-import java.util.List;
-
+/**
+ * 借书记录表 chengf
+ */
 @Controller
 @RequestMapping("/borrow/")
 public class BorrowPageController {
@@ -27,6 +27,7 @@ public class BorrowPageController {
      */
     @RequestMapping("toShow")
     public String toShow(Model model, @SessionAttribute(SystemConstant.SESSION_USER) User user){
+       //通过用户角色关系表查出当前登陆人的对应角色
         UserRole userRole = userRoleService.getOne(new QueryWrapper<UserRole>()
                 .eq("user_id", user.getId()));
         model.addAttribute("userRole",userRole);
