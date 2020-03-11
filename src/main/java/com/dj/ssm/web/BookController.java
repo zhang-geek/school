@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.crypto.Data;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -169,14 +171,19 @@ public class BookController {
             if (book1.getCount().equals(SystemConstant.COUNT_0 )|| book1.getCount() < book.getCount()) {
                 return new ResultModel<Object>().error("库存不足，请联系图书管理员");
             }
+            //时间加减
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(new Date());//设置起时间
+            cal.add(Calendar.DATE, 15);
+            System.out.println("输出::"+cal.getTime());
             //新增借书记录表
             borrow.setBookId(book.getId())
                     .setUserId(user.getId())
                     .setType(book1.getType())
                     .setBorrowTime(new Date())
                     .setNumber(book.getCount())
+                    .setRepayTime(cal.getTime())
                     .setAuthor(book1.getAuthor())
-                    .setRepayTime(book.getRepayTime())
                     .setIsDel(SystemConstant.IS_NOT_DEL);
             borrowService.save(borrow);
             //图书库存对应减少

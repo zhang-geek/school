@@ -19,20 +19,17 @@ public class BorrowPageController {
     @Autowired
     private BorrowService borrowService;
     @Autowired
-    private ResourceService resourceService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private  BookService bookService;
-    @Autowired
-    private CardService cardService;
+    private UserRoleService userRoleService;
 
     /**
      * 借书记录展示
      * @return
      */
     @RequestMapping("toShow")
-    public String toShow() {
+    public String toShow(Model model, @SessionAttribute(SystemConstant.SESSION_USER) User user){
+        UserRole userRole = userRoleService.getOne(new QueryWrapper<UserRole>()
+                .eq("user_id", user.getId()));
+        model.addAttribute("userRole",userRole);
         return "borrow/show";
     }
 

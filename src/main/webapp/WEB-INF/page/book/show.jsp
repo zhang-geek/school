@@ -9,6 +9,8 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/static/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/static/layer-v3.1.1/layer/layer.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/static/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/static/layui-v2.5.5/layui/layui.js"></script>
+<link href="<%=request.getContextPath()%>/static/layui-v2.5.5/layui/css/layui.css" rel="stylesheet" media="all" />
 
 
 </head>
@@ -20,33 +22,41 @@
     <input type="text" name="bookName"/><br/>
     根据上架时间查询:
     <input type="text" name="shelfTime" onclick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd'})" id="shelfTime"><br/>
-    <input type="button" value="查询" onclick="show()"><br/>
+    <input type="button" value="查询" onclick="show()" class="layui-btn layui-btn-radius  layui-btn-sm"><br/>
     <c:if test="${userRole.roleId == 6}">
-        <input type='button' value='新增' onclick='add()'>
-        <input type='button' value='修改' onclick='toUpdate()'>
-        <input type='button' value='删除' onclick='del()'>
-        <input type='button' value='上下架' onclick='updateStatus()'>
+        <input type='button' value='新增' onclick='add()' class="layui-btn layui-btn-radius  layui-btn-sm">
+        <input type='button' value='修改' onclick='toUpdate()' class="layui-btn layui-btn-radius  layui-btn-sm">
+        <input type='button' value='删除' onclick='del()' class="layui-btn layui-btn-radius  layui-btn-sm">
+        <input type='button' value='上下架' onclick='updateStatus()' class="layui-btn layui-btn-radius  layui-btn-sm">
     </c:if>
     <c:if test="${userRole.roleId != 1}">
-        <input type='button' value='借书' onclick='toBorrow()'>
+        <input type='button' value='借书' onclick='toBorrow()' class="layui-btn layui-btn-radius  layui-btn-sm">
     </c:if>
     <input type="hidden" value="0" name="isDel"><br/>
     <input type="hidden" value="${type}" name="type" id = "type"><br/>
     <input type="hidden" value="1" name="nowPage" id="nowPage">
 </form>
-<table border="1px" cellpadding="10" cellspacing="0">
-    <tr>
-        <th></th>
-        <th>书名</th>
-        <th>作者</th>
-        <th>类型</th>
-        <th>状态</th>
-        <th>库存</th>
-        <th>上架时间</th>
-        <c:if test="${userRole.roleId == 6}">
-            <th>操作</th>
-        </c:if>
-    </tr>
+<table border="0px" class="layui-table" lay-skin="nob">
+    <colgroup>
+        <col width="150">
+        <col width="150">
+        <col width="200">
+        <col>
+    </colgroup>
+    <thead>
+        <tr>
+            <th></th>
+            <th>书名</th>
+            <th>作者</th>
+            <th>类型</th>
+            <th>状态</th>
+            <th>库存</th>
+            <th>上架时间</th>
+            <c:if test="${userRole.roleId == 6}">
+                <th>操作</th>
+            </c:if>
+        </tr>
+    </thead>
     <tbody id="tbd"></tbody>
 </table>
 <div id="pageInfo"></div>
@@ -87,9 +97,9 @@
                     html += "<td>" + d.shelfTime + "</td>"
                     if ("${userRole.roleId}" == 6) {
                         html += "<td>"
-                            html +=  "<input type='button' value='置顶' onclick='isTop(0,"+d.id+")'>"
+                            html +=  "<input type='button' value='置顶' onclick='isTop(0,"+d.id+")' class=\"layui-btn layui-btn-radius  layui-btn-sm\">"
                             if (d.topTime != null) {
-                                html +=  "<input type='button' value='取消置顶' onclick='isTop(1,"+d.id+")'>"
+                                html +=  "<input type='button' value='取消置顶' onclick='isTop(1,"+d.id+")' class=\"layui-btn layui-btn-radius  layui-btn-sm\">"
                             }
                         html += "</td>"
                     }
@@ -98,8 +108,8 @@
                 $("#tbd").html(html);
                 var pageHtml = "";
                 var nowPage = $("#nowPage").val();
-                pageHtml += "<input type='button' value='上一页'  onclick='page(" + (parseInt(nowPage) - 1) + ")'/>"
-                pageHtml += "<input type='button' value='下一页'  onclick='page(" + (parseInt(nowPage) + 1) + "," + data.data.totalPage + ")'/>"
+                pageHtml += "<input type='button' value='上一页'  onclick='page(" + (parseInt(nowPage) - 1) + ")' class=\"layui-btn layui-btn-radius  layui-btn-sm\"/>"
+                pageHtml += "<input type='button' value='下一页'  onclick='page(" + (parseInt(nowPage) + 1) + "," + data.data.totalPage + ")' class=\"layui-btn layui-btn-radius  layui-btn-sm\"/>"
                 $("#pageInfo").html(pageHtml);
 
             });
@@ -246,6 +256,10 @@
         }
         var array = boxValue.val().split(",");
 
+        if (array[1] == 1) {
+            layer.msg("该书已下架");
+            return;
+        }
         layer.open({
             type: 2,
             title: '借书页面',

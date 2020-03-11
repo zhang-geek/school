@@ -40,8 +40,9 @@
         书&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：${borrowList.bookName}<br />
         类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型:${borrowList.typeName}<br />
         <c:if test="${borrowList.days > 0 && borrowList.pay == null}">
-            卡上余额：<font style="color: #00B83F">${borrowList.cardMoney}</font><br />
-            应缴费用：<font style="color: #FF0000">${borrowList.penalty}</font><br />
+            卡上余额：<font style="color: #00B83F">${borrowList.cardMoney}元</font><br />
+            逾期天数：<font style="color: #FF0000">${borrowList.days}天</font><br />
+            应缴费用：<font style="color: #FF0000">${borrowList.penalty}元</font><br />
         </c:if>
         <c:if test="${borrowList.days <= 0}">
             <h4 style="color: #FF0000">你还未逾期，无需缴费！！！</h4>
@@ -49,7 +50,9 @@
         <c:if test="${borrowList.pay != null}">
             <h4 style="color: #FF0000">您已缴过费，无需二次缴费！！！</h4>
         </c:if>
-        <input type="button" value="缴费" onclick="updatePay()" />
+        <c:if test="${borrowList.pay == null && borrowList.days > 0}">
+            <input type="button" value="缴费" onclick="updatePay()" />
+        </c:if>
     </form>
 </body>
 </html>

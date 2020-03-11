@@ -18,14 +18,16 @@
             u.username AS userName,
             k.book_name AS bookName,
             r.resource_name AS typeName,
+            (TO_DAYS(b.repay_time) - TO_DAYS(b.borrow_time)) AS surplus,
+            (TO_DAYS(NOW()) - TO_DAYS(b.repay_time)) AS days,
         (CASE
-        WHEN now() &gt; b.repay_time then '已逾期'
-        ELSE '未逾期'
+        WHEN (TO_DAYS(NOW()) - TO_DAYS(b.repay_time)) &lt;= 0 then '未逾期'
+        ELSE '已逾期'
         END
         ) AS statusShow,
         (CASE
-        WHEN now() &lt; b.repay_time then '无需缴费'
-        WHEN now() &gt; b.repay_time and b.pay is null  then '未缴费'
+        WHEN (TO_DAYS(NOW()) - TO_DAYS(b.repay_time)) &lt;= 0 then '无需缴费'
+        WHEN (TO_DAYS(NOW()) - TO_DAYS(b.repay_time)) &gt; 0 and b.pay is null  then '未缴费'
         ELSE '已缴费'
         END
         ) AS payShow
