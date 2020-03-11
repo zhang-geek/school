@@ -5,6 +5,11 @@
     <!-- id:SQL的唯一标识（采用接口和XML开发时id为接口的方法名） parameterType：sql参数类型（可以是基本数据类型和应用数据类型） 
 resultType：返回数据类型 #{}预编译中的?对应的参数值引用 -->
 
+    <sql id="FINDSHOP">
+        id, base_data_id, shop_name, shop_price, shop_status, flag, top_time, create_time
+    </sql>
+
+    <!-- 展示 -->
     <select id="findShopAll" resultType="com.dj.ssm.pojo.Shop">
         SELECT
             s.id,
@@ -29,8 +34,9 @@ resultType：返回数据类型 #{}预编译中的?对应的参数值引用 -->
         </where>
     </select>
 
+    <!-- 名称去重 -->
     <select id="findByShopName" resultType="com.dj.ssm.pojo.Shop">
-        SELECT * from shop s where s.shop_name = #{shopName}
+        SELECT <include refid="FINDSHOP"/> from shop s where s.shop_name = #{shopName}
     </select>
 
     <!-- 伪删除 -->
@@ -41,8 +47,9 @@ resultType：返回数据类型 #{}预编译中的?对应的参数值引用 -->
         </foreach>
     </update>
 
+    <!-- 根据id查询 -->
    <select id="findShopById" resultType="com.dj.ssm.pojo.Shop">
-       SELECT * from shop s where s.id = #{id}
+       SELECT <include refid="FINDSHOP"/> from shop s where s.id = #{id}
    </select>
 
     <!-- 修改 -->
@@ -57,6 +64,7 @@ resultType：返回数据类型 #{}预编译中的?对应的参数值引用 -->
         where id = #{id}
     </update>
 
+    <!-- 添加 -->
     <insert id="addOrder">
         INSERT INTO order_school (
 			shop_id,
