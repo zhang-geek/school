@@ -10,5 +10,13 @@ import java.util.List;
 
 public interface CardService extends IService<Card> {
 
+    /**
+     * 校园卡展示
+     * @param page
+     * @param roleId
+     * @param user
+     * @return
+     * @throws Exception
+     */
     IPage<Card> getCard(Page page, Integer roleId, User user) throws Exception;
 }

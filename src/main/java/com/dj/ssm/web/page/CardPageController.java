@@ -24,16 +24,30 @@ public class CardPageController {
     @Autowired
     private CardService cardService;
 
+    /**
+     * 去展示页面
+     * @return
+     */
     @RequestMapping("toShow")
     public String toShow(){
         return "card/show";
     }
 
+    /**
+     * 去办理页面
+     * @return
+     */
     @RequestMapping("toAdd")
     public String toAdd(){
         return "card/add";
     }
 
+    /**
+     * 去充值页面
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping("toAddMoney/{id}")
     public String toAddMoney(Model model, @PathVariable Integer id){
         QueryWrapper<Card> cardQueryWrapper = new QueryWrapper<>();

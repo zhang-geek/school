@@ -11,5 +11,13 @@ import org.springframework.dao.DataAccessException;
 import java.util.List;
 
 public interface CardMapper extends BaseMapper<Card> {
+    /**
+     * 校园卡展示
+     * @param page
+     * @param roleId
+     * @param user
+     * @return
+     * @throws DataAccessException
+     */
     IPage<Card> getCard(Page page, @Param("role") Integer roleId, @Param("user") User user) throws DataAccessException;
 }

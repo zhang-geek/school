@@ -202,16 +202,16 @@
 	<form id = "fm">
 		<input type = 'hidden' value = '1' name = "pageNo" id = 'pageNo'/>
 		<shrio:hasPermission name="card:addMoney">
-			<input type="button" value="充值" onclick="addMoney()" class='layui-btn layui-btn-normal layui-btn-radius'>;
+			<input type="button" value="充值" onclick="addMoney()" class='layui-btn layui-btn-normal layui-btn-radius'>
 		</shrio:hasPermission>
 		<shrio:hasPermission name="card:update">
-			<input type="button" value="挂失" onclick="updateStatus()" class='layui-btn layui-btn-normal layui-btn-radius'>;
+			<input type="button" value="挂失" onclick="updateStatus()" class='layui-btn layui-btn-normal layui-btn-radius'>
 		</shrio:hasPermission>
 		<shrio:hasPermission name="card:replaceCard">
-			<input type="button" value="补办" onclick="replaceCard()" class='layui-btn layui-btn-normal layui-btn-radius'>;
+			<input type="button" value="补办" onclick="replaceCard()" class='layui-btn layui-btn-normal layui-btn-radius'>
 		</shrio:hasPermission>
 		<shrio:hasPermission name="card:updateIsDel">
-			<input type="button" value="注销" onclick="del()" class='layui-btn layui-btn-normal layui-btn-radius'>;
+			<input type="button" value="注销" onclick="del()" class='layui-btn layui-btn-normal layui-btn-radius'>
 		</shrio:hasPermission>
 	</form>
 
