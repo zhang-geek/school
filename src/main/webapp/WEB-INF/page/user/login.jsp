@@ -35,7 +35,7 @@
                 },
                 password:{
                     required:true,
-                    rangelength:[0,5]
+                    rangelength:[0,10]
                 }
             },
             messages:{
@@ -43,7 +43,7 @@
                     required:"请输入姓名"
                 },
                 password:{
-                    required:"请输入年龄",
+                    required:"请输入密码",
                     rangelength:"长度限制在{0}到{1}之间"
                 }
             }
@@ -93,6 +93,7 @@
         <div class="layui-input-inline">
             <input type="password" name="password" id="password" required lay-verify="required" placeholder="请输入密码" autocomplete="on" class="layui-input">
         </div>
+        <div class="layui-form-mid layui-word-aux"> <a href="<%=request.getContextPath()%>/user/userUpdatePwd">忘记密码？</a></div>
     </div>
     <tr>
         <td align="center">
@@ -102,7 +103,6 @@
             <input type="button" value="没有账号？点我注册" onclick="toAdd()" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"/><p>
         </td>
     </tr>
-    <a href="<%=request.getContextPath()%>/user/userUpdatePwd">忘记密码</a>
 </form>
 </body>
 </html>
