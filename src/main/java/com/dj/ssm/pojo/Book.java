@@ -46,7 +46,9 @@ public class Book {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date topTime;
-    //到期还书 不属于这张表的字段 为临时 如不加注解：@TableField(exist = false)的话SQL会报错
+    /**
+     * 到期还书 不属于这张表的字段 为临时 如不加注解：@TableField(exist = false)的话SQL会报错
+     */
     @TableField(exist = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

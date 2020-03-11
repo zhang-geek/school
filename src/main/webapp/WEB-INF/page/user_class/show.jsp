@@ -10,8 +10,10 @@
 <html>
 <head>
     <title>班级管理</title>
+    <link href="<%=request.getContextPath()%>/static/layui-v2.5.5/layui/css/layui.css" rel="stylesheet" media="all" />
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/layer/layer.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/static/layui-v2.5.5/layui/layui.js"></script>
 </head>
 <script type="text/javascript">
     $(function () {
@@ -43,8 +45,8 @@
                 $("#tbd").html(html);
                 var pageHtml = "";
                 var pageNo = parseInt($("#pageNo").val());
-                pageHtml += "<input type='button' value='上一页' onclick='page("+data.data.totalNum+","+(pageNo - 1)+")'/>";
-                pageHtml += "<input type='button' value='下一页' onclick='page("+data.data.totalNum+","+(pageNo + 1)+")'/>";
+                pageHtml += "<input type='button' value='上一页' onclick='page("+data.data.totalNum+","+(pageNo - 1)+")' class='layui-btn' align='center'/>";
+                pageHtml += "<input type='button' value='下一页' onclick='page("+data.data.totalNum+","+(pageNo + 1)+")' class='layui-btn' align='center'/>";
                 $("#pageInfo").html(pageHtml);
             }
         );
@@ -148,15 +150,15 @@
         <input type="button" value="查询" onclick="fuzzySearch()">
 </form>
 <shiro:hasPermission name="cla:add">
-    <input type="button" value="新增" onclick="toAdd()">
+    <input type="button" value="新增" onclick="toAdd()" class='layui-btn'>
 </shiro:hasPermission>
 <shiro:hasPermission name="cla:update">
-    <input type="button" value="修改" onclick="toUpdate()">
+    <input type="button" value="修改" onclick="toUpdate()" class='layui-btn'>
 </shiro:hasPermission>
 <shiro:hasPermission name="cla:delete">
-    <input type="button" value="删除" onclick="del()">
+    <input type="button" value="删除" onclick="del()" class='layui-btn'>
 </shiro:hasPermission>
-<table border="1px" cellpadding="5" cellspacing="0" >
+<table border="1px" cellpadding="5" cellspacing="0" class="layui-table">
     <tr>
         <th></th>
         <th>id</th>
