@@ -37,7 +37,7 @@
             </if>
                 and u.is_del = 0
             <if test="roleId != 1">
-                u.id = #{user1.id}
+                and u.id = #{user1.id}
             </if>
         </where>
         order by u.id DESC

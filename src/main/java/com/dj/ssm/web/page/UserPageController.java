@@ -3,6 +3,7 @@ package com.dj.ssm.web.page;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dj.ssm.common.SystemConstant;
 import com.dj.ssm.pojo.*;
+import com.dj.ssm.service.ClaService;
 import com.dj.ssm.service.RoleService;
 import com.dj.ssm.service.UserRoleService;
 import com.dj.ssm.service.UserService;
@@ -34,6 +35,9 @@ public class UserPageController {
     @Autowired
     private UserRoleService userRoleService;
 
+    @Autowired
+    private ClaService claService;
+
     @RequestMapping("toLogin")
     public String toLogin() {
         return "user/login";
@@ -57,7 +61,9 @@ public class UserPageController {
     }
 
     @RequestMapping("toAdd")
-    public String toAdd() {
+    public String toAdd(Model model) {
+        List<UserClass> classList = claService.list(new QueryWrapper<UserClass>().eq("class_status", SystemConstant.CLASS_STATUS_NORMAL));
+        model.addAttribute("classList", classList);
         return "user/add";
     }
 

@@ -1,5 +1,6 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
     <title>Title</title>
@@ -147,8 +148,14 @@
     确认密码：<input type="password" name="password2"><br>
     手机：<input type="text" name="userPhone" id="userPhone"><br>
     邮箱：<input type="text" name="userEmail" id="userEmail"><br>
-    职位：<input type="radio" name="userRole" value="3">学生
+    职位：<input type="radio" name="userRole" value="3" checked>学生
         <input type="radio" name="userRole" value="5">老师<br>
+    班级：
+        <select name="userClass">
+            <c:forEach items="${classList}" var="c">
+                <option value="${c.classNum}">${c.classNum}</option>
+            </c:forEach>
+        </select><br>
     <a href="<%=request.getContextPath()%>/user/toLogin">已有账号？去登陆</a><br>
     <input type="submit" value="注册">
 </form>

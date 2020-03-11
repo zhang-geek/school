@@ -133,8 +133,8 @@
     }
 
     function updateShop(){
-        var upShop = $('input[name="sid"]:checked');
-        var ids = $('input[name="sid"]:checked').val();
+        var upShop = $('input[name="shopId"]:checked');
+        var ids = $('input[name="shopId"]:checked').val();
         if (upShop.length <= 0) {
             layer.alert("至少选择一项");
             return false;
