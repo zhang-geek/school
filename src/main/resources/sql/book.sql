@@ -1,45 +1,19 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : firstlink
-Source Server Version : 50720
-Source Host           : 127.0.0.1:3306
-Source Database       : school
-
-Target Server Type    : MYSQL
-Target Server Version : 50720
-File Encoding         : 65001
-
-Date: 2020-03-06 19:52:23
-*/
-
-SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for book
--- ----------------------------
-DROP TABLE IF EXISTS `book`;
-CREATE TABLE `book` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `book_name` varchar(255) DEFAULT NULL,
-  `author` varchar(255) DEFAULT NULL,
-  `type` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL COMMENT '0：上架 1：下架',
-  `count` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `is_del` int(11) DEFAULT NULL,
-  `shelf_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of book
--- ----------------------------
-INSERT INTO `book` VALUES ('12', '放风筝的人', 'XXX', '15', '0', '20', '1', '0', '2020-02-26 20:58:20');
-INSERT INTO `book` VALUES ('13', '飘', 'XX', '15', '0', '24', '1', '1', '2020-02-27 20:58:24');
-INSERT INTO `book` VALUES ('14', '木偶人', 'XX', '16', '0', '10', '1', '1', '2020-02-28 20:58:29');
-INSERT INTO `book` VALUES ('15', '啊啊', 'XXX', '17', '0', '9', '1', '0', '2020-02-29 23:46:08');
-INSERT INTO `book` VALUES ('16', '111', 'XXX', '17', '0', '9', '4', '0', '2020-02-29 23:47:09');
-INSERT INTO `book` VALUES ('18', 'JAVA基础', 'XXX', '14', '0', '9', '4', '0', '2020-03-02 14:00:48');
-INSERT INTO `book` VALUES ('19', '点金荣誉', 'XXX', '15', '0', '10', '4', '0', '2020-03-02 14:13:03');
-INSERT INTO `book` VALUES ('20', '我和你', 'XXX', '14', '0', '9', '6', '0', '2020-03-05 00:04:53');
+INSERT INTO `book` VALUES (12, '放风筝的人', 'XXX', 37, 0, 14, 1, 0, '2020-2-26', NULL);
+INSERT INTO `book` VALUES (13, '飘', 'XX', 37, 0, 24, 1, 1, '2020-2-27', NULL);
+INSERT INTO `book` VALUES (14, '木偶人', 'XX', 38, 0, 10, 1, 1, '2020-2-28', NULL);
+INSERT INTO `book` VALUES (15, '啊啊', 'XXX', 38, 0, 8, 1, 1, '2020-2-29', NULL);
+INSERT INTO `book` VALUES (16, '111', 'XXX', 39, 0, 9, 4, 1, '2020-2-29', NULL);
+INSERT INTO `book` VALUES (18, 'JAVA基础', 'XXX', 40, 0, 9, 4, 0, '2020-3-2', NULL);
+INSERT INTO `book` VALUES (19, '点金荣誉', 'XXX', 40, 0, 11, 4, 0, '2020-3-2', NULL);
+INSERT INTO `book` VALUES (20, '我和你', 'XXX', 41, 1, 8, 6, 0, '2020-3-5', '2020-3-10 22:29:37');
+INSERT INTO `book` VALUES (21, '我和你的倾城时光', 'XXX', 37, 0, 11, 1, 0, '2020-3-7', NULL);
+INSERT INTO `book` VALUES (22, '狂人日记', '鲁迅', 38, 0, 10, 1, 0, '2020-3-7', NULL);
+INSERT INTO `book` VALUES (23, '百年孤独', 'XXX', 39, 0, 7, 3, 0, '2020-3-10', NULL);
+INSERT INTO `book` VALUES (25, '真面山庄', 'XXX', 40, 0, 7, 3, 1, '2020-3-10', NULL);
+INSERT INTO `book` VALUES (26, '舌尖上的美食', 'XXX', 41, 0, 3, 3, 0, '2020-3-10', NULL);
+INSERT INTO `book` VALUES (27, '我的假期生活', 'XXX', 39, 0, 4, 3, 0, '2020-3-10', NULL);
+INSERT INTO `book` VALUES (28, '中华上下五千年', 'zs', 38, 0, 108, 3, 0, '2020-4-11', NULL);
+INSERT INTO `book` VALUES (29, '茶花女', 'XXX', 37, 0, 8, 3, 0, '2020-3-10', NULL);
+INSERT INTO `book` VALUES (30, '我和小七', 'XXX', 39, 0, 6, 3, 0, '2020-3-10', NULL);
+INSERT INTO `book` VALUES (31, '啦啦啦啦', '程帆', 41, 1, 20, 3, 1, '2020-3-10', NULL);
+INSERT INTO `book` VALUES (32, '毛泽东选集', '毛泽东', 38, 0, 24, 3, 1, '2020-3-20', NULL);

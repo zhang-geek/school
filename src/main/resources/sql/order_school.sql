@@ -1,33 +1,24 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : 1904
-Source Server Version : 50720
-Source Host           : 299253e6k0.wicp.vip:59720
-Source Database       : school
-
-Target Server Type    : MYSQL
-Target Server Version : 50720
-File Encoding         : 65001
-
-Date: 2020-03-08 18:15:55
-*/
-
-SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for order_school
--- ----------------------------
-DROP TABLE IF EXISTS `order_school`;
-CREATE TABLE `order_school` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
-  `shop_id` int(255) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `shop_price` int(11) DEFAULT NULL,
-  `order_num` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of order_school
--- ----------------------------
+INSERT INTO `order_school` VALUES (1, 4, 2, 0.50, 'WM202003081946162');
+INSERT INTO `order_school` VALUES (2, 4, 2, 0.50, 'WM202003082031262');
+INSERT INTO `order_school` VALUES (3, 5, 2, 8.90, 'WM202003082032322');
+INSERT INTO `order_school` VALUES (4, 3, 2, 24.00, 'WM202003082038032');
+INSERT INTO `order_school` VALUES (5, 4, 2, 0.50, 'WM202003082129482');
+INSERT INTO `order_school` VALUES (6, 4, 1, 0.50, 'WM202003091933441');
+INSERT INTO `order_school` VALUES (7, 5, 1, 8.90, 'WM202003091937171');
+INSERT INTO `order_school` VALUES (8, 1, 4, 18.00, 'WM202003092044004');
+INSERT INTO `order_school` VALUES (9, 3, 2, 24.00, 'WM202003092047422');
+INSERT INTO `order_school` VALUES (10, 3, 2, 24.00, 'WM202003092048482');
+INSERT INTO `order_school` VALUES (11, 4, 2, 0.50, 'WM202003092049022');
+INSERT INTO `order_school` VALUES (12, 5, 4, 8.90, 'WM202003092258204');
+INSERT INTO `order_school` VALUES (13, 5, 4, 8.90, 'WM202003092307534');
+INSERT INTO `order_school` VALUES (14, 4, 4, 0.50, 'WM202003092319324');
+INSERT INTO `order_school` VALUES (15, 2, 4, 3.50, 'WM202003092320384');
+INSERT INTO `order_school` VALUES (16, 2, 4, 3.50, 'WM202003092324254');
+INSERT INTO `order_school` VALUES (17, 4, 4, 0.50, 'WM202003092332184');
+INSERT INTO `order_school` VALUES (18, 4, 4, 0.50, 'WM202003092336154');
+INSERT INTO `order_school` VALUES (19, 5, 2, 8.90, 'WM202003092345242');
+INSERT INTO `order_school` VALUES (20, 3, 7, 24.00, 'WM202003101255557');
+INSERT INTO `order_school` VALUES (21, 5, 1, 1.50, 'WM202003102003351');
+INSERT INTO `order_school` VALUES (22, 5, 4, 1.50, 'WM202003102014114');
+INSERT INTO `order_school` VALUES (23, 3, 6, 24.00, 'WM202003102129326');
+INSERT INTO `order_school` VALUES (24, 3, 1, 24.00, 'WM202003111621061');

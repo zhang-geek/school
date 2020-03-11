@@ -5,16 +5,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dj.ssm.common.ResultModel;
 import com.dj.ssm.common.SystemConstant;
-import com.dj.ssm.pojo.User;
 import com.dj.ssm.pojo.UserClass;
 import com.dj.ssm.service.ClaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,6 +26,12 @@ public class ClaController {
     @Autowired
     private ClaService claService;
 
+    /**
+     * 班级展示
+     * @param cla
+     * @param pageNo
+     * @return
+     */
     @PostMapping("list")
     public ResultModel<Object> show(UserClass cla, Integer pageNo) {
         try {
@@ -53,6 +56,11 @@ public class ClaController {
         }
     }
 
+    /**
+     * 班级新增
+     * @param cla
+     * @return
+     */
     @PostMapping("add")
     public ResultModel<Object> add(UserClass cla) {
         try {
@@ -64,6 +72,11 @@ public class ClaController {
         }
     }
 
+    /**
+     * 班级修改
+     * @param cla
+     * @return
+     */
     @PutMapping
     public ResultModel<Object> update(UserClass cla) {
         try {
@@ -75,6 +88,11 @@ public class ClaController {
         }
     }
 
+    /**
+     * 班级删除
+     * @param ids
+     * @return
+     */
     @DeleteMapping
     public ResultModel<Object> del(@RequestParam("ids[]") ArrayList<Integer> ids) {
         try {

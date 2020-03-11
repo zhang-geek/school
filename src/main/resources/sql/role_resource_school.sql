@@ -1,47 +1,84 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : localhostMysql
-Source Server Version : 50720
-Source Host           : 127.0.0.1:3306
-Source Database       : springboot
-
-Target Server Type    : MYSQL
-Target Server Version : 50720
-File Encoding         : 65001
-
-Date: 2020-03-06 17:53:07
-*/
-
-SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for role_resource_school
--- ----------------------------
-DROP TABLE IF EXISTS `role_resource_school`;
-CREATE TABLE `role_resource_school` (
-  `role_id` int(11) NOT NULL,
-  `resource_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of role_resource_school
--- ----------------------------
-INSERT INTO `role_resource_school` VALUES ('1', '1');
-INSERT INTO `role_resource_school` VALUES ('1', '2');
-INSERT INTO `role_resource_school` VALUES ('1', '11');
-INSERT INTO `role_resource_school` VALUES ('1', '20');
-INSERT INTO `role_resource_school` VALUES ('1', '21');
-INSERT INTO `role_resource_school` VALUES ('1', '27');
-INSERT INTO `role_resource_school` VALUES ('1', '3');
-INSERT INTO `role_resource_school` VALUES ('1', '17');
-INSERT INTO `role_resource_school` VALUES ('1', '18');
-INSERT INTO `role_resource_school` VALUES ('1', '19');
-INSERT INTO `role_resource_school` VALUES ('1', '13');
-INSERT INTO `role_resource_school` VALUES ('1', '22');
-INSERT INTO `role_resource_school` VALUES ('1', '23');
-INSERT INTO `role_resource_school` VALUES ('1', '24');
-INSERT INTO `role_resource_school` VALUES ('1', '25');
-INSERT INTO `role_resource_school` VALUES ('1', '26');
-INSERT INTO `role_resource_school` VALUES ('2', '1');
-INSERT INTO `role_resource_school` VALUES ('2', '13');
+INSERT INTO `role_resource_school` VALUES (4, 42);
+INSERT INTO `role_resource_school` VALUES (8, 45);
+INSERT INTO `role_resource_school` VALUES (6, 1);
+INSERT INTO `role_resource_school` VALUES (6, 35);
+INSERT INTO `role_resource_school` VALUES (6, 36);
+INSERT INTO `role_resource_school` VALUES (6, 37);
+INSERT INTO `role_resource_school` VALUES (6, 38);
+INSERT INTO `role_resource_school` VALUES (6, 39);
+INSERT INTO `role_resource_school` VALUES (6, 40);
+INSERT INTO `role_resource_school` VALUES (6, 41);
+INSERT INTO `role_resource_school` VALUES (6, 49);
+INSERT INTO `role_resource_school` VALUES (8, 52);
+INSERT INTO `role_resource_school` VALUES (7, 1);
+INSERT INTO `role_resource_school` VALUES (7, 42);
+INSERT INTO `role_resource_school` VALUES (7, 50);
+INSERT INTO `role_resource_school` VALUES (3, 1);
+INSERT INTO `role_resource_school` VALUES (3, 13);
+INSERT INTO `role_resource_school` VALUES (3, 43);
+INSERT INTO `role_resource_school` VALUES (3, 44);
+INSERT INTO `role_resource_school` VALUES (3, 45);
+INSERT INTO `role_resource_school` VALUES (3, 46);
+INSERT INTO `role_resource_school` VALUES (3, 47);
+INSERT INTO `role_resource_school` VALUES (3, 52);
+INSERT INTO `role_resource_school` VALUES (3, 35);
+INSERT INTO `role_resource_school` VALUES (3, 36);
+INSERT INTO `role_resource_school` VALUES (3, 37);
+INSERT INTO `role_resource_school` VALUES (3, 38);
+INSERT INTO `role_resource_school` VALUES (3, 39);
+INSERT INTO `role_resource_school` VALUES (3, 40);
+INSERT INTO `role_resource_school` VALUES (3, 41);
+INSERT INTO `role_resource_school` VALUES (3, 49);
+INSERT INTO `role_resource_school` VALUES (3, 42);
+INSERT INTO `role_resource_school` VALUES (3, 50);
+INSERT INTO `role_resource_school` VALUES (5, 1);
+INSERT INTO `role_resource_school` VALUES (5, 13);
+INSERT INTO `role_resource_school` VALUES (5, 43);
+INSERT INTO `role_resource_school` VALUES (5, 44);
+INSERT INTO `role_resource_school` VALUES (5, 45);
+INSERT INTO `role_resource_school` VALUES (5, 46);
+INSERT INTO `role_resource_school` VALUES (5, 47);
+INSERT INTO `role_resource_school` VALUES (5, 52);
+INSERT INTO `role_resource_school` VALUES (5, 35);
+INSERT INTO `role_resource_school` VALUES (5, 36);
+INSERT INTO `role_resource_school` VALUES (5, 37);
+INSERT INTO `role_resource_school` VALUES (5, 38);
+INSERT INTO `role_resource_school` VALUES (5, 39);
+INSERT INTO `role_resource_school` VALUES (5, 40);
+INSERT INTO `role_resource_school` VALUES (5, 41);
+INSERT INTO `role_resource_school` VALUES (5, 49);
+INSERT INTO `role_resource_school` VALUES (5, 42);
+INSERT INTO `role_resource_school` VALUES (5, 51);
+INSERT INTO `role_resource_school` VALUES (5, 53);
+INSERT INTO `role_resource_school` VALUES (5, 54);
+INSERT INTO `role_resource_school` VALUES (5, 55);
+INSERT INTO `role_resource_school` VALUES (1, 1);
+INSERT INTO `role_resource_school` VALUES (1, 2);
+INSERT INTO `role_resource_school` VALUES (1, 11);
+INSERT INTO `role_resource_school` VALUES (1, 20);
+INSERT INTO `role_resource_school` VALUES (1, 21);
+INSERT INTO `role_resource_school` VALUES (1, 27);
+INSERT INTO `role_resource_school` VALUES (1, 3);
+INSERT INTO `role_resource_school` VALUES (1, 17);
+INSERT INTO `role_resource_school` VALUES (1, 18);
+INSERT INTO `role_resource_school` VALUES (1, 19);
+INSERT INTO `role_resource_school` VALUES (1, 13);
+INSERT INTO `role_resource_school` VALUES (1, 22);
+INSERT INTO `role_resource_school` VALUES (1, 23);
+INSERT INTO `role_resource_school` VALUES (1, 24);
+INSERT INTO `role_resource_school` VALUES (1, 25);
+INSERT INTO `role_resource_school` VALUES (1, 26);
+INSERT INTO `role_resource_school` VALUES (1, 43);
+INSERT INTO `role_resource_school` VALUES (1, 44);
+INSERT INTO `role_resource_school` VALUES (1, 45);
+INSERT INTO `role_resource_school` VALUES (1, 46);
+INSERT INTO `role_resource_school` VALUES (1, 47);
+INSERT INTO `role_resource_school` VALUES (1, 52);
+INSERT INTO `role_resource_school` VALUES (1, 35);
+INSERT INTO `role_resource_school` VALUES (1, 36);
+INSERT INTO `role_resource_school` VALUES (1, 37);
+INSERT INTO `role_resource_school` VALUES (1, 38);
+INSERT INTO `role_resource_school` VALUES (1, 39);
+INSERT INTO `role_resource_school` VALUES (1, 40);
+INSERT INTO `role_resource_school` VALUES (1, 41);
+INSERT INTO `role_resource_school` VALUES (1, 49);

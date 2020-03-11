@@ -14,17 +14,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer {
 
-//    @Autowired
-//    private PmsInterceptor pmsInterceptor;
-//
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//
-//        //只拦截管理的入口页面
-//        InterceptorRegistration interceptorRegistration2 = registry.addInterceptor(pmsInterceptor);
-//        interceptorRegistration2.addPathPatterns("/user/toShow");
-//        interceptorRegistration2.addPathPatterns("/role/toShow");
-//        interceptorRegistration2.addPathPatterns("/resource/toShow");
-//
-//    }
+    @Autowired
+    private PmsInterceptor pmsInterceptor;
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+
+        //只拦截管理的入口页面
+        InterceptorRegistration interceptorRegistration2 = registry.addInterceptor(pmsInterceptor);
+        interceptorRegistration2.addPathPatterns("/user/toShow");
+        interceptorRegistration2.addPathPatterns("/role/toShow");
+        interceptorRegistration2.addPathPatterns("/resource/toShow");
+        interceptorRegistration2.addPathPatterns("/book/toShow");
+        interceptorRegistration2.addPathPatterns("/borrow/toShow");
+        interceptorRegistration2.addPathPatterns("/cla/toShow");
+
+    }
 }

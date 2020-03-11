@@ -1,50 +1,38 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : localhostMysql
-Source Server Version : 50720
-Source Host           : 127.0.0.1:3306
-Source Database       : springboot
-
-Target Server Type    : MYSQL
-Target Server Version : 50720
-File Encoding         : 65001
-
-Date: 2020-03-06 17:53:11
-*/
-
-SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for resource_school
--- ----------------------------
-DROP TABLE IF EXISTS `resource_school`;
-CREATE TABLE `resource_school` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `resource_name` varchar(255) NOT NULL,
-  `url` varchar(255) NOT NULL,
-  `parent_id` int(11) NOT NULL,
-  `is_del` int(11) NOT NULL,
-  `resource_type` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of resource_school
--- ----------------------------
-INSERT INTO `resource_school` VALUES ('1', '权限管理', 'not:exist', '0', '0', '1');
-INSERT INTO `resource_school` VALUES ('2', '角色管理', '/role/toShow', '1', '0', '1');
-INSERT INTO `resource_school` VALUES ('3', '资源管理', '/resource/toShow', '1', '0', '1');
-INSERT INTO `resource_school` VALUES ('11', '角色新增', 'role:add', '2', '0', '2');
-INSERT INTO `resource_school` VALUES ('13', '用户管理', '/user/toShow', '1', '0', '1');
-INSERT INTO `resource_school` VALUES ('17', '资源新增', 'resource:add', '3', '0', '2');
-INSERT INTO `resource_school` VALUES ('18', '资源修改', 'resource:update', '3', '0', '2');
-INSERT INTO `resource_school` VALUES ('19', '资源删除', 'resource:delete', '3', '0', '2');
-INSERT INTO `resource_school` VALUES ('20', '角色修改', 'role:update', '2', '0', '2');
-INSERT INTO `resource_school` VALUES ('21', '角色删除', 'role:delete', '2', '0', '2');
-INSERT INTO `resource_school` VALUES ('22', '用户新增', 'user:add', '13', '0', '2');
-INSERT INTO `resource_school` VALUES ('23', '用户修改', 'user:update', '13', '0', '2');
-INSERT INTO `resource_school` VALUES ('24', '用户删除', 'user:delete', '13', '0', '2');
-INSERT INTO `resource_school` VALUES ('25', '用户激活', 'user:activate', '13', '0', '2');
-INSERT INTO `resource_school` VALUES ('26', '用户授权', 'user:auth', '13', '0', '2');
-INSERT INTO `resource_school` VALUES ('27', '关联资源', 'role:related_resource', '2', '0', '2');
+INSERT INTO `resource_school` VALUES (1, 0, '权限管理', 'not:exist', 0, 1);
+INSERT INTO `resource_school` VALUES (2, 1, '角色管理', '/role/toShow', 0, 1);
+INSERT INTO `resource_school` VALUES (3, 1, '资源管理', '/resource/toShow', 0, 1);
+INSERT INTO `resource_school` VALUES (11, 2, '角色新增', 'role:add', 0, 2);
+INSERT INTO `resource_school` VALUES (13, 1, '用户管理', '/user/toShow', 0, 1);
+INSERT INTO `resource_school` VALUES (17, 3, '资源新增', 'resource:add', 0, 2);
+INSERT INTO `resource_school` VALUES (18, 3, '资源修改', 'resource:update', 0, 2);
+INSERT INTO `resource_school` VALUES (19, 3, '资源删除', 'resource:delete', 0, 2);
+INSERT INTO `resource_school` VALUES (20, 2, '角色修改', 'role:update', 0, 2);
+INSERT INTO `resource_school` VALUES (21, 2, '角色删除', 'role:delete', 0, 2);
+INSERT INTO `resource_school` VALUES (22, 13, '用户新增', 'user:add', 0, 2);
+INSERT INTO `resource_school` VALUES (23, 13, '用户修改', 'user:update', 0, 2);
+INSERT INTO `resource_school` VALUES (24, 13, '用户删除', 'user:delete', 0, 2);
+INSERT INTO `resource_school` VALUES (25, 13, '用户激活', 'user:activate', 0, 2);
+INSERT INTO `resource_school` VALUES (26, 13, '用户授权', 'user:auth', 0, 2);
+INSERT INTO `resource_school` VALUES (27, 2, '关联资源', 'role:related_resource', 0, 2);
+INSERT INTO `resource_school` VALUES (35, 1, '图书管理', 'not:exist', 0, 1);
+INSERT INTO `resource_school` VALUES (36, 35, '图书类型', 'not:exist', 0, 1);
+INSERT INTO `resource_school` VALUES (37, 36, '小说', '/book/toShow?id=37', 0, 1);
+INSERT INTO `resource_school` VALUES (38, 36, '文学', '/book/toShow?id=38', 0, 1);
+INSERT INTO `resource_school` VALUES (39, 36, '生活', '/book/toShow?id=39', 0, 1);
+INSERT INTO `resource_school` VALUES (40, 36, '科技', '/book/toShow?id=40', 0, 1);
+INSERT INTO `resource_school` VALUES (41, 36, '美食', '/book/toShow?id=41', 0, 1);
+INSERT INTO `resource_school` VALUES (42, 1, '商品管理', '/shop/toShowShop', 0, 1);
+INSERT INTO `resource_school` VALUES (43, 13, '办理校园卡', '/card/toAdd', 0, 1);
+INSERT INTO `resource_school` VALUES (44, 13, '补办校园卡', 'card:update', 0, 2);
+INSERT INTO `resource_school` VALUES (45, 13, '校园卡信息', '/card/toShow', 0, 1);
+INSERT INTO `resource_school` VALUES (46, 13, '充值校园卡', 'card:addMoney', 0, 2);
+INSERT INTO `resource_school` VALUES (47, 13, '挂失校园卡', 'card:replaceCard', 0, 2);
+INSERT INTO `resource_school` VALUES (49, 35, '借书记录', '/borrow/toShow', 0, 1);
+INSERT INTO `resource_school` VALUES (50, 42, '商品购买记录', '/order/toShow', 0, 1);
+INSERT INTO `resource_school` VALUES (51, 1, '班级管理', '/cla/toShow', 1, 1);
+INSERT INTO `resource_school` VALUES (52, 13, '注销校园卡', 'card:updateIsDel', 0, 2);
+INSERT INTO `resource_school` VALUES (53, 51, '班级新增', 'cla:add', 1, 2);
+INSERT INTO `resource_school` VALUES (54, 51, '班级修改', 'cla:update', 1, 2);
+INSERT INTO `resource_school` VALUES (55, 51, '班级删除', 'cla:delete', 1, 2);
+INSERT INTO `resource_school` VALUES (60, 1, '宿舍管理', '/dorm/toShow', 1, 1);
+INSERT INTO `resource_school` VALUES (61, 60, '添加宿舍', '/dorm/toAdd', 1, 1);
